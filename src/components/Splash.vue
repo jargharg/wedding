@@ -1,18 +1,18 @@
 <template>
 	<section class="splash">
 		<header class="slide title__container">
-			<h1 class="title">
+			<h1 ref="title" class="title">
 				<span class="h-and-j">
 					Hannah & Jarod <span class="get-married">get married</span>
 				</span>
 				<span class="date">
-					{{ date }}<span class="date__3"> {{ date }} {{ date }}</span>
+					{{ date }}<span class="date__extra"> {{ date }} {{ date }}</span>
 				</span>
 				<span class="h-and-j">
 					Hannah & Jarod <span class="get-married">get married</span>
 				</span>
 				<span class="date">
-					{{ date }}<span class="date__3"> {{ date }} {{ date }}</span>
+					{{ date }}<span class="date__extra"> {{ date }} {{ date }}</span>
 				</span>
 				<span class="h-and-j">
 					Hannah & Jarod <span class="get-married">get married</span>
@@ -70,6 +70,14 @@ export default {
 			this.tl
 				.to(this.$refs.turbScale, {
 					attr: { scale: 100 },
+					ease: 'power4.easeIn',
+					duration: 10,
+				})
+				.to(this.$refs.title, {
+					opacity: 0,
+					duration: 4,
+					delay: -4,
+					ease: 'power4.easeOut',
 				})
 				.pause();
 		},
@@ -79,42 +87,49 @@ export default {
 
 <style lang="scss">
 .splash {
-	--title-color: #ffc4c1;
-	height: 220vh;
+	--title-color: white;
+	height: 250vh;
 	margin-bottom: -100vh;
 	position: relative;
 }
 
 .title {
 	filter: url('#turbulence');
-	font-size: 2.5rem;
-	font-style: italic;
-	font-weight: 900;
 	text-align: center;
-	text-transform: uppercase;
-
-	@media screen and (max-width: 600px) {
-		font-size: 2rem;
-	}
 
 	> span {
 		display: block;
+		color: var(--title-color);
+		line-height: 0.8;
 	}
 
 	.h-and-j {
-		color: var(--title-color);
+		font-size: 5.5vw;
+
+		@media screen and (max-width: 600px) {
+			font-size: 9.2vw;
+		}
 	}
 
 	.get-married {
 		display: inline-block;
+		font-size: 5.5vw;
+
+		@media screen and (max-width: 600px) {
+			font-size: 12vw;
+		}
 	}
 
 	.date {
 		-webkit-text-stroke: 1px var(--title-color);
 		color: transparent;
-		font-size: 3.1rem;
+		font-size: 6.8vw;
 
-		&__3 {
+		@media screen and (max-width: 600px) {
+			font-size: 20vw;
+		}
+
+		&__extra {
 			@media screen and (max-width: 600px) {
 				display: none;
 				visibility: hidden;
@@ -123,28 +138,11 @@ export default {
 	}
 
 	&__container {
-		line-height: 0.8;
 		align-items: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		background: linear-gradient(
-				90deg,
-				var(--splash-bg-alt-color) 0,
-				transparent 1px,
-				transparent 100%
-			),
-			linear-gradient(
-				0deg,
-				var(--splash-bg-alt-color) 0,
-				transparent 1px,
-				transparent 100%
-			);
-		background-size: 10vh 10vh;
-		background-color: var(--splash-bg-color);
-		background-attachment: fixed;
-		background-position: center center;
-		border: 1px solid var(--splash-bg-alt-color)
+		mix-blend-mode: difference;
 	}
 }
 </style>

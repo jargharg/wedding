@@ -22,57 +22,85 @@
 				<li>
 					<h3>Transport</h3>
 				</li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+				<li>
+					<h3>Food</h3>
+				</li>
+				<li>
+					<h3>Owt Else?</h3>
+				</li>
 			</ul>
 		</div>
 	</section>
 </template>
 
 <script>
+import ScrollListener from '@/services/ScrollListener';
+import gsap from 'gsap';
+
 export default {
 	name: 'Info',
+	mounted() {
+		this.setAnimation();
+		this.elementTop = this.$el.offsetTop;
+		ScrollListener.addAction({
+			startY: this.elementTop - 100,
+			endY: this.elementTop,
+			actionToProgress: progress => {
+				this.tl.progress(progress);
+			},
+		});
+	},
+	methods: {
+		setAnimation() {
+			const bgColor = getComputedStyle(document.body).getPropertyValue(
+				'--splash-bg-color',
+			);
+			this.tl = gsap.timeline();
+			this.tl
+				.to('#app', {
+					backgroundColor: bgColor,
+					ease: 'power4.easeOut',
+				})
+				.pause();
+		},
+	},
 };
 </script>
 
 <style scoped lang="scss">
 .info {
-	background: white;
-	min-height: 100vh;
+	min-height: var(--slide-height);
 	position: relative;
 
 	&__content {
-		position: sticky;
-		top: 0;
-		min-height: var(--slide-height);
 		padding: 1em;
+		min-height: 100vh;
+		height: 100%;
+		color: var(--splash-bg-inverse-color);
 
 		h2 {
 			position: sticky;
-			top: var(--margin-size);
-			background: white;
+			top: 0;
 		}
 	}
 }
 
 .info-grid {
-	background: var(--splash-bg-color);
 	display: grid;
-	grid-gap: 1px;
-	grid-template-columns: 25% 25% 25% 25%;
+	grid-gap: 1em;
+	width: 100%;
+	grid-template-columns: 1fr 1fr 1fr;
 	list-style: none;
 	padding: 0;
 
 	@media screen and (max-width: 600px) {
-	grid-template-columns: 100%;
+		grid-template-columns: 100%;
 	}
 
 	li {
-		background: white;
 		padding: 1em;
 		min-height: 200px;
+		border-bottom: 1px solid var(--splash-bg-inverse-color);
 	}
 }
 </style>
