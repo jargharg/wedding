@@ -53,7 +53,7 @@ export default {
 
 html {
 	scroll-snap-type: y proximity;
-	scroll-behavior: smooth;
+	// scroll-behavior: smooth;
 }
 
 body {
