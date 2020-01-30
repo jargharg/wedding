@@ -70,14 +70,14 @@ export default {
 			this.tl
 				.to(this.$refs.turbScale, {
 					attr: { scale: 100 },
-					ease: 'power4.easeIn',
+					ease: 'power2.out',
 					duration: 10,
 				})
 				.to(this.$refs.title, {
 					opacity: 0,
 					duration: 4,
-					delay: -4,
-					ease: 'power4.easeOut',
+					delay: -7,
+					ease: 'power1.out',
 				})
 				.pause();
 		},
@@ -88,7 +88,7 @@ export default {
 <style lang="scss">
 .splash {
 	--title-color: white;
-	height: 250vh;
+	height: 200vh;
 	margin-bottom: -100vh;
 	position: relative;
 }

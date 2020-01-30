@@ -30,7 +30,7 @@ export default {
 	methods: {
 		goToRsvp() {
 			gsap.to(window, {
-				duration: 1,
+				duration: 2,
 				ease: 'power1.out',
 				scrollTo: '#rsvp',
 			});

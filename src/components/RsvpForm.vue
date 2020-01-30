@@ -1,5 +1,7 @@
 <template>
 	<section id="rsvp" class="slide rsvp-form">
+		<h2>Respond if you please</h2>
+
 		<form
 			class="rsvp-form__form"
 			action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAPLkA1YAVkFCAgIt7YlM1SUVIcYTZhhTKIXif9d9nciEd6Q/formResponse"
@@ -7,12 +9,12 @@
 			method="POST"
 			id="mG61Hd"
 		>
-			<label class="rsvp-form__question">
+			<label class="rsvp-form__question rsvp-form__question__text">
 				<h3>Name</h3>
 				<input type="text" aria-label="Name" name="entry.1042661726" required />
 			</label>
 
-			<label class="rsvp-form__question">
+			<label class="rsvp-form__question rsvp-form__question__text">
 				<h3>Email Address</h3>
 				<input
 					type="email"
@@ -34,8 +36,8 @@
 				</label>
 			</label>
 
-			<label class="rsvp-form__question">
-				<h3>Anything else you want to let us know?</h3>
+			<label class="rsvp-form__question rsvp-form__question__text">
+				<h3>Anything else you want to say?</h3>
 				<input
 					type="text"
 					aria-label="Anything else you want to say?"
@@ -44,7 +46,7 @@
 				/>
 			</label>
 
-			<button>submit</button>
+			<button class="rsvp-form__submit">submit</button>
 
 			<!--
 	<input type="hidden" name="fvv" value="1" />
@@ -71,15 +73,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h2 {
+	font-size: 7vw;
+}
 .rsvp-form {
+	padding: 1rem;
 	color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 
 	&__form {
 		width: 100%;
-		max-width: 500px;
+		max-width: 600px;
+		// margin: 0 auto;
+		padding: 1rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: stretch;
@@ -89,27 +94,45 @@ export default {
 		display: block;
 		padding: 0;
 		margin-bottom: 2em;
-		border-top: 1px dashed rgba(255, 255, 255, 0.5);
 		position: relative;
+		font-size: 1.5rem;
 
-		&::after {
-			content: '';
-			display: block;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 2px;
-			background: white;
+		&__text {
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background: white;
+			}
 		}
 
 		input:not([type='radio']) {
+			font-size: 1.2rem;
+			color: white;
 			width: 100%;
 			border: none;
 			// border-bottom: 1px solid white;
 			background: transparent;
 			outline: none;
+
+			&::placeholder {
+				color: rgba(255, 255, 255, 0.6);
+			}
 		}
+	}
+
+	&__submit {
+		background: white;
+		border: none;
+		padding: 0.3em 1em;
+		color: var(--splash-bg-color);
+		font-family: var(--header-text);
+		text-transform: uppercase;
+		font-size: 2rem;
 	}
 }
 </style>

@@ -39,7 +39,7 @@ export default {
 		this.setAnimation();
 		this.elementTop = this.$el.offsetTop;
 		ScrollListener.addAction({
-			startY: this.elementTop - 300,
+			startY: this.elementTop - 400,
 			endY: this.elementTop,
 			actionToProgress: progress => {
 				this.tl.progress(progress);
@@ -55,7 +55,7 @@ export default {
 			this.tl
 				.to('#app', {
 					backgroundColor: bgColor,
-					ease: 'power4.easeOut',
+					ease: 'power4.out',
 				})
 				.pause();
 		},
