@@ -79,7 +79,7 @@ export default {
 		color: var(--splash-bg-inverse-color);
 
 		h2 {
-			position: sticky;
+			// position: sticky;
 			top: 0;
 		}
 	}

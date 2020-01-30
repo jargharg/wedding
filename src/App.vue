@@ -1,11 +1,11 @@
 <template>
 	<div id="app">
 		<RsvpButton />
-
 		<div class="slide-container">
 			<Splash />
 			<Intro />
 			<Info />
+			<RsvpForm />
 		</div>
 	</div>
 </template>
@@ -15,6 +15,7 @@ import Splash from './components/Splash.vue';
 import Intro from './components/Intro.vue';
 import Info from './components/Info.vue';
 import RsvpButton from './components/RsvpButton.vue';
+import RsvpForm from './components/RsvpForm.vue';
 
 export default {
 	name: 'app',
@@ -23,6 +24,7 @@ export default {
 		Intro,
 		Info,
 		RsvpButton,
+		RsvpForm
 	},
 };
 </script>
@@ -51,6 +53,7 @@ export default {
 
 html {
 	scroll-snap-type: y proximity;
+	scroll-behavior: smooth;
 }
 
 body {

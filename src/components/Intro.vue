@@ -74,7 +74,7 @@ export default {
 
 	&__title {
 		font-size: 7vw;
-		position: sticky;
+		// position: sticky;
 		top: 0;
 
 		@media screen and (max-width: 600px) {
@@ -85,6 +85,7 @@ export default {
 	&__text {
 		font-size: 1.5rem;
 		margin: 1rem 0;
+		padding: 0.5rem;
 
 		@media screen and (max-width: 600px) {
 			font-size: 1.2rem;
