@@ -1,5 +1,5 @@
 <template>
-	<section id="rsvp" class="slide rsvp-form">
+	<section id="rsvp" class="rsvp-form">
 		<h2>Respond if you please</h2>
 
 		<form
@@ -67,18 +67,52 @@ import gsap from 'gsap';
 
 export default {
 	name: 'RsvpForm',
-	mounted() {},
-	methods: {},
+	mounted() {
+		this.setAnimation();
+		this.elementTop = this.$el.offsetTop;
+		ScrollListener.addAction({
+			startY: this.elementTop - window.innerHeight * 0.6,
+			endY: this.elementTop,
+			actionToProgress: progress => {
+				this.tl.progress(progress);
+			},
+		});
+	},
+	methods: {
+		setAnimation() {
+			const bgColor = getComputedStyle(document.body).getPropertyValue(
+				'--splash-bg-inverse-color',
+			);
+
+			gsap.set(this.$el, { opacity: 0 });
+
+			this.tl = gsap.timeline();
+			this.tl
+				.to('#app', {
+					backgroundColor: bgColor,
+					ease: 'power4.out',
+					duration: 1,
+				})
+				.to(this.$el, {
+					opacity: 1,
+					delay: -1,
+				})
+				.pause();
+		},
+	},
 };
 </script>
 
 <style scoped lang="scss">
-h2 {
-	font-size: 7vw;
-}
 .rsvp-form {
 	padding: 1rem;
-	color: white;
+	color: var(--splash-bg-color);
+	min-height: 100vh;
+	height: 100%;
+
+	h2 {
+		font-size: 4rem;
+	}
 
 	&__form {
 		width: 100%;
@@ -106,30 +140,31 @@ h2 {
 				left: 0;
 				width: 100%;
 				height: 1px;
-				background: white;
+				background: var(--splash-bg-color);
 			}
 		}
 
 		input:not([type='radio']) {
 			font-size: 1.2rem;
-			color: white;
+			color: var(--splash-bg-color);
 			width: 100%;
 			border: none;
-			// border-bottom: 1px solid white;
+			// border-bottom: 1px solid var(--splash-bg-color);
 			background: transparent;
 			outline: none;
 
 			&::placeholder {
-				color: rgba(255, 255, 255, 0.6);
+				color: var(--splash-bg-color);
+				opacity: 0.5;
 			}
 		}
 	}
 
 	&__submit {
-		background: white;
+		background: var(--splash-bg-color);
 		border: none;
 		padding: 0.3em 1em;
-		color: var(--splash-bg-color);
+		color: var(--splash-bg-inverse-color);
 		font-family: var(--header-text);
 		text-transform: uppercase;
 		font-size: 2rem;

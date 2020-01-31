@@ -19,18 +19,27 @@ export default {
 			repeat: -1,
 		});
 
-		// ScrollListener.addAction({
-		// 	startY: 0,
-		// 	endY: document.documentElement.offsetHeight,
-		// 	actionToProgress: progress => {
-		// 		this.rotationAnimation.progress(this.rotationAnimation.progress() + (progress / 100));
-		// 	},
-		// });
+		this.setFadeAnimation();
+		this.rsvpFormTop = document.getElementById('rsvp').offsetTop;
+		ScrollListener.addAction({
+			startY: this.rsvpFormTop - window.innerHeight * 0.6,
+			endY: this.rsvpFormTop - window.innerHeight * 0.5,
+			actionToProgress: progress => {
+				this.tl.progress(progress);
+			},
+		});
 	},
 	methods: {
+		setFadeAnimation() {
+			this.tl = gsap.timeline();
+			this.tl
+				.to(this.$el, { opacity: 0, duration: 1 })
+				.to(this.$el, { visibility: 'hidden', duration: 0.1 })
+				.pause();
+		},
 		goToRsvp() {
 			gsap.to(window, {
-				duration: 2,
+				duration: 1.5,
 				ease: 'power1.out',
 				scrollTo: '#rsvp',
 			});

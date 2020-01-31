@@ -1,6 +1,6 @@
 <template>
-	<section class="info">
-		<div class="slide info__content">
+	<section ref="info" class="info">
+		<div class="info__content">
 			<h2>
 				All the details...
 			</h2>
@@ -43,7 +43,7 @@ export default {
 		this.setAnimation();
 		this.elementTop = this.$el.offsetTop;
 		ScrollListener.addAction({
-			startY: this.elementTop - 600,
+			startY: this.elementTop - window.innerHeight * 0.6,
 			endY: this.elementTop,
 			actionToProgress: progress => {
 				this.tl.progress(progress);
@@ -55,11 +55,19 @@ export default {
 			const bgColor = getComputedStyle(document.body).getPropertyValue(
 				'--splash-bg-color',
 			);
+
+			gsap.set(this.$refs.intro, { opacity: 0 });
+
 			this.tl = gsap.timeline();
 			this.tl
 				.to('#app', {
 					backgroundColor: bgColor,
 					ease: 'power4.out',
+					duration: 1,
+				})
+				.to(this.$refs.info, {
+					opacity: 1,
+					delay: -1,
 				})
 				.pause();
 		},
@@ -69,25 +77,25 @@ export default {
 
 <style scoped lang="scss">
 .info {
-	min-height: var(--slide-height);
+	// min-height: var(--slide-height);
 	position: relative;
 
 	&__content {
 		padding: 1em;
-		min-height: 100vh;
+		// min-height: 100vh;
 		height: 100%;
 		color: var(--splash-bg-inverse-color);
 
 		h2 {
-			font-size: 7vw;
+			font-size: 4rem;
+
+			@media screen and (max-width: 600px) {
+				font-size: 2.2rem;
+			}
 		}
 
 		h3 {
 			font-size: 1.5rem;
-		}
-
-		li {
-			font-size: 1.2rem;
 		}
 	}
 }
@@ -105,7 +113,8 @@ export default {
 	}
 
 	li {
-		padding: 1em;
+		font-size: 1.2rem;
+		padding-bottom: 1em;
 		min-height: 200px;
 		border-bottom: 1px solid var(--splash-bg-inverse-color);
 	}

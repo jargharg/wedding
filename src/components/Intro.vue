@@ -1,6 +1,6 @@
 <template>
-	<section class="intro">
-		<div class="slide intro__content">
+	<section ref="intro" class="intro">
+		<div class="intro__content">
 			<h2 class="intro__title">
 				You're Invited!
 			</h2>
@@ -39,7 +39,7 @@ export default {
 		this.setAnimation();
 		this.elementTop = this.$el.offsetTop;
 		ScrollListener.addAction({
-			startY: this.elementTop - 400,
+			startY: this.elementTop - window.innerHeight * 0.6,
 			endY: this.elementTop,
 			actionToProgress: progress => {
 				this.tl.progress(progress);
@@ -51,11 +51,19 @@ export default {
 			const bgColor = getComputedStyle(document.body).getPropertyValue(
 				'--splash-bg-inverse-color',
 			);
+
+			gsap.set(this.$refs.intro, { opacity: 0 });
+
 			this.tl = gsap.timeline();
 			this.tl
 				.to('#app', {
 					backgroundColor: bgColor,
 					ease: 'power4.out',
+					duration: 1,
+				})
+				.to(this.$refs.intro, {
+					opacity: 1,
+					delay: -1,
 				})
 				.pause();
 		},
@@ -66,19 +74,17 @@ export default {
 <style scoped lang="scss">
 .intro {
 	&__content {
-		min-height: 100vh;
+		// min-height: 100vh;
 		height: 100%;
 		padding: 1rem;
 		color: var(--splash-bg-color);
 	}
 
 	&__title {
-		font-size: 7vw;
-		// position: sticky;
-		top: 0;
+		font-size: 4rem;
 
 		@media screen and (max-width: 600px) {
-			font-size: 2rem;
+			font-size: 2.2rem;
 		}
 	}
 

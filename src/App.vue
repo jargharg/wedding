@@ -82,10 +82,10 @@ h3 {
 }
 
 .slide {
-	margin: var(--margin-size) auto 0;
 	height: var(--slide-height);
-	width: var(--slide-width);
+	margin: var(--margin-size) auto 0;
 	position: sticky;
 	top: var(--margin-size);
+	width: var(--slide-width);
 }
 </style>
