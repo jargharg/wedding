@@ -57,7 +57,7 @@ export default {
 <style scoped lang="scss">
 .rsvp {
 	background-color: transparent;
-	background-image: url('https://i.ibb.co/z5nRJrS/rsvp-white.png');
+	background-image: url('/rsvp-white.png');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
