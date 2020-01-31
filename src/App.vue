@@ -14,8 +14,8 @@
 import Splash from './components/Splash.vue';
 import Intro from './components/Intro.vue';
 import Info from './components/Info.vue';
-import RsvpButton from './components/RsvpButton.vue';
 import RsvpForm from './components/RsvpForm.vue';
+import RsvpButton from './components/RsvpButton.vue';
 
 export default {
 	name: 'app',
@@ -23,8 +23,11 @@ export default {
 		Splash,
 		Intro,
 		Info,
+		RsvpForm,
 		RsvpButton,
-		RsvpForm
+	},
+	mounted() {
+		window.onresize = () => location.reload();
 	},
 };
 </script>
@@ -33,16 +36,27 @@ export default {
 @import url('https://use.typekit.net/hna6vse.css');
 
 :root {
-	--body-text: neue-haas-grotesk-text, serif;
-	--header-text: neue-haas-grotesk-display, sans-serif;
-	--margin-size: 0;
-	--pop-color: rgb(255, 223, 84);
+	--color-inverse: rgb(255, 198, 192);
+	--color-main: rgb(0, 57, 63);
+	--font-body: neue-haas-grotesk-text, sans-serif;
+	--font-header: neue-haas-grotesk-display, sans-serif;
+	--font-size-content: 1.5rem;
+	--font-size-content-small: 1.2rem;
+	--font-size-header: 4rem;
+	--font-size-subheader: 1.5rem;
+	--padding-content: 0.5rem;
+	--padding-section: 1rem;
 	--rsvp-position: 1rem;
 	--rsvp-size: 15vh;
 	--slide-height: 100vh;
 	--slide-width: 100vw;
-	--splash-bg-color: rgb(0, 57, 63);
-	--splash-bg-inverse-color: rgb(255, 198, 192);
+
+	@media screen and (max-width: 600px) {
+		--font-size-content: 1.2rem;
+		--font-size-header: 2rem;
+		--font-size-subheader: 1.2rem;
+		--padding-content: 0.5rem 0;
+	}
 }
 
 * {
@@ -51,26 +65,21 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-html {
-	scroll-snap-type: y proximity;
-	// scroll-behavior: smooth;
-}
-
 body {
-	font-family: var(--body-text);
+	background: var(--color-main);
+	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
 }
 
 section {
-	// scroll-snap-align: proximity;
 	width: 100%;
 }
 
 h1,
 h2,
 h3 {
-	font-family: var(--header-text);
+	font-family: var(--font-header);
 	font-style: italic;
 	font-weight: 900;
 	margin: 0;
@@ -78,14 +87,14 @@ h3 {
 }
 
 #app {
-	background: var(--splash-bg-color);
+	background: var(--color-main);
 }
 
 .slide {
 	height: var(--slide-height);
-	margin: var(--margin-size) auto 0;
+	margin: 0;
 	position: sticky;
-	top: var(--margin-size);
+	top: 0;
 	width: var(--slide-width);
 }
 </style>

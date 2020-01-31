@@ -87,10 +87,19 @@ export default {
 
 <style lang="scss">
 .splash {
+	--date-size: 6.8vw;
+	--get-married-size: 5.5vw;
+	--hj-size: 5.5vw;
 	--title-color: white;
 	height: 200vh;
 	margin-bottom: -100vh;
 	position: relative;
+
+	@media screen and (max-width: 600px) {
+		--hj-size: 9.2vw;
+		--get-married-size: 12vw;
+		--date-size: 20vw;
+	}
 }
 
 .title {
@@ -104,30 +113,18 @@ export default {
 	}
 
 	.h-and-j {
-		font-size: 5.5vw;
-
-		@media screen and (max-width: 600px) {
-			font-size: 9.2vw;
-		}
+		font-size: var(--hj-size);
 	}
 
 	.get-married {
 		display: inline-block;
-		font-size: 5.5vw;
-
-		@media screen and (max-width: 600px) {
-			font-size: 12vw;
-		}
+		font-size: var(--get-married-size);
 	}
 
 	.date {
 		-webkit-text-stroke: 1px var(--title-color);
 		color: transparent;
-		font-size: 6.8vw;
-
-		@media screen and (max-width: 600px) {
-			font-size: 20vw;
-		}
+		font-size: var(--date-size);
 
 		&__extra {
 			@media screen and (max-width: 600px) {

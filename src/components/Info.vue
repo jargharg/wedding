@@ -1,35 +1,38 @@
 <template>
 	<section ref="info" class="info">
-		<div class="info__content">
-			<h2>
-				All the details...
-			</h2>
+		<h2 class="info__title">
+			All the details...
+		</h2>
 
-			<ul class="info-grid">
-				<li>
-					<h3>Location</h3>
-					HOME, Manchester <br />
-					Address
-				</li>
-				<li>
-					<h3>Timings</h3>
-					Ceremony 4pm <br />
-					Reception etc til 1am
-				</li>
-				<li>
-					<h3>Accomodation</h3>
-				</li>
-				<li>
-					<h3>Transport</h3>
-				</li>
-				<li>
-					<h3>Food</h3>
-				</li>
-				<li>
-					<h3>Owt Else?</h3>
-				</li>
-			</ul>
-		</div>
+		<ul class="info__grid">
+			<li class="info__grid__cell">
+				<h3 class="info__grid__title">Location</h3>
+				HOME, Manchester <br />
+				Address
+			</li>
+
+			<li class="info__grid__cell">
+				<h3 class="info__grid__title">Timings</h3>
+				Ceremony 4pm <br />
+				Reception etc til 1am
+			</li>
+
+			<li class="info__grid__cell">
+				<h3 class="info__grid__title">Accomodation</h3>
+			</li>
+
+			<li class="info__grid__cell">
+				<h3 class="info__grid__title">Transport</h3>
+			</li>
+
+			<li class="info__grid__cell">
+				<h3 class="info__grid__title">Food</h3>
+			</li>
+
+			<li class="info__grid__cell">
+				<h3 class="info__grid__title">Owt Else?</h3>
+			</li>
+		</ul>
 	</section>
 </template>
 
@@ -53,7 +56,7 @@ export default {
 	methods: {
 		setAnimation() {
 			const bgColor = getComputedStyle(document.body).getPropertyValue(
-				'--splash-bg-color',
+				'--color-main',
 			);
 
 			gsap.set(this.$refs.intro, { opacity: 0 });
@@ -77,46 +80,36 @@ export default {
 
 <style scoped lang="scss">
 .info {
-	// min-height: var(--slide-height);
+	color: var(--color-inverse);
+	padding: var(--padding-section);
 	position: relative;
 
-	&__content {
-		padding: 1em;
-		// min-height: 100vh;
-		height: 100%;
-		color: var(--splash-bg-inverse-color);
-
-		h2 {
-			font-size: 4rem;
-
-			@media screen and (max-width: 600px) {
-				font-size: 2.2rem;
-			}
-		}
-
-		h3 {
-			font-size: 1.5rem;
-		}
-	}
-}
-
-.info-grid {
-	display: grid;
-	grid-gap: 1em;
-	width: 100%;
-	grid-template-columns: 1fr 1fr 1fr;
-	list-style: none;
-	padding: 0;
-
-	@media screen and (max-width: 600px) {
-		grid-template-columns: 100%;
+	&__title {
+		font-size: var(--font-size-header);
 	}
 
-	li {
-		font-size: 1.2rem;
-		padding-bottom: 1em;
-		min-height: 200px;
-		border-bottom: 1px solid var(--splash-bg-inverse-color);
+	&__grid {
+		display: grid;
+		grid-gap: 1em;
+		width: 100%;
+		grid-template-columns: 1fr 1fr 1fr;
+		list-style: none;
+		padding: var(--padding-content);
+
+		@media screen and (max-width: 600px) {
+			grid-template-columns: 100%;
+		}
+
+		&__title {
+			font-size: var(--font-size-subheader);
+		}
+
+		&__cell {
+			font-size: var(--font-size-content-small);
+			padding-bottom: var(--padding-content);
+			min-height: 200px;
+			border-bottom: 1px solid var(--color-inverse);
+		}
 	}
 }
 </style>
