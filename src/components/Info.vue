@@ -96,12 +96,17 @@ export default {
 		list-style: none;
 		padding: var(--padding-content);
 
+		@media screen and (max-width: 800px) {
+			grid-template-columns: 1fr 1fr;
+		}
+
 		@media screen and (max-width: 600px) {
 			grid-template-columns: 100%;
 		}
 
 		&__title {
 			font-size: var(--font-size-subheader);
+			padding-bottom: 0.3em;
 		}
 
 		&__cell {

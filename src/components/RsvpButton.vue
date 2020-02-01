@@ -22,8 +22,8 @@ export default {
 		this.setFadeAnimation();
 		this.rsvpFormTop = document.getElementById('rsvp').offsetTop;
 		ScrollListener.addAction({
-			startY: this.rsvpFormTop - window.innerHeight * 0.6,
-			endY: this.rsvpFormTop - window.innerHeight * 0.5,
+			startY: this.rsvpFormTop - window.innerHeight * 0.65,
+			endY: this.rsvpFormTop - window.innerHeight * 0.55,
 			actionToProgress: progress => {
 				this.tl.progress(progress);
 			},

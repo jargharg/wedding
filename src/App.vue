@@ -5,7 +5,7 @@
 			<Splash />
 			<Intro />
 			<Info />
-			<RsvpForm />
+			<RsvpForm v-bind:guestType="'day'" />
 		</div>
 	</div>
 </template>
