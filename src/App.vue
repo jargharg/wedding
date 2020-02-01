@@ -16,6 +16,7 @@ import Intro from './components/Intro.vue';
 import Info from './components/Info.vue';
 import RsvpForm from './components/RsvpForm.vue';
 import RsvpButton from './components/RsvpButton.vue';
+import store from './store';
 
 export default {
 	name: 'app',
@@ -29,13 +30,9 @@ export default {
 	mounted() {
 		window.onresize = () => location.reload();
 
-		const urlString =
+		const paramString =
 			'{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}';
-		const parsedUrlString = JSON.parse(urlString);
-
-		this.guests = parsedUrlString.guests.split(', ');
-		this.emailAddress = parsedUrlString.emailAddress;
-		this.guestType = parsedUrlString.guestType;
+		store.commit('setFormValuesFromParamString', paramString);
 	},
 	data() {
 		return {

@@ -41,6 +41,7 @@ import ScrollListener from '@/services/ScrollListener';
 import gsap from 'gsap';
 import RsvpGuest from './RsvpForm/RsvpGuest';
 import RsvpText from './RsvpForm/RsvpText';
+import store from './../store';
 
 export default {
 	name: 'RsvpForm',
@@ -71,9 +72,9 @@ export default {
 	computed: {
 		formValues() {
 			return {
-				guests: this.guests.map(guest => ({ name: guest })),
-				emailAddress: this.emailAddress,
-				guestType: this.guestType,
+				guests: store.state.formValues.guests,
+				emailAddress: store.state.formValues.emailAddress,
+				guestType: store.state.formValues.guestType,
 				additionalDetails: '',
 			};
 		},
