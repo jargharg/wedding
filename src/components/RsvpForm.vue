@@ -6,24 +6,24 @@
 
 		<div class="rsvp__form__container">
 			<form class="rsvp__form" ref="rsvpForm" @submit="submitForm">
-				<RsvpGuest v-bind:label="'Guests'" v-bind:guests="formValues.guests" />
+				<RsvpGuest :label="'Guests'" :guests="formValues.guests" />
 
 				<RsvpText
+					:autocomplete="true"
+					:value="formValues.emailAddress"
 					id="emailAddress"
 					label="Main Email Address"
 					placeholder="email@address.com"
 					type="email"
-					v-bind:autocomplete="true"
-					v-bind:value="formValues.emailAddress"
 				/>
 
 				<RsvpText
+					:autocomplete="false"
+					:value="formValues.additionalDetails"
 					id="additionalDetails"
 					label="Anything else you want to say?"
 					placeholder="Dietary requirements, excuses, well wishes..."
 					type="text"
-					v-bind:autocomplete="false"
-					v-bind:value="formValues.additionalDetails"
 				/>
 
 				<button class="rsvp__submit">Submit</button>

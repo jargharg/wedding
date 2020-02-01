@@ -5,11 +5,7 @@
 			<Splash />
 			<Intro />
 			<Info />
-			<RsvpForm
-			v-bind:guests="guests"
-			v-bind:emailAddress="emailAddress"
-			v-bind:guestType="guestType"
-			 />
+			<RsvpForm :emailAddress="emailAddress" :guests="guests" :guestType="guestType" />
 		</div>
 	</div>
 </template>
@@ -33,7 +29,8 @@ export default {
 	mounted() {
 		window.onresize = () => location.reload();
 
-		const urlString = '{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}';
+		const urlString =
+			'{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}';
 		const parsedUrlString = JSON.parse(urlString);
 
 		this.guests = parsedUrlString.guests.split(', ');

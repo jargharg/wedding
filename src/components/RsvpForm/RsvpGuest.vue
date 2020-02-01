@@ -10,42 +10,42 @@
 			</label>
 		</div>
 
-		<div class="rsvp-guest__row" v-for="(guest, index) in guests" v-bind:key="index">
+		<div class="rsvp-guest__row" v-for="(guest, index) in guests" :key="index">
 			<input
+				:aria-label="`Guest Name ${index + 1}`"
+				:id="`name${index}`"
+				:placeholder="`Guest Name ${index + 1}`"
 				class="rsvp-guest__name"
 				name="entry.1042661726"
 				required
 				type="text"
-				v-bind:aria-label="`Guest Name ${index + 1}`"
-				v-bind:id="`name${index}`"
-				v-bind:placeholder="`Guest Name ${index + 1}`"
 				v-model="guest.name"
 			/>
 
 			<div class="rsvp-guest__attending">
 				<input
+					:id="`rsvpYes${index}`"
+					:name="`attending${index}`"
 					required
 					type="radio"
-					v-bind:id="`rsvpYes${index}`"
-					v-bind:name="`attending${index}`"
 					v-model="guest.attending"
 					value="Yes"
 				/>
 
-				<label v-bind:for="`rsvpYes${index}`">
+				<label :for="`rsvpYes${index}`">
 					&#x2714;
 				</label>
 
 				<input
+					:id="`rsvpNo${index}`"
+					:name="`attending${index}`"
 					required
 					type="radio"
-					v-bind:id="`rsvpNo${index}`"
-					v-bind:name="`attending${index}`"
 					v-model="guest.attending"
 					value="No"
 				/>
 
-				<label v-bind:for="`rsvpNo${index}`">
+				<label :for="`rsvpNo${index}`">
 					&#x2718;
 				</label>
 			</div>

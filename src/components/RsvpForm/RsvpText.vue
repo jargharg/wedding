@@ -1,17 +1,17 @@
 <template>
 	<div class="rsvp-text">
-		<label class="rsvp-text__header" v-bind:for="id">
+		<label class="rsvp-text__header" :for="id">
 			{{ label }}
 		</label>
 
 		<input
 			class="rsvp-text__input"
-			v-bind:aria-label="label"
-			v-bind:id="id"
-			v-bind:placeholder="placeholder"
-			v-bind:type="type"
-			v-bind:value="value"
-			v-bind:autocomplete="autocomplete"
+			:aria-label="label"
+			:id="id"
+			:placeholder="placeholder"
+			:type="type"
+			:value="value"
+			:autocomplete="autocomplete"
 		/>
 	</div>
 </template>
@@ -25,7 +25,7 @@ export default {
 		value: String,
 		id: String,
 		type: String,
-		autocomplete: Boolean
+		autocomplete: Boolean,
 	},
 };
 </script>
