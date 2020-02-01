@@ -117,14 +117,14 @@ export default {
 				.to(this.$refs.rsvpForm, {
 					scale: 0,
 					ease: 'back.in',
-					duration: 1,
+					duration: 0.5,
 				})
 				.set(this.$refs.rsvpForm, { display: 'none' })
 				.set(this.$refs.submitted, { display: 'block', scale: 0 })
 				.to(this.$refs.submitted, {
 					scale: 1,
 					ease: 'back.out',
-					duration: 1,
+					duration: 0.5,
 				})
 				.pause();
 		},
