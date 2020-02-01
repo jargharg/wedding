@@ -1,5 +1,5 @@
 <template>
-	<button class="rsvp" @click="goToRsvp"></button>
+	<button class="rsvp-button" @click="goToRsvp"></button>
 </template>
 
 <script>
@@ -12,18 +12,13 @@ export default {
 	mounted() {
 		gsap.registerPlugin(ScrollToPlugin);
 
-		this.rotationAnimation = gsap.from(this.$el, {
-			rotate: '360deg',
-			ease: 'linear',
-			duration: 10,
-			repeat: -1,
-		});
-
 		this.setFadeAnimation();
-		this.rsvpFormTop = document.getElementById('rsvp').offsetTop;
+
+		const { offsetTop } = document.getElementById('rsvp');
 		ScrollListener.addAction({
-			startY: this.rsvpFormTop - window.innerHeight * 0.65,
-			endY: this.rsvpFormTop - window.innerHeight * 0.55,
+			type: 'progress',
+			startY: offsetTop - window.innerHeight * 0.65,
+			endY: offsetTop - window.innerHeight * 0.55,
 			actionToProgress: progress => {
 				this.tl.progress(progress);
 			},
@@ -55,7 +50,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.rsvp {
+.rsvp-button {
 	background-color: transparent;
 	background-image: url('/rsvp-white.png');
 	background-position: center;
@@ -73,6 +68,7 @@ export default {
 	transform-origin: center center;
 	width: var(--rsvp-size);
 	z-index: 999;
+	animation: rotate 10s infinite linear;
 }
 
 @keyframes rotate {

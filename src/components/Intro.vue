@@ -34,27 +34,28 @@ import gsap from 'gsap';
 export default {
 	name: 'Intro',
 	mounted() {
-		this.setAnimation();
+		this.setBackgroundAnimation();
 
-		this.elementTop = this.$el.offsetTop;
+		const { offsetTop } = this.$el;
 		ScrollListener.addAction({
-			startY: this.elementTop - window.innerHeight * 0.6,
-			endY: this.elementTop,
+			type: 'progress',
+			startY: offsetTop - window.innerHeight * 0.6,
+			endY: offsetTop,
 			actionToProgress: progress => {
-				this.tl.progress(progress);
+				this.backgroundAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
-		setAnimation() {
+		setBackgroundAnimation() {
 			const bgColor = getComputedStyle(document.body).getPropertyValue(
 				'--color-inverse',
 			);
 
 			gsap.set(this.$refs.intro, { opacity: 0 });
 
-			this.tl = gsap.timeline();
-			this.tl
+			this.backgroundAnimation = gsap.timeline();
+			this.backgroundAnimation
 				.to('#app', {
 					backgroundColor: bgColor,
 					ease: 'power4.out',
@@ -75,6 +76,8 @@ export default {
 .intro {
 	color: var(--color-main);
 	padding: var(--padding-section);
+	max-width: 1000px;
+	margin: 0 auto;
 
 	&__title {
 		font-size: var(--font-size-header);

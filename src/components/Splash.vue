@@ -52,22 +52,23 @@ export default {
 		};
 	},
 	mounted() {
-		this.elementTop = this.$el.offsetTop;
-		this.scrollTimeline = this.$el.scrollHeight - window.innerHeight;
+		const { offsetTop } = this.$el;
+		const scrollTimeline = this.$el.scrollHeight - window.innerHeight;
 
-		this.setAnimation();
+		this.setWarpAnimation();
 		ScrollListener.addAction({
-			startY: this.elementTop,
-			endY: this.elementTop + this.scrollTimeline,
+			type: 'progress',
+			startY: offsetTop,
+			endY: offsetTop + scrollTimeline,
 			actionToProgress: progress => {
-				this.tl.progress(progress);
+				this.warpAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
-		setAnimation() {
-			this.tl = gsap.timeline();
-			this.tl
+		setWarpAnimation() {
+			this.warpAnimation = gsap.timeline();
+			this.warpAnimation
 				.to(this.$refs.turbScale, {
 					attr: { scale: 100 },
 					ease: 'power2.out',

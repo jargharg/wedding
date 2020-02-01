@@ -5,7 +5,11 @@
 			<Splash />
 			<Intro />
 			<Info />
-			<RsvpForm v-bind:guestType="'day'" />
+			<RsvpForm
+			v-bind:guests="guests"
+			v-bind:emailAddress="emailAddress"
+			v-bind:guestType="guestType"
+			 />
 		</div>
 	</div>
 </template>
@@ -28,6 +32,21 @@ export default {
 	},
 	mounted() {
 		window.onresize = () => location.reload();
+
+		const urlString = '{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}';
+		const parsedUrlString = JSON.parse(urlString);
+
+		this.guests = parsedUrlString.guests.split(', ');
+		this.emailAddress = parsedUrlString.emailAddress;
+		this.guestType = parsedUrlString.guestType;
+	},
+	data() {
+		return {
+			guests: [],
+			emailAddress: '',
+			guestType: '',
+			additionalDetails: '',
+		};
 	},
 };
 </script>
@@ -82,6 +101,11 @@ h3 {
 	font-weight: 900;
 	margin: 0;
 	text-transform: uppercase;
+}
+
+::selection {
+	background: black;
+	color: white;
 }
 
 #app {
