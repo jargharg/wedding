@@ -105,11 +105,11 @@ export default {
 .title {
 	filter: url('#turbulence');
 	text-align: center;
+	color: var(--title-color);
+	line-height: 0.8;
 
 	> span {
 		display: block;
-		color: var(--title-color);
-		line-height: 0.8;
 	}
 
 	.h-and-j {
@@ -138,8 +138,12 @@ export default {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		height: 100vh;
 		justify-content: center;
 		mix-blend-mode: difference;
+		position: sticky;
+		top: 0;
+		width: 100%;
 	}
 }
 </style>

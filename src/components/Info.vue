@@ -5,31 +5,38 @@
 		</h2>
 
 		<ul class="info__grid">
-			<li class="info__grid__cell">
+			<li class="info__cell">
 				<h3 class="info__grid__title">Location</h3>
-				HOME, Manchester <br />
-				Address
+				HOME, <br />
+				<a href="https://goo.gl/maps/d88LG3KAt4vfNoRJ6" target="_blank">
+					2 Tony Wilson Place, <br />
+					Manchester
+				</a>
 			</li>
 
-			<li class="info__grid__cell">
+			<li class="info__cell">
 				<h3 class="info__grid__title">Timings</h3>
 				Ceremony 4pm <br />
 				Reception etc til 1am
 			</li>
 
-			<li class="info__grid__cell">
+			<li class="info__cell">
 				<h3 class="info__grid__title">Accomodation</h3>
 			</li>
 
-			<li class="info__grid__cell">
+			<li class="info__cell">
 				<h3 class="info__grid__title">Transport</h3>
+				HOME is right by Deansgate tram stop, round the corner from Oxford Road
+				station and a short walk/even shorter taxi ride from Piccadilly. <br />
+				There's parking close by at
+				<a href="https://goo.gl/maps/wf9BUMMjgDFnP27h8" target="_blank">First Street car park</a>.
 			</li>
 
-			<li class="info__grid__cell">
+			<li class="info__cell">
 				<h3 class="info__grid__title">Food</h3>
 			</li>
 
-			<li class="info__grid__cell">
+			<li class="info__cell">
 				<h3 class="info__grid__title">Owt Else?</h3>
 			</li>
 		</ul>
@@ -108,13 +115,17 @@ export default {
 			font-size: var(--font-size-subheader);
 			padding-bottom: 0.3em;
 		}
+	}
 
-		&__cell {
-			font-size: var(--font-size-content-small);
-			padding-bottom: var(--padding-content);
-			min-height: 200px;
-			border-bottom: 1px solid var(--color-inverse);
-		}
+	&__cell {
+		font-size: var(--font-size-content-small);
+		padding-bottom: var(--padding-content);
+		min-height: 200px;
+		border-bottom: 1px solid var(--color-inverse);
+	}
+
+	a {
+		color: inherit;
 	}
 }
 </style>

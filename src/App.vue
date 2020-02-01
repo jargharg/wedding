@@ -48,8 +48,6 @@ export default {
 	--padding-section: 1rem;
 	--rsvp-position: 1rem;
 	--rsvp-size: 15vh;
-	--slide-height: 100vh;
-	--slide-width: 100vw;
 
 	@media screen and (max-width: 600px) {
 		--font-size-content: 1.2rem;
@@ -88,13 +86,5 @@ h3 {
 
 #app {
 	background: var(--color-main);
-}
-
-.slide {
-	height: var(--slide-height);
-	margin: 0;
-	position: sticky;
-	top: 0;
-	width: var(--slide-width);
 }
 </style>
