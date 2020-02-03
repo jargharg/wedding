@@ -8,13 +8,8 @@ class ScrollListener {
 			const action = this.actions[i];
 
 			if (action.type === 'progress') {
-				if (
-					this.lastScrollY >= action.startY &&
-					this.lastScrollY <= action.endY
-				) {
-					action.actionToProgress(
-						(this.lastScrollY - action.startY) / action.distanceY,
-					);
+				if (this.lastScrollY >= action.startY && this.lastScrollY <= action.endY) {
+					action.actionToProgress((this.lastScrollY - action.startY) / action.distanceY);
 				} else {
 					action.actionToProgress(this.lastScrollY < action.startY ? 0 : 1);
 				}

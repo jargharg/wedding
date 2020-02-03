@@ -51,6 +51,7 @@ export default {
 
 <style scoped lang="scss">
 .rsvp-button {
+	animation: rotate 10s infinite linear;
 	background-color: transparent;
 	background-image: url('/rsvp-white.png');
 	background-position: center;
@@ -68,7 +69,6 @@ export default {
 	transform-origin: center center;
 	width: var(--rsvp-size);
 	z-index: 999;
-	animation: rotate 10s infinite linear;
 }
 
 @keyframes rotate {

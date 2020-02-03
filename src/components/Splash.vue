@@ -47,9 +47,7 @@ import ScrollListener from '@/services/ScrollListener';
 export default {
 	name: 'Splash',
 	data() {
-		return {
-			date: '12·09·20',
-		};
+		return { date: '12·09·20' };
 	},
 	mounted() {
 		const { offsetTop } = this.$el;

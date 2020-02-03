@@ -26,8 +26,8 @@
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Transport</h3>
-				HOME is right by Deansgate tram stop, round the corner from Oxford Road
-				station and a short walk/even shorter taxi ride from Piccadilly. <br />
+				HOME is right by Deansgate tram stop, round the corner from Oxford Road station and
+				a short walk/even shorter taxi ride from Piccadilly. <br />
 				There's parking close by at
 				<a href="https://goo.gl/maps/wf9BUMMjgDFnP27h8" target="_blank"
 					>First Street car park</a
@@ -66,9 +66,7 @@ export default {
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue(
-				'--color-main',
-			);
+			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-main');
 
 			gsap.set(this.$refs.info, { opacity: 0 });
 

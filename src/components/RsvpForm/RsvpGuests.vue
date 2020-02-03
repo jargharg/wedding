@@ -16,10 +16,10 @@
 				:id="`name${index}`"
 				:placeholder="`Guest Name ${index + 1}`"
 				class="rsvp-guest__name"
-				name="entry.1042661726"
 				required
 				type="text"
-				v-model="guest.name"
+				:value="guest.name"
+				@input="updateGuest"
 			/>
 
 			<div class="rsvp-guest__attending">
@@ -28,8 +28,8 @@
 					:name="`attending${index}`"
 					required
 					type="radio"
-					v-model="guest.attending"
-					value="Yes"
+					:value="guest.attending"
+					@input="updateGuest"
 				/>
 
 				<label :for="`rsvpYes${index}`">
@@ -41,8 +41,8 @@
 					:name="`attending${index}`"
 					required
 					type="radio"
-					v-model="guest.attending"
-					value="No"
+					:value="guest.attending"
+					@input="updateGuest"
 				/>
 
 				<label :for="`rsvpNo${index}`">
@@ -54,11 +54,28 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
 	name: 'RsvpGuest',
-	props: {
-		guests: Array,
-		label: String,
+	computed: {
+		...mapState({
+			guests: ({ formValues }) => formValues.guests,
+		}),
+	},
+	methods: {
+		updateGuest(e) {
+			console.log(e);
+
+			const { value, type, id } = e.target;
+			const index = +id.slice(-1);
+
+			if (type === 'radio') {
+				this.$store.commit('updateGuestAttending', { index, attending: value });
+			} else {
+				this.$store.commit('updateGuestName', { index, name: value });
+			}
+		},
 	},
 };
 </script>
@@ -68,6 +85,11 @@ export default {
 	--width-guests: 70%;
 	--width-attending: 30%;
 
+	@media screen and (max-width: 600px) {
+		--width-guests: 60%;
+		--width-attending: 40%;
+	}
+
 	&__header {
 		font-family: var(--font-header);
 		font-size: var(--font-size-subheader);
@@ -75,6 +97,10 @@ export default {
 		font-weight: 900;
 		margin-bottom: 0.5rem;
 		text-transform: uppercase;
+
+		@media screen and (max-width: 600px) {
+			padding-left: 0.5rem;
+		}
 
 		label {
 			display: inline-block;
@@ -99,15 +125,21 @@ export default {
 	&__name {
 		background: transparent;
 		border: none;
+		border-left: 1px dashed var(--color-form-inverse);
 		border-bottom: 1px dashed var(--color-form-inverse);
 		color: var(--color-form-inverse);
 		flex: 1;
 		font-size: var(--font-size-content-small);
 		outline: none;
-		padding: var(--padding-content);
+		padding: 0.5rem;
+
+		@media screen and (max-width: 600px) {
+			border-left: none;
+			font-size: 1rem;
+		}
 
 		&:focus {
-			outline: 2px solid var(--color-inverse);
+			outline: 2px solid var(--color-form-inverse);
 			outline-offset: -1px;
 		}
 
@@ -148,13 +180,13 @@ export default {
 			width: 0;
 
 			&:focus + label {
-				outline: 2px solid var(--color-inverse);
+				outline: 2px solid var(--color-form-inverse);
 				outline-offset: -1px;
 			}
 
 			&:checked + label {
 				background: var(--color-form-inverse);
-				color: var(--color-form-main-text);
+				color: var(--color-form-main);
 			}
 		}
 	}

@@ -45,19 +45,25 @@ export default {
 		font-weight: 900;
 		margin: 0;
 		text-transform: uppercase;
+
+		@media screen and (max-width: 600px) {
+			padding-left: 0.5rem;
+		}
 	}
 
 	&__input {
 		background: transparent;
 		border: none;
+		border-left: 1px dashed var(--color-form-inverse);
 		border-bottom: 1px dashed var(--color-form-inverse);
 		color: var(--color-form-inverse);
 		font-size: var(--font-size-content-small);
-		padding: var(--padding-content);
+		padding: 0.5rem;
 		outline: none;
 		width: 100%;
 
 		@media screen and (max-width: 600px) {
+			border-left: none;
 			font-size: 1rem;
 		}
 

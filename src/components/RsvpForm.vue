@@ -6,20 +6,20 @@
 
 		<div class="rsvp__form__container">
 			<form class="rsvp__form" ref="rsvpForm" @submit="submitForm">
-				<RsvpGuest :label="'Guests'" :guests="formValues.guests" />
+				<RsvpGuests />
 
 				<RsvpText
 					:autocomplete="true"
-					:value="formValues.emailAddress"
+					:value="emailAddress"
 					id="emailAddress"
-					label="Main Email Address"
+					label="Email"
 					placeholder="email@address.com"
 					type="email"
 				/>
 
 				<RsvpText
 					:autocomplete="false"
-					:value="formValues.additionalDetails"
+					:value="additionalDetails"
 					id="additionalDetails"
 					label="Anything else you want to say?"
 					placeholder="Dietary requirements, excuses, well wishes..."
@@ -30,7 +30,10 @@
 			</form>
 
 			<div ref="submitted" class="rsvp__submitted">
-				<img src="/thumpsup.webp" alt="Thanks!" />
+				<img class="rsvp__submitted__image" src="/thumpsup.webp" alt="Thanks!" />
+				<caption class="rsvp__submitted__caption">
+					Got it, thanks!
+				</caption>
 			</div>
 		</div>
 	</section>
@@ -39,20 +42,15 @@
 <script>
 import ScrollListener from '@/services/ScrollListener';
 import gsap from 'gsap';
-import RsvpGuest from './RsvpForm/RsvpGuest';
+import RsvpGuests from './RsvpForm/RsvpGuests';
 import RsvpText from './RsvpForm/RsvpText';
-import store from './../store';
+import { mapState } from 'vuex';
 
 export default {
 	name: 'RsvpForm',
 	components: {
-		RsvpGuest,
+		RsvpGuests,
 		RsvpText,
-	},
-	props: {
-		guests: Array,
-		emailAddress: String,
-		guestType: String,
 	},
 	data() {
 		return {
@@ -69,16 +67,10 @@ export default {
 			},
 		};
 	},
-	computed: {
-		formValues() {
-			return {
-				guests: store.state.formValues.guests,
-				emailAddress: store.state.formValues.emailAddress,
-				guestType: store.state.formValues.guestType,
-				additionalDetails: '',
-			};
-		},
-	},
+	computed: mapState({
+		emailAddress: ({ formValues }) => formValues.emailAddress,
+		additionalDetails: ({ formValues }) => formValues.additionalDetails,
+	}),
 	mounted() {
 		this.setBackgroundAnimation();
 		this.setFormSubmitAnimation();
@@ -129,24 +121,12 @@ export default {
 				})
 				.pause();
 		},
-		getFormUrl() {
-			const { guests, emailAddress, additionalDetails, guestType } = this.formValues;
-			const { fieldNames } = this.form;
-			const fields = {
-				[fieldNames.names]: guests.map(guest => guest.name).join(', '),
-				[fieldNames.rsvps]: guests.map(guest => guest.attending).join(', '),
-				[fieldNames.emailAddress]: emailAddress,
-				[fieldNames.additionalDetails]: additionalDetails,
-				[fieldNames.guestType]: guestType,
-			};
-			console.log(fields);
-
-			return this.form.baseUrl;
-		},
 		submitForm(e) {
 			e.preventDefault();
+			e.stopImmediatePropagation();
 			this.formSubmitAnimation.play();
-			this.getFormUrl();
+			// this.getFormUrl();
+			console.log(this.$store.getters.formUrlEncoded);
 		},
 	},
 };
@@ -154,10 +134,13 @@ export default {
 
 <style lang="scss">
 .rsvp {
-	--color-form-main: var(--color-main);
-	--color-form-main-text: var(--color-main);
+	--color-caption-background: var(--color-inverse);
+	--color-caption-text: var(--color-main);
 	--color-form-inverse: var(--color-inverse);
+	--color-form-main-text: var(--color-main);
+	--color-form-main: var(--color-main);
 	--color-form-submit-text: var(--color-main);
+
 	color: var(--color-main);
 	display: flex;
 	flex-direction: column;
@@ -167,9 +150,9 @@ export default {
 	padding: var(--padding-section);
 
 	@media screen and (max-width: 600px) {
-		--color-form-main: transparent;
-		--color-form-main-text: var(--color-main);
 		--color-form-inverse: var(--color-main);
+		--color-form-main-text: var(--color-main);
+		--color-form-main: var(--color-inverse);
 		--color-form-submit-text: var(--color-inverse);
 	}
 
@@ -188,10 +171,8 @@ export default {
 		width: 100%;
 
 		@media screen and (max-width: 600px) {
-			box-shadow: none;
-			flex: 1;
-			height: 100%;
-			padding: 0;
+			border: 1px solid var(--color-form-inverse);
+			padding: 1rem 0 0;
 		}
 
 		&__container {
@@ -203,14 +184,14 @@ export default {
 				135deg,
 				transparent,
 				transparent 6px,
-				var(--color-form-main) 6px,
-				var(--color-form-main) 7px
+				var(--color-main) 6px,
+				var(--color-main) 7px
 			);
 
-			@media screen and (max-width: 600px) {
-				padding-top: 1rem;
-				flex: 0;
-			}
+			// @media screen and (max-width: 600px) {
+			// 	padding-top: 1rem;
+			// 	flex: 0;
+			// }
 		}
 	}
 
@@ -222,10 +203,35 @@ export default {
 		font-family: var(--font-header);
 		text-transform: uppercase;
 		font-size: 2rem;
+		outline: none;
+
+		&:focus {
+			outline: 2px solid var(--color-form-inverse);
+		}
 	}
 
 	&__submitted {
 		display: none;
+		padding: 1rem;
+		background: var(--color-caption-background);
+		border: 1px solid var(--color-caption-text);
+		width: 350px;
+		max-width: 100%;
+
+		&__image {
+			max-width: 100%;
+		}
+
+		&__caption {
+			color: var(--color-caption-text);
+			display: block;
+			font-family: var(--font-header);
+			font-size: var(--font-size-subheader);
+			margin-top: 1rem;
+			text-transform: uppercase;
+			width: 100%;
+			line-height: 0.8;
+		}
 	}
 }
 </style>

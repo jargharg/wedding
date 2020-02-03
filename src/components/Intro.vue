@@ -5,24 +5,21 @@
 		</h2>
 
 		<p class="intro__text">
-			Come join us at HOME, Manchester bla bla bla 4pm bla bla til 1am bla bla Lorem
-			ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere molestie
-			ante, in ultricies libero fermentum et. Duis vehicula lorem vulputate nulla
-			lobortis egestas.
+			Come join us at HOME, Manchester bla bla bla 4pm bla bla til 1am bla bla Lorem ipsum
+			dolor sit amet, consectetur adipiscing elit. Donec posuere molestie ante, in ultricies
+			libero fermentum et. Duis vehicula lorem vulputate nulla lobortis egestas.
 		</p>
 
 		<p class="intro__text">
-			Aenean at finibus velit. Cras bibendum, risus sit amet volutpat feugiat,
-			sapien elit scelerisque ante, sit amet condimentum arcu eros eget turpis.
-			Morbi ullamcorper consequat vulputate. Mauris luctus arcu non nisi varius
-			ultrices.
+			Aenean at finibus velit. Cras bibendum, risus sit amet volutpat feugiat, sapien elit
+			scelerisque ante, sit amet condimentum arcu eros eget turpis. Morbi ullamcorper
+			consequat vulputate. Mauris luctus arcu non nisi varius ultrices.
 		</p>
 
 		<p class="intro__text">
-			Suspendisse potenti. Pellentesque tempus ex odio, in commodo risus tincidunt
-			vel. Etiam eu pretium augue. Quisque sollicitudin mauris quis urna rhoncus, in
-			dictum orci euismod. Mauris at augue ultrices justo blandit mollis ac eget
-			dolor.
+			Suspendisse potenti. Pellentesque tempus ex odio, in commodo risus tincidunt vel. Etiam
+			eu pretium augue. Quisque sollicitudin mauris quis urna rhoncus, in dictum orci euismod.
+			Mauris at augue ultrices justo blandit mollis ac eget dolor.
 		</p>
 	</section>
 </template>
@@ -48,9 +45,7 @@ export default {
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue(
-				'--color-inverse',
-			);
+			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-inverse');
 
 			gsap.set(this.$refs.intro, { opacity: 0 });
 

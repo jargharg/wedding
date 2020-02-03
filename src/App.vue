@@ -5,7 +5,7 @@
 			<Splash />
 			<Intro />
 			<Info />
-			<RsvpForm :emailAddress="emailAddress" :guests="guests" :guestType="guestType" />
+			<RsvpForm />
 		</div>
 	</div>
 </template>
@@ -16,7 +16,6 @@ import Intro from './components/Intro.vue';
 import Info from './components/Info.vue';
 import RsvpForm from './components/RsvpForm.vue';
 import RsvpButton from './components/RsvpButton.vue';
-import store from './store';
 
 export default {
 	name: 'app',
@@ -28,19 +27,22 @@ export default {
 		RsvpButton,
 	},
 	mounted() {
-		window.onresize = () => location.reload();
+		this.innerWidth = window.innerWidth;
 
-		const paramString =
-			'{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}';
-		store.commit('setFormValuesFromParamString', paramString);
-	},
-	data() {
-		return {
-			guests: [],
-			emailAddress: '',
-			guestType: '',
-			additionalDetails: '',
+		window.onresize = () => {
+			if (window.innerWidth !== this.innerWidth) {
+				this.innerWidth === window.innerWidth;
+				location.reload();
+			}
 		};
+
+		const params =
+			// 'eyJndWVzdHMiOiAiSmFyb2QgSGFyZ3JlYXZlcywgSGFubmFoIExlbmRydW0iLCAiZW1h' +
+			// 'aWxBZGRyZXNzIjogImphcm9kQGhhbm5haC5jb20iLCAiZ3Vlc3RUeXBlIjogImRheSJ9';
+			btoa(
+				'{"guests": "Jarod Hargreaves, Hannah Lendrum, Vito Corleone, Nico Lendrum-Hargreaves", "emailAddress": "jarod@hannah.com", "guestType": "day"}',
+			);
+		this.$store.commit('setFormValuesFromParams', params);
 	},
 };
 </script>
@@ -98,8 +100,8 @@ h3 {
 }
 
 ::selection {
-	background: black;
-	color: white;
+	background: white;
+	color: black;
 }
 
 #app {
