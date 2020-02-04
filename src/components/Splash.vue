@@ -72,12 +72,12 @@ export default {
 					ease: 'power2.out',
 					// duration: 10,
 				})
-				// .to(this.$refs.title, {
-				// 	opacity: 0,
-				// 	duration: 4,
-				// 	delay: -7,
-				// 	ease: 'power1.out',
-				// })
+				.to(this.$refs.title, {
+					opacity: 0,
+					duration: 4,
+					delay: -4,
+					ease: 'power1.out',
+				})
 				.pause();
 		},
 	},
