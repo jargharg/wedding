@@ -15,33 +15,37 @@ export default new Vuex.Store({
 	mutations: {
 		setFormValuesFromParams(state, params) {
 			const parsedParams = JSON.parse(atob(params));
-
-			state.formValues.emailAddress = parsedParams.emailAddress;
-			state.formValues.guestType = parsedParams.guestType;
-			state.formValues.guests = parsedParams.guests
+			const mappedGuests = parsedParams.guests
 				.split(', ')
 				.map(name => ({ name: name, attending: null }));
+
+			Vue.set(state.formValues, 'emailAddress', parsedParams.emailAddress);
+			Vue.set(state.formValues, 'guestType', parsedParams.guestType);
+			Vue.set(state.formValues, 'guests', mappedGuests);
 		},
 		updateFormValues(state, formValues) {
-			state.formValues = { ...formValues };
+			Vue.set(state, 'formValues', formValues);
 		},
 		updateGuestName(state, { index, name }) {
-			state.formValues.guests[index] = { ...state.formValues.guests[index], name };
+			Vue.set(state.formValues.guests, index, { ...state.formValues.guests[index], name });
 		},
 		updateGuestAttending(state, { index, attending }) {
-			state.formValues.guests[index] = { ...state.formValues.guests[index], attending };
+			Vue.set(state.formValues.guests, index, {
+				...state.formValues.guests[index],
+				attending,
+			});
 		},
 		updateGuests(state, guests) {
-			state.formValues.guests = guests;
+			Vue.set(state.formValues, 'guests', guests);
 		},
 		updateEmailAddress(state, emailAddress) {
-			state.formValues.emailAddress = emailAddress;
+			Vue.set(state.formValues, 'emailAddress', emailAddress);
 		},
 		updateGuestType(state, guestType) {
-			state.formValues.guestType = guestType;
+			Vue.set(state.formValues, 'guestType', guestType);
 		},
 		updateAdditionalDetails(state, additionalDetails) {
-			state.formValues.additionalDetails = additionalDetails;
+			Vue.set(state.formValues, 'additionalDetails', additionalDetails);
 		},
 	},
 	actions: {},

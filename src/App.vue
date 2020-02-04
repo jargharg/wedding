@@ -40,7 +40,7 @@ export default {
 			// 'eyJndWVzdHMiOiAiSmFyb2QgSGFyZ3JlYXZlcywgSGFubmFoIExlbmRydW0iLCAiZW1h' +
 			// 'aWxBZGRyZXNzIjogImphcm9kQGhhbm5haC5jb20iLCAiZ3Vlc3RUeXBlIjogImRheSJ9';
 			btoa(
-				'{"guests": "Jarod Hargreaves, Hannah Lendrum, Vito Corleone, Nico Lendrum-Hargreaves", "emailAddress": "jarod@hannah.com", "guestType": "day"}',
+				'{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}',
 			);
 		this.$store.commit('setFormValuesFromParams', params);
 	},

@@ -28,8 +28,9 @@
 					:name="`attending${index}`"
 					required
 					type="radio"
-					:value="guest.attending"
-					@input="updateGuest"
+					value="Yes"
+					:checked="guest.attending === 'Yes'"
+					@change="updateGuest"
 				/>
 
 				<label :for="`rsvpYes${index}`">
@@ -41,8 +42,9 @@
 					:name="`attending${index}`"
 					required
 					type="radio"
-					:value="guest.attending"
-					@input="updateGuest"
+					value="No"
+					:checked="guest.attending === 'No'"
+					@change="updateGuest"
 				/>
 
 				<label :for="`rsvpNo${index}`">
@@ -65,10 +67,11 @@ export default {
 	},
 	methods: {
 		updateGuest(e) {
-			console.log(e);
-
 			const { value, type, id } = e.target;
 			const index = +id.slice(-1);
+
+			console.log(index);
+
 
 			if (type === 'radio') {
 				this.$store.commit('updateGuestAttending', { index, attending: value });
