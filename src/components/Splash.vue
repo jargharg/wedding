@@ -70,14 +70,14 @@ export default {
 				.to(this.$refs.turbScale, {
 					attr: { scale: 100 },
 					ease: 'power2.out',
-					duration: 10,
+					// duration: 10,
 				})
-				.to(this.$refs.title, {
-					opacity: 0,
-					duration: 4,
-					delay: -7,
-					ease: 'power1.out',
-				})
+				// .to(this.$refs.title, {
+				// 	opacity: 0,
+				// 	duration: 4,
+				// 	delay: -7,
+				// 	ease: 'power1.out',
+				// })
 				.pause();
 		},
 	},
@@ -89,7 +89,6 @@ export default {
 	--date-size: 6.8vw;
 	--get-married-size: 5.5vw;
 	--hj-size: 5.5vw;
-	--title-color: white;
 	height: 200vh;
 	margin-bottom: -100vh;
 	position: relative;
@@ -104,7 +103,7 @@ export default {
 .title {
 	filter: url('#turbulence');
 	text-align: center;
-	color: var(--title-color);
+	color: var(--color-inverse);
 	line-height: 0.8;
 
 	> span {
@@ -121,7 +120,7 @@ export default {
 	}
 
 	.date {
-		-webkit-text-stroke: 1px var(--title-color);
+		-webkit-text-stroke: 1px var(--color-inverse);
 		color: transparent;
 		font-size: var(--date-size);
 
@@ -139,7 +138,6 @@ export default {
 		flex-direction: column;
 		height: 100vh;
 		justify-content: center;
-		mix-blend-mode: difference;
 		position: sticky;
 		top: 0;
 		width: 100%;
