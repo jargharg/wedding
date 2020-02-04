@@ -11,6 +11,7 @@
 				<RsvpText
 					:autocomplete="true"
 					:value="emailAddress"
+					@updated="updateEmailAddress"
 					id="emailAddress"
 					label="Email"
 					placeholder="email@address.com"
@@ -20,6 +21,7 @@
 				<RsvpText
 					:autocomplete="false"
 					:value="additionalDetails"
+					@updated="updateAdditionalDetails"
 					id="additionalDetails"
 					label="Anything else you want to say?"
 					placeholder="Dietary requirements, excuses, well wishes..."
@@ -73,7 +75,6 @@ export default {
 	}),
 	mounted() {
 		this.setBackgroundAnimation();
-		this.setFormSubmitAnimation();
 
 		const { offsetTop } = this.$el;
 		ScrollListener.addAction({
@@ -104,29 +105,41 @@ export default {
 				})
 				.pause();
 		},
-		setFormSubmitAnimation() {
-			this.formSubmitAnimation = gsap
+		playFormSubmitAnimation() {
+			return gsap
 				.timeline()
 				.to(this.$refs.rsvpForm, {
 					scale: 0,
 					ease: 'back.in',
 					duration: 0.5,
 				})
-				.set(this.$refs.rsvpForm, { display: 'none' })
+				.set(this.$refs.rsvpForm, { display: 'none' });
+		},
+		playFormSubmitSuccessAnimation() {
+			return gsap
+				.timeline()
 				.set(this.$refs.submitted, { display: 'block', scale: 0 })
 				.to(this.$refs.submitted, {
 					scale: 1,
 					ease: 'back.out',
 					duration: 0.5,
-				})
-				.pause();
+				});
 		},
-		submitForm(e) {
+		async submitForm(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			this.formSubmitAnimation.play();
-			// this.getFormUrl();
-			console.log(this.$store.getters.formUrlEncoded);
+			this.playFormSubmitAnimation().then(() => this.playFormSubmitSuccessAnimation());
+
+			fetch(this.$store.getters.formUrlEncoded, {
+				mode: 'no-cors',
+				method: 'POST',
+			});
+		},
+		updateEmailAddress(e) {
+			this.$store.commit('updateEmailAddress', e.target.value);
+		},
+		updateAdditionalDetails(e) {
+			this.$store.commit('updateAdditionalDetails', e.target.value);
 		},
 	},
 };

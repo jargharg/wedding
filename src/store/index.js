@@ -51,8 +51,6 @@ export default new Vuex.Store({
 	actions: {},
 	getters: {
 		formUrlEncoded: state => {
-			console.log(state);
-
 			const form = {
 				baseUrl:
 					'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAPLkA1YAVkFCAgIt7YlM1SUVIcYTZhhTKIXif9d9nciEd6Q/formResponse',
@@ -64,7 +62,6 @@ export default new Vuex.Store({
 					guestType: 'entry.442594185',
 				},
 			};
-			console.log(state);
 
 			const { guests, emailAddress, additionalDetails, guestType } = state.formValues;
 
@@ -76,7 +73,13 @@ export default new Vuex.Store({
 				[form.fieldNames.guestType]: guestType,
 			};
 
-			return fields;
+			const params = Object.entries(fields).reduce((acc, [fieldName, value]) => {
+				return `${acc}&${fieldName}=${value}`;
+			}, '');
+
+			const url = encodeURI(`${form.baseUrl}?${params}`);
+
+			return url;
 		},
 	},
 });

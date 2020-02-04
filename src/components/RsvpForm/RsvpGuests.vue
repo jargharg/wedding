@@ -70,15 +70,12 @@ export default {
 			const { value, type, id } = e.target;
 			const index = +id.slice(-1);
 
-			console.log(index);
-
-
 			if (type === 'radio') {
 				this.$store.commit('updateGuestAttending', { index, attending: value });
 			} else {
 				this.$store.commit('updateGuestName', { index, name: value });
 			}
-		},
+		}
 	},
 };
 </script>

@@ -12,6 +12,7 @@
 			:type="type"
 			:value="value"
 			:autocomplete="autocomplete"
+			@input="updated"
 		/>
 	</div>
 </template>
@@ -20,13 +21,19 @@
 export default {
 	name: 'RsvpText',
 	props: {
+		autocomplete: Boolean,
+		id: String,
 		label: String,
 		placeholder: String,
-		value: String,
-		id: String,
 		type: String,
-		autocomplete: Boolean,
+		updateAction: Function,
+		value: String,
 	},
+	methods: {
+		updated() {
+			this.$emit('updated', event);
+		}
+	}
 };
 </script>
 
