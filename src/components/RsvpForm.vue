@@ -32,7 +32,7 @@
 			</form>
 
 			<div ref="submitted" class="rsvp__submitted">
-				<img class="rsvp__submitted__image" src="/thumpsup.webp" alt="Thanks!" />
+				<img class="rsvp__submitted__image" src="/thumbsup.webp" alt="Thanks!" />
 				<caption class="rsvp__submitted__caption">
 					Got it, thanks!
 				</caption>
@@ -128,11 +128,14 @@ export default {
 		async submitForm(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
+
 			this.playFormSubmitAnimation().then(() => this.playFormSubmitSuccessAnimation());
 
-			fetch(this.$store.getters.formUrlEncoded, {
-				mode: 'no-cors',
+			fetch('/api/postToGoogleForm', {
 				method: 'POST',
+				body: {...this.$store.state.formValues},
+			}).then(response => {
+				console.log('ok!!! posted!!');
 			});
 		},
 		updateEmailAddress(e) {

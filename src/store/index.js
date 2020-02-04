@@ -49,37 +49,4 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {},
-	getters: {
-		formUrlEncoded: state => {
-			const form = {
-				baseUrl:
-					'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAPLkA1YAVkFCAgIt7YlM1SUVIcYTZhhTKIXif9d9nciEd6Q/formResponse',
-				fieldNames: {
-					names: 'entry.1042661726',
-					rsvps: 'entry.187353647',
-					emailAddress: 'entry.1024004482',
-					additionalDetails: 'entry.511653375',
-					guestType: 'entry.442594185',
-				},
-			};
-
-			const { guests, emailAddress, additionalDetails, guestType } = state.formValues;
-
-			const fields = {
-				[form.fieldNames.names]: guests.map(guest => guest.name).join(', '),
-				[form.fieldNames.rsvps]: guests.map(guest => guest.attending).join(', '),
-				[form.fieldNames.emailAddress]: emailAddress,
-				[form.fieldNames.additionalDetails]: additionalDetails,
-				[form.fieldNames.guestType]: guestType,
-			};
-
-			const params = Object.entries(fields).reduce((acc, [fieldName, value]) => {
-				return `${acc}&${fieldName}=${value}`;
-			}, '');
-
-			const url = encodeURI(`${form.baseUrl}?${params}`);
-
-			return url;
-		},
-	},
 });
