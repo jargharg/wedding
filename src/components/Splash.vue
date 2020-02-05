@@ -20,7 +20,7 @@
 			</h1>
 		</header>
 
-		<svg display="none">
+		<svg v-if="!isSafari" display="none">
 			<filter id="turbulence">
 				<feTurbulence
 					type="fractalNoise"
@@ -47,7 +47,10 @@ import ScrollListener from '@/services/ScrollListener';
 export default {
 	name: 'Splash',
 	data() {
-		return { date: '12·09·20' };
+		return {
+			date: '12·09·20',
+			isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
+		};
 	},
 	mounted() {
 		const { offsetTop } = this.$el;
@@ -65,13 +68,16 @@ export default {
 	},
 	methods: {
 		setWarpAnimation() {
+			// todo fix svg filter for safari
 			this.warpAnimation = gsap.timeline();
-			this.warpAnimation
-				.to(this.$refs.turbScale, {
+			if (!this.isSafari) {
+				this.warpAnimation.to(this.$refs.turbScale, {
 					attr: { scale: 100 },
 					ease: 'power2.out',
-					// duration: 10,
-				})
+					duration: 10,
+				});
+			}
+			this.warpAnimation
 				.to(this.$refs.title, {
 					opacity: 0,
 					duration: 4,
