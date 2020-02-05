@@ -106,14 +106,15 @@ export default {
 				.pause();
 		},
 		playFormSubmitAnimation() {
-			return gsap
-				.timeline()
-				.to(this.$refs.rsvpForm, {
-					scale: 0,
-					ease: 'back.in',
-					duration: 0.5,
-				})
-				.set(this.$refs.rsvpForm, { display: 'none' });
+			return new Promise(resolve => {
+				gsap.timeline()
+					.to(this.$refs.rsvpForm, {
+						scale: 0,
+						ease: 'back.in',
+						duration: 0.5,
+					})
+					.set(this.$refs.rsvpForm, { display: 'none', onComplete: resolve });
+			});
 		},
 		playFormSubmitSuccessAnimation() {
 			return gsap
@@ -128,15 +129,27 @@ export default {
 		async submitForm(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
+			const { emailAddress, additionalDetails, guestType } = this.$store.state.formValues;
 
-			this.playFormSubmitAnimation().then(() => this.playFormSubmitSuccessAnimation());
+			const promises = [this.playFormSubmitAnimation()];
 
-			fetch('/api/postToGoogleForm', {
-				method: 'POST',
-				body: {...this.$store.state.formValues},
-			}).then(response => {
-				console.log('ok!!! posted!!');
+			this.$store.state.formValues.guests.forEach(guest => {
+				const request = fetch('https://hannah.jarod.wedding/api/postToGoogleForm', {
+					method: 'POST',
+					headers: new Headers({ 'Content-Type': 'application/json' }),
+					body: JSON.stringify({ guest, emailAddress, additionalDetails, guestType }),
+				});
+				promises.push(request);
 			});
+
+			const results = await Promise.all(promises.map(p => p.catch(e => e)));
+			const invalidResults = results.filter(result => result instanceof Error);
+
+			if (invalidResults.length === 0) {
+				this.playFormSubmitSuccessAnimation();
+			} else {
+				// @TODO: error handling
+			}
 		},
 		updateEmailAddress(e) {
 			this.$store.commit('updateEmailAddress', e.target.value);

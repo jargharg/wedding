@@ -48,5 +48,4 @@ export default new Vuex.Store({
 			Vue.set(state.formValues, 'additionalDetails', additionalDetails);
 		},
 	},
-	actions: {},
 });
