@@ -2,8 +2,9 @@ const functions = require('firebase-functions');
 const request = require('request');
 
 exports.postToGoogleForm = functions.https.onRequest(({ body, method }, response) => {
-	response.set('Access-Control-Allow-Origin', '*');
+	response.set('Access-Control-Allow-Origin', 'http://localhost:8080');
 	response.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+	response.set('Access-Control-Allow-Headers', 'Content-Type');
 
 	if (method === 'OPTIONS') {
 		response.end();
@@ -14,9 +15,13 @@ exports.postToGoogleForm = functions.https.onRequest(({ body, method }, response
 
 	const missingFields = [];
 
-	if (!guest) missingFields.push('guest');
-	if (!guest.name) missingFields.push('guest.name');
-	if (!guest.attending) missingFields.push('guest.attending');
+	if (!guest) {
+		missingFields.push('guest');
+	} else {
+		if (!guest.name) missingFields.push('guest.name');
+		if (!guest.attending) missingFields.push('guest.attending');
+	}
+
 	if (!emailAddress) missingFields.push('emailAddress');
 
 	if (missingFields.length) {
