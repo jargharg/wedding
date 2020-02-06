@@ -114,6 +114,7 @@ export default {
 						duration: 0.5,
 					})
 					.set(this.$refs.rsvpForm, { display: 'none', onComplete: resolve });
+					// @TODO add repeating loading animation
 			});
 		},
 		playFormSubmitSuccessAnimation() {
@@ -147,6 +148,7 @@ export default {
 
 			if (invalidResults.length === 0) {
 				this.playFormSubmitSuccessAnimation();
+				// @TODO store in local storage / cookies that form has been submitted
 			} else {
 				// @TODO: error handling
 			}

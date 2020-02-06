@@ -1,7 +1,7 @@
 <template>
 	<section ref="info" class="info">
 		<h2 class="info__title">
-			All the details...
+			All the details
 		</h2>
 
 		<ul class="info__grid">
@@ -16,6 +16,7 @@
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Timings</h3>
+				Arrive at 3:30<br />
 				Ceremony 4pm <br />
 				Reception etc til 1am
 			</li>
@@ -36,10 +37,12 @@
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Food</h3>
+				All food will be vegetarian with some vegan options. Please let us know if you have
+				any specific dietary needs and we'll try our best to accomodate.
 			</li>
 
 			<li class="info__cell">
-				<h3 class="info__cell__title">Owt Else?</h3>
+				<h3 class="info__cell__title">Contact Details</h3>
 			</li>
 		</ul>
 	</section>
