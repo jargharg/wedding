@@ -38,7 +38,7 @@
 			<li class="info__cell">
 				<h3 class="info__cell__title">Food</h3>
 				All food will be vegetarian with some vegan options. Please let us know if you have
-				any specific dietary needs and we'll try our best to accomodate.
+				any specific dietary needs and we'll do our best to accomodate.
 			</li>
 
 			<li class="info__cell">

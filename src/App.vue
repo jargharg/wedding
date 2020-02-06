@@ -44,7 +44,7 @@ export default {
 			// 'eyJndWVzdHMiOiAiSmFyb2QgSGFyZ3JlYXZlcywgSGFubmFoIExlbmRydW0iLCAiZW1h' +
 			// 'aWxBZGRyZXNzIjogImphcm9kQGhhbm5haC5jb20iLCAiZ3Vlc3RUeXBlIjogImRheSJ9';
 			btoa(
-				'{"guests": "Jarod Hargreaves, Hannah Lendrum", "emailAddress": "jarod@hannah.com", "guestType": "day"}',
+				'{"guests": "Test Testerson, French Man", "emailAddress": "jimbob@gondola.com", "guestType": "day"}',
 			);
 		this.$store.commit('setFormValuesFromParams', params);
 	},
@@ -100,7 +100,9 @@ section {
 
 h1,
 h2,
-h3 {
+h3,
+button,
+input[type=button] {
 	font-family: var(--font-header);
 	font-style: italic;
 	font-weight: 900;

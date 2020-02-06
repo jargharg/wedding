@@ -28,11 +28,16 @@
 					type="text"
 				/>
 
-				<button class="rsvp__submit">Submit</button>
+				<input type="button" value="Submit" class="rsvp__submit">
 			</form>
 
 			<div ref="submitted" class="rsvp__submitted">
-				<img class="rsvp__submitted__image" src="/thumbsup.webp" alt="Thanks!" />
+				<picture>
+					<source srcset="/thumbsup.webp" type="image/webp" />
+					<source srcset="/thumbsup.gif" type="image/gif" />
+					<img class="rsvp__submitted__image" src="/thumbsup.gif" alt="Thumbs up!" />
+				</picture>
+
 				<caption class="rsvp__submitted__caption">
 					Got it, thanks!
 				</caption>
@@ -114,7 +119,7 @@ export default {
 						duration: 0.5,
 					})
 					.set(this.$refs.rsvpForm, { display: 'none', onComplete: resolve });
-					// @TODO add repeating loading animation
+				// @TODO add repeating loading animation
 			});
 		},
 		playFormSubmitSuccessAnimation() {
@@ -227,14 +232,15 @@ export default {
 	}
 
 	&__submit {
+		-webkit-appearance: button;
 		background: var(--color-form-inverse);
 		border: none;
-		padding: 0.3em 1em;
 		color: var(--color-form-submit-text);
-		font-family: var(--font-header);
-		text-transform: uppercase;
 		font-size: 2rem;
+		margin: 0;
 		outline: none;
+		padding: 0.3em 1em;
+		text-transform: uppercase;
 
 		&:focus {
 			outline: 2px solid var(--color-form-inverse);
@@ -259,6 +265,8 @@ export default {
 			font-family: var(--font-header);
 			font-size: var(--font-size-subheader);
 			margin-top: 1rem;
+			font-style: italic;
+			font-weight: 900;
 			text-transform: uppercase;
 			width: 100%;
 			line-height: 0.8;

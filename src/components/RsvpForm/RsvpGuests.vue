@@ -131,6 +131,7 @@ export default {
 		color: var(--color-form-inverse);
 		flex: 1;
 		font-size: var(--font-size-content-small);
+		height: 100%;
 		outline: none;
 		padding: 0.5rem;
 
