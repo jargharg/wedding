@@ -118,7 +118,7 @@ export default {
 		width: 100%;
 		grid-template-columns: 1fr 1fr 1fr;
 		list-style: none;
-		padding: var(--padding-content);
+		padding: 0;
 
 		@media screen and (max-width: 800px) {
 			grid-template-columns: 1fr 1fr;
