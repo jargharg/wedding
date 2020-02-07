@@ -28,8 +28,12 @@
 					type="text"
 				/>
 
-				<input type="button" value="Submit" class="rsvp__submit">
+				<input type="submit" value="Send RSVP" class="rsvp__submit" />
 			</form>
+
+			<div ref="submitting" class="rsvp__submitting">
+				<h3>Submitting...</h3>
+			</div>
 
 			<div ref="submitted" class="rsvp__submitted">
 				<picture>
@@ -111,20 +115,22 @@ export default {
 				.pause();
 		},
 		playFormSubmitAnimation() {
-			return new Promise(resolve => {
-				gsap.timeline()
-					.to(this.$refs.rsvpForm, {
-						scale: 0,
-						ease: 'back.in',
-						duration: 0.5,
-					})
-					.set(this.$refs.rsvpForm, { display: 'none', onComplete: resolve });
-				// @TODO add repeating loading animation
-			});
+			return gsap
+				.timeline()
+				.to(this.$refs.rsvpForm, {
+					scale: 0,
+					ease: 'back.in',
+					duration: 0.5,
+				})
+				.set(this.$refs.rsvpForm, { display: 'none' })
+				.set(this.$refs.submitting, { display: 'block', scale: 0 })
+				.to(this.$refs.submitting, { scale: 1, duration: 0.2 });
 		},
 		playFormSubmitSuccessAnimation() {
 			return gsap
 				.timeline()
+				.to(this.$refs.submitting, { scale: 0, duration: 0.2 })
+				.set(this.$refs.submitting, { display: 'none' })
 				.set(this.$refs.submitted, { display: 'block', scale: 0 })
 				.to(this.$refs.submitted, {
 					scale: 1,
@@ -137,16 +143,15 @@ export default {
 			e.stopImmediatePropagation();
 			const { emailAddress, additionalDetails, guestType } = this.$store.state.formValues;
 
-			const promises = [this.playFormSubmitAnimation()];
-
-			this.$store.state.formValues.guests.forEach(guest => {
-				const request = fetch('https://hannah.jarod.wedding/api/postToGoogleForm', {
+			const promises = this.$store.state.formValues.guests.map(guest =>
+				fetch('https://hannah.jarod.wedding/api/postToGoogleForm', {
 					method: 'POST',
 					headers: new Headers({ 'Content-Type': 'application/json' }),
 					body: JSON.stringify({ guest, emailAddress, additionalDetails, guestType }),
-				});
-				promises.push(request);
-			});
+				}),
+			);
+
+			promises.push(Promise.resolve(this.playFormSubmitAnimation()));
 
 			const results = await Promise.all(promises.map(p => p.catch(e => e)));
 			const invalidResults = results.filter(result => result instanceof Error);
@@ -155,7 +160,9 @@ export default {
 				this.playFormSubmitSuccessAnimation();
 				// @TODO store in local storage / cookies that form has been submitted
 			} else {
-				// @TODO: error handling
+				console.log(invalidResults);
+
+				this.playFormSubmitAnimation().reverse();
 			}
 		},
 		updateEmailAddress(e) {
@@ -244,6 +251,23 @@ export default {
 
 		&:focus {
 			outline: 2px solid var(--color-form-inverse);
+		}
+	}
+
+	&__submitting {
+		display: none;
+		padding: 1rem;
+		background: var(--color-caption-background);
+		border: 1px solid var(--color-caption-text);
+		animation: zoomIn alternate infinite 0.4s;
+
+		@keyframes zoomIn {
+			from {
+				transform: scale(1);
+			}
+			to {
+				transform: scale(1.2);
+			}
 		}
 	}
 

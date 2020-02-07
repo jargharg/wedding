@@ -51,8 +51,8 @@ export default {
 	methods: {
 		hideInProgressNotice() {
 			this.$refs.inProgressNotice.style.display = 'none';
-		}
-	}
+		},
+	},
 };
 </script>
 
@@ -102,7 +102,8 @@ h1,
 h2,
 h3,
 button,
-input[type=button] {
+input[type='button'],
+input[type='submit'] {
 	font-family: var(--font-header);
 	font-style: italic;
 	font-weight: 900;

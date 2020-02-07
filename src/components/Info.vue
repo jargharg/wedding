@@ -12,17 +12,27 @@
 					2 Tony Wilson Place, <br />
 					Manchester
 				</a>
+				<br />
+				(not our home)
 			</li>
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Timings</h3>
-				Arrive at 3:30<br />
+				Guests arrive at 3:30<br />
 				Ceremony 4pm <br />
-				Reception etc til 1am
+				Food, drinks, music, funtimes until 1am
 			</li>
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Accomodation</h3>
+				Plenty of choice in central Manchester: we're staying at
+				<a href="https://www.themidlandhotel.co.uk/">The Midland</a> which is dead fancy;
+				<a href="https://www.lockeliving.com/whitworth-locke/sleep/">Whitworth Locke</a>
+				is new and looks v nice; there's tonnes of Premier Inns/Travelodges/Ibises close by;
+				<a
+					href="https://www.google.co.uk/maps/search/hotel/@53.4744777,-2.2464111,16z/data=!3m1!4b1!4m5!2m4!5m2!5m1!1s2020-09-12!6e3"
+					>you get the idea</a
+				>...
 			</li>
 
 			<li class="info__cell">

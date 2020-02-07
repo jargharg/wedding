@@ -5,15 +5,13 @@
 		</h2>
 
 		<p class="intro__text">
-			Come join us at HOME, Manchester bla bla bla 4pm bla bla til 1am bla bla Lorem ipsum
-			dolor sit amet, consectetur adipiscing elit. Donec posuere molestie ante, in ultricies
-			libero fermentum et. Duis vehicula lorem vulputate nulla lobortis egestas.
+			Come join us on the 12th September at HOME, Manchester—we're getting married!
 		</p>
 
 		<p class="intro__text">
-			Aenean at finibus velit. Cras bibendum, risus sit amet volutpat feugiat, sapien elit
-			scelerisque ante, sit amet condimentum arcu eros eget turpis. Morbi ullamcorper
-			consequat vulputate. Mauris luctus arcu non nisi varius ultrices.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aenean at finibus velit. Cras
+			bibendum, risus sit amet volutpat feugiat, sapien elit scelerisque ante, sit amet
+			condimentum arcu eros eget turpis. Morbi ullamcorper consequat vulputate.
 		</p>
 
 		<p class="intro__text">

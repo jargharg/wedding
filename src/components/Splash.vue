@@ -68,7 +68,7 @@ export default {
 	},
 	methods: {
 		setWarpAnimation() {
-			// todo fix svg filter for safari
+			// @TODO fix svg filter for safari
 			this.warpAnimation = gsap.timeline();
 			if (!this.isSafari) {
 				this.warpAnimation.to(this.$refs.turbScale, {
