@@ -32,26 +32,10 @@
 
 				<RsvpSubmit :promises="promises" :submittingStatus="submittingStatus" />
 
-				<div ref="error" class="rsvp__error" v-if="submitStatus === 'failed'">
-					Oops... Looks like there was an error sending your RSVP. Try again?
-				</div>
+				<RsvpError />
 			</form>
 
-			<div ref="submitted" class="rsvp__submitted">
-				<picture>
-					<source srcset="/thumbsup.webp" type="image/webp" />
-					<source srcset="/thumbsup.gif" type="image/gif" />
-					<img
-						class="rsvp__submitted__image"
-						src="/thumbsup.gif"
-						alt="Thumbs up!"
-					/>
-				</picture>
-
-				<caption class="rsvp__submitted__caption">
-					Got it, thanks!
-				</caption>
-			</div>
+			<RsvpSubmitted :display="displaySubmitted" />
 		</div>
 
 		<button
@@ -71,6 +55,9 @@ import gsap from 'gsap';
 import RsvpGuests from './RsvpForm/RsvpGuests';
 import RsvpText from './RsvpForm/RsvpText';
 import RsvpSubmit from './RsvpForm/RsvpSubmit';
+import RsvpSubmitted from './RsvpForm/RsvpSubmitted';
+import RsvpError from './RsvpForm/RsvpError';
+
 import { mapState } from 'vuex';
 
 export default {
@@ -79,6 +66,8 @@ export default {
 		RsvpGuests,
 		RsvpText,
 		RsvpSubmit,
+		RsvpSubmitted,
+		RsvpError,
 	},
 	data() {
 		return {
@@ -95,6 +84,7 @@ export default {
 			},
 			promises: [],
 			submittingStatus: false,
+			displaySubmitted: false,
 		};
 	},
 	computed: mapState({
@@ -143,34 +133,29 @@ export default {
 					scale: 0,
 					ease: 'back.in',
 					duration: 0.5,
+					onComplete: () => (this.displaySubmitted = true),
 				})
 				.set(this.$refs.rsvpForm, { display: 'none' })
-				.set(this.$refs.submitted, { display: 'block', scale: 0 })
-				.to(this.$refs.submitted, {
-					scale: 1,
-					ease: 'back.out',
-					duration: 0.5,
-				})
 				.set(this.$refs.reset, { display: 'block', opacity: 0 })
 				.to(this.$refs.reset, { opacity: 1, duration: 2 });
+		},
+		resetForm() {
+			this.displaySubmitted = false;
+			this.$store.dispatch('resetForm');
+			gsap.timeline()
+				.set(this.$refs.rsvpForm, { scale: 1, display: 'block' })
+				.set(this.$refs.reset, { display: 'none' });
 		},
 		submitForm(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			this.$store.dispatch('submitRsvp');
 		},
-		updateEmailAddress(e) {
-			this.$store.commit('updateEmailAddress', e.target.value);
-		},
 		updateAdditionalDetails(e) {
 			this.$store.commit('updateAdditionalDetails', e.target.value);
 		},
-		resetForm() {
-			this.$store.dispatch('resetForm');
-			gsap.timeline()
-				.set(this.$refs.rsvpForm, { scale: 1, display: 'block' })
-				.set(this.$refs.submitted, { display: 'none', scale: 0 })
-				.set(this.$refs.reset, { display: 'none' });
+		updateEmailAddress(e) {
+			this.$store.commit('updateEmailAddress', e.target.value);
 		},
 	},
 	watch: {
@@ -234,61 +219,6 @@ export default {
 				var(--color-form-inverse) 7px
 			);
 			flex-direction: column;
-		}
-	}
-
-	&__error {
-		background: red;
-		color: white;
-		font-size: var(--font-size-content-smallest);
-		left: 0;
-		padding: 1rem;
-		position: absolute;
-		top: 101%;
-		width: 100%;
-	}
-
-	&__submitted {
-		background: var(--color-caption-background);
-		border: 1px solid var(--color-caption-text);
-		display: none;
-		max-width: 100%;
-		padding: 1rem;
-		position: relative;
-		width: 350px;
-
-		&__image {
-			max-width: 100%;
-		}
-
-		&__caption {
-			color: var(--color-caption-text);
-			display: block;
-			font-family: var(--font-header);
-			font-size: var(--font-size-subheader);
-			font-style: italic;
-			font-weight: 900;
-			line-height: 0.8;
-			margin-top: 1rem;
-			text-transform: uppercase;
-			width: 100%;
-		}
-
-		&__reset {
-			background: var(--color-form-main);
-			border: none;
-			bottom: var(--padding-section);
-			color: var(--color-caption-text);
-			display: none;
-			font-size: var(--font-size-content-smallest);
-			left: var(--padding-section);
-			outline: none;
-			padding: 0.5rem;
-			position: absolute;
-
-			&:focus {
-				outline: 2px solid var(--color-form-inverse);
-			}
 		}
 	}
 }
