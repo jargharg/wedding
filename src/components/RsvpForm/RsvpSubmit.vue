@@ -57,7 +57,7 @@ export default {
 	watch: {
 		submitStatus(newValue) {
 			if (newValue === 'submitting') {
-				this.animateLoadingBar(3, this.submitPromises);
+				this.animateLoadingBar(5, this.submitPromises);
 				this.caption = 'Sending...';
 			} else if (newValue === 'successful') {
 				this.caption = 'Sent';
@@ -78,6 +78,7 @@ export default {
 		background: var(--color-form-inverse);
 		border: none;
 		color: var(--color-form-submit-text);
+		cursor: pointer;
 		font-size: 2rem;
 		margin: 0;
 		outline: none;

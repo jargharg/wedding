@@ -15,15 +15,11 @@ export default new Vuex.Store({
 		submitPromises: [],
 	},
 	mutations: {
-		setFormValuesFromParams(state, params) {
-			const parsedParams = JSON.parse(atob(params));
-			const mappedGuests = parsedParams.guests
-				.split(', ')
-				.map((name) => ({ name: name, attending: null }));
-
-			Vue.set(state.formValues, 'emailAddress', parsedParams.emailAddress);
-			Vue.set(state.formValues, 'guestType', parsedParams.guestType);
-			Vue.set(state.formValues, 'guests', mappedGuests);
+		addGuest(state) {
+			Vue.set(state.formValues, 'guests', [
+				...state.formValues.guests,
+				{ name: null, attending: null },
+			]);
 		},
 		updateFormValues(state, formValues) {
 			Vue.set(state, 'formValues', formValues);
@@ -60,6 +56,16 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
+		setFormValuesFromParams({ commit }, params) {
+			const parsedParams = JSON.parse(atob(params));
+			const mappedGuests = parsedParams.guests
+				.split(', ')
+				.map((name) => ({ name: name, attending: null }));
+
+			commit('updateEmailAddress', parsedParams.emailAddress);
+			commit('updateGuestType', parsedParams.guestType);
+			commit('updateGuests', mappedGuests);
+		},
 		async submitRsvp({ commit, state }) {
 			commit('updateSubmitStatus', 'submitting');
 

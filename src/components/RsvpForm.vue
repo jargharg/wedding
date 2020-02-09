@@ -163,10 +163,10 @@ export default {
 .rsvp {
 	--color-caption-background: var(--color-inverse);
 	--color-caption-text: var(--color-main);
-	--color-form-inverse: var(--color-inverse);
+	--color-form-inverse: var(--color-main);
 	--color-form-main-text: var(--color-main);
-	--color-form-main: var(--color-main);
-	--color-form-submit-text: var(--color-main);
+	--color-form-main: var(--color-inverse);
+	--color-form-submit-text: var(--color-inverse);
 
 	color: var(--color-main);
 	display: flex;
@@ -176,19 +176,13 @@ export default {
 	min-height: 100vh;
 	padding: var(--padding-section);
 
-	@media screen and (max-width: 600px) {
-		--color-form-inverse: var(--color-main);
-		--color-form-main-text: var(--color-main);
-		--color-form-main: var(--color-inverse);
-		--color-form-submit-text: var(--color-inverse);
-	}
-
 	&__header {
 		font-size: var(--font-size-header);
 	}
 
 	&__form {
 		background: var(--color-form-main);
+		border: 1px solid var(--color-form-inverse);
 		color: var(--color-form-inverse);
 		display: flex;
 		flex-direction: column;

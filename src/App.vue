@@ -46,7 +46,7 @@ export default {
 			btoa(
 				'{"guests": "Test Testerson, French Man", "emailAddress": "jimbob@gondola.com", "guestType": "day"}',
 			);
-		this.$store.commit('setFormValuesFromParams', params);
+		this.$store.dispatch('setFormValuesFromParams', params);
 	},
 	methods: {
 		hideInProgressNotice() {

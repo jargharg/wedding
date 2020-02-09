@@ -55,6 +55,8 @@
 				</label>
 			</div>
 		</div>
+
+		<button type="button" class="rsvp-guest__add" @click="addGuest">&plus; add new guest</button>
 	</div>
 </template>
 
@@ -81,6 +83,9 @@ export default {
 				this.$store.commit('updateGuestName', { index, name: value });
 			}
 		},
+		addGuest() {
+			this.$store.commit('addGuest');
+		}
 	},
 };
 </script>
@@ -195,6 +200,17 @@ export default {
 				color: var(--color-form-main);
 			}
 		}
+	}
+
+	&__add {
+		background: transparent;
+		border: none;
+		color: var(--color-form-inverse);
+		cursor: pointer;
+		outline: none;
+		padding: 0 0 1rem;
+		text-align: left;
+		width: 100%;
 	}
 }
 </style>
