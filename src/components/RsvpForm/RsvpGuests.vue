@@ -209,13 +209,19 @@ export default {
 		color: var(--color-form-inverse);
 		cursor: pointer;
 		font-size: var(--font-size-content-smallest);
+		opacity: 0.7;
 		outline: none;
 		padding: 0 0 1rem;
 		text-align: left;
+		transition: 0.2s;
 		width: 100%;
 
 		@media screen and (max-width: 600px) {
 			padding: 0 0.5rem 1rem;
+		}
+
+		&:hover {
+			opacity: 1;
 		}
 
 		&:focus {

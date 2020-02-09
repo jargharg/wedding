@@ -5,20 +5,14 @@
 		</h2>
 
 		<p class="intro__text">
-			Come join us on the 12th September at HOME, Manchester—we're getting married!
+			We're getting married in central Manchester on Saturday the 12th of September
+			2020, and would love for you to celebrate the day with us.
+		</p>
+		<p class="intro__text">
+			Please let us know if you can come along by the 29th of February.
 		</p>
 
-		<p class="intro__text">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aenean at finibus velit. Cras
-			bibendum, risus sit amet volutpat feugiat, sapien elit scelerisque ante, sit amet
-			condimentum arcu eros eget turpis. Morbi ullamcorper consequat vulputate.
-		</p>
-
-		<p class="intro__text">
-			Suspendisse potenti. Pellentesque tempus ex odio, in commodo risus tincidunt vel. Etiam
-			eu pretium augue. Quisque sollicitudin mauris quis urna rhoncus, in dictum orci euismod.
-			Mauris at augue ultrices justo blandit mollis ac eget dolor.
-		</p>
+		<!-- TODO: heart icon goes here -->
 	</section>
 </template>
 
@@ -36,24 +30,26 @@ export default {
 			type: 'progress',
 			startY: offsetTop - window.innerHeight * 0.6,
 			endY: offsetTop,
-			actionToProgress: progress => {
+			actionToProgress: (progress) => {
 				this.backgroundAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-inverse');
+			const bgColor = getComputedStyle(document.body).getPropertyValue(
+				'--color-inverse',
+			);
 
 			gsap.set(this.$refs.intro, { opacity: 0 });
 
-			this.backgroundAnimation = gsap.timeline();
-			this.backgroundAnimation
-				.to('#app', {
-					backgroundColor: bgColor,
-					ease: 'power4.out',
-					duration: 1,
-				})
+			this.backgroundAnimation = gsap
+				.timeline()
+					.to('#app', {
+						backgroundColor: bgColor,
+						ease: 'power4.out',
+						duration: 1,
+					})
 				.to(this.$refs.intro, {
 					opacity: 1,
 					duration: 1,
@@ -69,6 +65,7 @@ export default {
 .intro {
 	color: var(--color-main);
 	padding: var(--padding-section);
+	padding-bottom: 30vh;
 	max-width: 1000px;
 	margin: 0 auto;
 

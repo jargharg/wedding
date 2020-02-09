@@ -8,64 +8,98 @@
 			<li class="info__cell">
 				<h3 class="info__cell__title">Location</h3>
 				<div class="info__cell__content">
-					HOME, <br />
-					<a href="https://goo.gl/maps/d88LG3KAt4vfNoRJ6" target="_blank">
+					<div>
+						<a href="https://homemcr.org">HOME</a> <br />
 						2 Tony Wilson Place, <br />
+						First Street, <br />
 						Manchester
-					</a>
-					<br />
-					(not our home)
+					</div>
+
+					<div>
+						<a href="https://goo.gl/maps/d88LG3KAt4vfNoRJ6">
+							See a map
+						</a>
+					</div>
 				</div>
 			</li>
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Timings</h3>
 				<div class="info__cell__content">
-					Guests arrive at 3:30<br />
-					Ceremony 4pm <br />
-					Food, drinks, music, funtimes until 1am
-				</div>
-			</li>
-
-			<li class="info__cell">
-				<h3 class="info__cell__title">Accomodation</h3>
-				<div class="info__cell__content">
-					We're staying at
-					<a href="https://www.themidlandhotel.co.uk/">The Midland</a> which is
-					dead fancy, but there's
-					<a
-						href="https://www.google.co.uk/maps/search/hotel/@53.4744777,-2.2464111,16z/data=!3m1!4b1!4m5!2m4!5m2!5m1!1s2020-09-12!6e3"
-						>plenty of choice</a
-					>
-					in central Manchester.
-				</div>
-			</li>
-
-			<li class="info__cell">
-				<h3 class="info__cell__title">Transport</h3>
-				<div class="info__cell__content">
-					HOME is right by Deansgate tram stop, round the corner from Oxford
-					Road station and a short walk/even shorter taxi ride from Piccadilly.
-					<br />
-					There's parking close by at
-					<a href="https://goo.gl/maps/wf9BUMMjgDFnP27h8" target="_blank"
-						>First Street car park</a
-					>.
+					<div>
+						Guests arrive at 3.30pm
+					</div>
+					<div>
+						Ceremony 4pm
+					</div>
+					<div>
+						Food, drinks and dancing to follow until 1am
+					</div>
 				</div>
 			</li>
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Food</h3>
 				<div class="info__cell__content">
-					All food will be vegetarian with some vegan options. Please let us
-					know if you have any specific dietary needs and we'll do our best to
-					accomodate.
+					<div>
+						All food will be vegetarian, with some vegan options. Please let
+						us know if you have any other dietary requirements.
+					</div>
+				</div>
+			</li>
+
+			<li class="info__cell">
+				<h3 class="info__cell__title">Accomodation</h3>
+				<div class="info__cell__content">
+					<div>
+						There are plenty of
+						<a
+							href="https://www.google.co.uk/maps/search/hotel/@53.4744777,-2.2464111,16z/data=!3m1!4b1!4m5!2m4!5m2!5m1!1s2020-09-12!6e3"
+							>nearby hotels
+						</a>
+						in Central Manchester. We recommend booking early - please ask us
+						if you need recommendations!
+					</div>
+					<div>
+						We're staying at
+						<a href="https://www.themidlandhotel.co.uk/">The Midland Hotel</a
+						>.
+					</div>
+				</div>
+			</li>
+
+			<li class="info__cell">
+				<h3 class="info__cell__title">Transport</h3>
+				<div class="info__cell__content">
+					<div>
+						HOME is within walking distance of Deansgate-Castlefield and
+						Oxford Road stations, and is a short taxi ride from Piccadilly and
+						Victoria.
+					</div>
+					<div>
+						If arriving by car, there's 24/7 parking close by at
+						<a href="https://goo.gl/maps/wf9BUMMjgDFnP27h8" target="_blank"
+							>First Street car park</a
+						>.
+					</div>
 				</div>
 			</li>
 
 			<li class="info__cell">
 				<h3 class="info__cell__title">Contact Details</h3>
-				<div class="info__cell__content"></div>
+				<div class="info__cell__content">
+					<div>
+						<a href="mailto:hannah.jarod.wedding@gmail.com"
+							>hannah.jarod.wedding@gmail.com</a
+						>
+					</div>
+					<div>
+						Hannah: 07908 486631
+					</div>
+					<div>
+						Jarod: 07980 977763
+					</div>
+				</div>
 			</li>
 		</ul>
 	</section>
@@ -129,11 +163,12 @@ export default {
 
 	&__grid {
 		display: grid;
-		grid-gap: 1em;
-		width: 100%;
+		grid-gap: 2em;
 		grid-template-columns: 1fr 1fr 1fr;
 		list-style: none;
+		margin-top: 2rem;
 		padding: 0;
+		width: 100%;
 
 		@media screen and (max-width: 800px) {
 			grid-template-columns: 1fr 1fr;
@@ -146,9 +181,9 @@ export default {
 
 	&__cell {
 		font-size: var(--font-size-content-small);
-		padding-bottom: 0.5rem;
+		padding-bottom: 1.5rem;
 		min-height: 200px;
-		border-bottom: 1px solid var(--color-inverse);
+		border-bottom: 3px double var(--color-inverse);
 
 		&__title {
 			font-size: var(--font-size-subheader);
@@ -156,7 +191,9 @@ export default {
 		}
 
 		&__content {
-			padding: 0.5rem 0;
+			div {
+				padding: 0.3rem 0;
+			}
 		}
 	}
 

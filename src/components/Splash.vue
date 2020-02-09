@@ -107,10 +107,11 @@ export default {
 }
 
 .title {
-	filter: url('#turbulence');
-	text-align: center;
 	color: var(--color-inverse);
+	filter: url('#turbulence');
 	line-height: 0.8;
+	text-align: center;
+	user-select: none;
 
 	> span {
 		display: block;
