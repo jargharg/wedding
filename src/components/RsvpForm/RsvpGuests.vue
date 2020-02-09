@@ -13,6 +13,7 @@
 		<div class="rsvp-guest__row" v-for="(guest, index) in guests" :key="index">
 			<input
 				:aria-label="`Guest Name ${index + 1}`"
+				:disabled="submitStatus === 'submitting'"
 				:id="`name${index}`"
 				:placeholder="`Guest Name ${index + 1}`"
 				class="rsvp-guest__name"
@@ -24,6 +25,7 @@
 
 			<div class="rsvp-guest__attending">
 				<input
+					:disabled="submitStatus === 'submitting'"
 					:id="`rsvpYes${index}`"
 					:name="`attending${index}`"
 					required
@@ -38,6 +40,7 @@
 				</label>
 
 				<input
+					:disabled="submitStatus === 'submitting'"
 					:id="`rsvpNo${index}`"
 					:name="`attending${index}`"
 					required
@@ -63,6 +66,7 @@ export default {
 	computed: {
 		...mapState({
 			guests: ({ formValues }) => formValues.guests,
+			submitStatus: (state) => state.submitStatus,
 		}),
 	},
 	methods: {
@@ -76,7 +80,7 @@ export default {
 			} else {
 				this.$store.commit('updateGuestName', { index, name: value });
 			}
-		}
+		},
 	},
 };
 </script>

@@ -28,18 +28,18 @@
 					type="text"
 				/>
 
-				<input type="submit" value="Send RSVP" class="rsvp__submit" />
+				<RsvpSubmit :promises="promises" :submittingStatus="submittingStatus" />
 			</form>
-
-			<div ref="submitting" class="rsvp__submitting">
-				<h3>Submitting...</h3>
-			</div>
 
 			<div ref="submitted" class="rsvp__submitted">
 				<picture>
 					<source srcset="/thumbsup.webp" type="image/webp" />
 					<source srcset="/thumbsup.gif" type="image/gif" />
-					<img class="rsvp__submitted__image" src="/thumbsup.gif" alt="Thumbs up!" />
+					<img
+						class="rsvp__submitted__image"
+						src="/thumbsup.gif"
+						alt="Thumbs up!"
+					/>
 				</picture>
 
 				<caption class="rsvp__submitted__caption">
@@ -55,6 +55,7 @@ import ScrollListener from '@/services/ScrollListener';
 import gsap from 'gsap';
 import RsvpGuests from './RsvpForm/RsvpGuests';
 import RsvpText from './RsvpForm/RsvpText';
+import RsvpSubmit from './RsvpForm/RsvpSubmit';
 import { mapState } from 'vuex';
 
 export default {
@@ -62,6 +63,7 @@ export default {
 	components: {
 		RsvpGuests,
 		RsvpText,
+		RsvpSubmit,
 	},
 	data() {
 		return {
@@ -76,11 +78,14 @@ export default {
 					guestType: 'entry.442594185',
 				},
 			},
+			promises: [],
+			submittingStatus: false,
 		};
 	},
 	computed: mapState({
 		emailAddress: ({ formValues }) => formValues.emailAddress,
 		additionalDetails: ({ formValues }) => formValues.additionalDetails,
+		submitStatus: (state) => state.submitStatus,
 	}),
 	mounted() {
 		this.setBackgroundAnimation();
@@ -90,14 +95,16 @@ export default {
 			type: 'progress',
 			startY: offsetTop - window.innerHeight * 0.6,
 			endY: offsetTop,
-			actionToProgress: progress => {
+			actionToProgress: (progress) => {
 				this.backgroundAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-inverse');
+			const bgColor = getComputedStyle(document.body).getPropertyValue(
+				'--color-inverse',
+			);
 
 			gsap.set(this.$el, { opacity: 0 });
 
@@ -114,7 +121,7 @@ export default {
 				})
 				.pause();
 		},
-		playFormSubmitAnimation() {
+		playSubmitSuccessAnimation() {
 			return gsap
 				.timeline()
 				.to(this.$refs.rsvpForm, {
@@ -123,14 +130,6 @@ export default {
 					duration: 0.5,
 				})
 				.set(this.$refs.rsvpForm, { display: 'none' })
-				.set(this.$refs.submitting, { display: 'block', scale: 0 })
-				.to(this.$refs.submitting, { scale: 1, duration: 0.2 });
-		},
-		playFormSubmitSuccessAnimation() {
-			return gsap
-				.timeline()
-				.to(this.$refs.submitting, { scale: 0, duration: 0.2 })
-				.set(this.$refs.submitting, { display: 'none' })
 				.set(this.$refs.submitted, { display: 'block', scale: 0 })
 				.to(this.$refs.submitted, {
 					scale: 1,
@@ -138,38 +137,23 @@ export default {
 					duration: 0.5,
 				});
 		},
-		async submitForm(e) {
+		submitForm(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			const { emailAddress, additionalDetails, guestType } = this.$store.state.formValues;
-
-			const promises = this.$store.state.formValues.guests.map(guest =>
-				fetch('https://hannah.jarod.wedding/api/postToGoogleForm', {
-					method: 'POST',
-					headers: new Headers({ 'Content-Type': 'application/json' }),
-					body: JSON.stringify({ guest, emailAddress, additionalDetails, guestType }),
-				}),
-			);
-
-			promises.push(Promise.resolve(this.playFormSubmitAnimation()));
-
-			const results = await Promise.all(promises.map(p => p.catch(e => e)));
-			const invalidResults = results.filter(result => result instanceof Error);
-
-			if (invalidResults.length === 0) {
-				this.playFormSubmitSuccessAnimation();
-				// @TODO store in local storage / cookies that form has been submitted
-			} else {
-				console.log(invalidResults);
-
-				this.playFormSubmitAnimation().reverse();
-			}
+			this.$store.dispatch('submitRsvp');
 		},
 		updateEmailAddress(e) {
 			this.$store.commit('updateEmailAddress', e.target.value);
 		},
 		updateAdditionalDetails(e) {
 			this.$store.commit('updateAdditionalDetails', e.target.value);
+		},
+	},
+	watch: {
+		submitStatus(newValue) {
+			if (newValue === 'successful') {
+				this.playSubmitSuccessAnimation();
+			}
 		},
 	},
 };
@@ -235,39 +219,6 @@ export default {
 			// 	padding-top: 1rem;
 			// 	flex: 0;
 			// }
-		}
-	}
-
-	&__submit {
-		-webkit-appearance: button;
-		background: var(--color-form-inverse);
-		border: none;
-		color: var(--color-form-submit-text);
-		font-size: 2rem;
-		margin: 0;
-		outline: none;
-		padding: 0.3em 1em;
-		text-transform: uppercase;
-
-		&:focus {
-			outline: 2px solid var(--color-form-inverse);
-		}
-	}
-
-	&__submitting {
-		display: none;
-		padding: 1rem;
-		background: var(--color-caption-background);
-		border: 1px solid var(--color-caption-text);
-		animation: zoomIn alternate infinite 0.4s;
-
-		@keyframes zoomIn {
-			from {
-				transform: scale(1);
-			}
-			to {
-				transform: scale(1.2);
-			}
 		}
 	}
 

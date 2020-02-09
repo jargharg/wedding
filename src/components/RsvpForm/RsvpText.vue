@@ -7,6 +7,7 @@
 		<input
 			class="rsvp-text__input"
 			:aria-label="label"
+			:disabled="submitStatus === 'submitting'"
 			:id="id"
 			:placeholder="placeholder"
 			:type="type"
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
 	name: 'RsvpText',
 	props: {
@@ -29,11 +32,16 @@ export default {
 		updateAction: Function,
 		value: String,
 	},
+	computed: {
+		...mapState({
+			submitStatus: (state) => state.submitStatus,
+		}),
+	},
 	methods: {
 		updated() {
 			this.$emit('updated', event);
-		}
-	}
+		},
+	},
 };
 </script>
 
