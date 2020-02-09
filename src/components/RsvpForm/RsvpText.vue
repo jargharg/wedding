@@ -7,12 +7,13 @@
 		<input
 			class="rsvp-text__input"
 			:aria-label="label"
+			:autocomplete="autocomplete"
 			:disabled="submitStatus === 'submitting'"
 			:id="id"
 			:placeholder="placeholder"
+			:required="required"
 			:type="type"
 			:value="value"
-			:autocomplete="autocomplete"
 			@input="updated"
 		/>
 	</div>
@@ -27,6 +28,7 @@ export default {
 		autocomplete: Boolean,
 		id: String,
 		label: String,
+		required: Boolean,
 		placeholder: String,
 		type: String,
 		updateAction: Function,
@@ -83,9 +85,8 @@ export default {
 		}
 
 		&:focus {
-			+ .rsvp__input__border {
-				width: 100%;
-			}
+			outline: 2px solid var(--color-form-inverse);
+			outline-offset: -1px;
 		}
 
 		&::placeholder {

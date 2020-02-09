@@ -10,6 +10,7 @@
 
 				<RsvpText
 					:autocomplete="true"
+					:required="true"
 					:value="emailAddress"
 					@updated="updateEmailAddress"
 					id="emailAddress"
@@ -20,6 +21,7 @@
 
 				<RsvpText
 					:autocomplete="false"
+					:required="false"
 					:value="additionalDetails"
 					@updated="updateAdditionalDetails"
 					id="additionalDetails"
@@ -29,6 +31,10 @@
 				/>
 
 				<RsvpSubmit :promises="promises" :submittingStatus="submittingStatus" />
+
+				<div ref="error" class="rsvp__error" v-if="submitStatus === 'failed'">
+					Oops... Looks like there was an error sending your RSVP. Try again?
+				</div>
 			</form>
 
 			<div ref="submitted" class="rsvp__submitted">
@@ -47,6 +53,15 @@
 				</caption>
 			</div>
 		</div>
+
+		<button
+			ref="reset"
+			type="button"
+			class="rsvp__submitted__reset"
+			@click="resetForm"
+		>
+			Send another RSVP? (Please don't spam us)
+		</button>
 	</section>
 </template>
 
@@ -135,7 +150,9 @@ export default {
 					scale: 1,
 					ease: 'back.out',
 					duration: 0.5,
-				});
+				})
+				.set(this.$refs.reset, { display: 'block', opacity: 0 })
+				.to(this.$refs.reset, { opacity: 1, duration: 2 });
 		},
 		submitForm(e) {
 			e.preventDefault();
@@ -147,6 +164,13 @@ export default {
 		},
 		updateAdditionalDetails(e) {
 			this.$store.commit('updateAdditionalDetails', e.target.value);
+		},
+		resetForm() {
+			this.$store.dispatch('resetForm');
+			gsap.timeline()
+				.set(this.$refs.rsvpForm, { scale: 1, display: 'block' })
+				.set(this.$refs.submitted, { display: 'none', scale: 0 })
+				.set(this.$refs.reset, { display: 'none' });
 		},
 	},
 	watch: {
@@ -175,6 +199,7 @@ export default {
 	max-width: 1000px;
 	min-height: 100vh;
 	padding: var(--padding-section);
+	position: relative;
 
 	&__header {
 		font-size: var(--font-size-header);
@@ -205,24 +230,32 @@ export default {
 				135deg,
 				transparent,
 				transparent 6px,
-				var(--color-main) 6px,
-				var(--color-main) 7px
+				var(--color-form-inverse) 6px,
+				var(--color-form-inverse) 7px
 			);
-
-			// @media screen and (max-width: 600px) {
-			// 	padding-top: 1rem;
-			// 	flex: 0;
-			// }
+			flex-direction: column;
 		}
 	}
 
-	&__submitted {
-		display: none;
+	&__error {
+		background: red;
+		color: white;
+		font-size: var(--font-size-content-smallest);
+		left: 0;
 		padding: 1rem;
+		position: absolute;
+		top: 101%;
+		width: 100%;
+	}
+
+	&__submitted {
 		background: var(--color-caption-background);
 		border: 1px solid var(--color-caption-text);
-		width: 350px;
+		display: none;
 		max-width: 100%;
+		padding: 1rem;
+		position: relative;
+		width: 350px;
 
 		&__image {
 			max-width: 100%;
@@ -233,12 +266,29 @@ export default {
 			display: block;
 			font-family: var(--font-header);
 			font-size: var(--font-size-subheader);
-			margin-top: 1rem;
 			font-style: italic;
 			font-weight: 900;
+			line-height: 0.8;
+			margin-top: 1rem;
 			text-transform: uppercase;
 			width: 100%;
-			line-height: 0.8;
+		}
+
+		&__reset {
+			background: var(--color-form-main);
+			border: none;
+			bottom: var(--padding-section);
+			color: var(--color-caption-text);
+			display: none;
+			font-size: var(--font-size-content-smallest);
+			left: var(--padding-section);
+			outline: none;
+			padding: 0.5rem;
+			position: absolute;
+
+			&:focus {
+				outline: 2px solid var(--color-form-inverse);
+			}
 		}
 	}
 }

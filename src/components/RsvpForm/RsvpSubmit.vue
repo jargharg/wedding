@@ -23,30 +23,30 @@ export default {
 		submitPromises: (state) => state.submitPromises,
 	}),
 	methods: {
-		async animateLoadingBar(maxLoadLength, promises) {
+		async animateLoaderBar(maxLoadLength, promises) {
 			const scaleXIncrement = 1 / promises.length;
 			const completedPromises = [];
-			const backgroundLoadingAnimation = (scaleX) =>
+			const loadingAnimation = (scaleX) =>
 				gsap.to(this.$refs.loaderBar, {
 					scaleX,
 					duration: maxLoadLength,
 					ease: 'power2.out',
 				});
-			let currentLoadingAnimation = backgroundLoadingAnimation(scaleXIncrement);
+			this.currentLoadingAnimation = loadingAnimation(scaleXIncrement);
 
 			promises.forEach(async (promise) => {
 				await promise;
 
-				currentLoadingAnimation.kill();
+				this.currentLoadingAnimation.kill();
 				completedPromises.push(promise);
 				const scaleX = completedPromises.length / promises.length;
 
-				currentLoadingAnimation = gsap.to(this.$refs.loaderBar, {
+				this.currentLoadingAnimation = gsap.to(this.$refs.loaderBar, {
 					scaleX,
 					duration: maxLoadLength / 10,
 					onComplete: () => {
 						if (completedPromises.length === promises.length) return;
-						currentLoadingAnimation = backgroundLoadingAnimation(
+						this.currentLoadingAnimation = loadingAnimation(
 							scaleX + scaleXIncrement,
 						);
 					},
@@ -57,12 +57,14 @@ export default {
 	watch: {
 		submitStatus(newValue) {
 			if (newValue === 'submitting') {
-				this.animateLoadingBar(5, this.submitPromises);
+				this.animateLoaderBar(5, this.submitPromises);
 				this.caption = 'Sending...';
 			} else if (newValue === 'successful') {
 				this.caption = 'Sent';
 			} else {
 				this.caption = 'Send RSVP';
+				if (this.currentLoadingAnimation) this.currentLoadingAnimation.kill();
+				gsap.set(this.$refs.loaderBar, { scaleX: 0 });
 			}
 		},
 	},

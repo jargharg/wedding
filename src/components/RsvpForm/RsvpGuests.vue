@@ -56,7 +56,9 @@
 			</div>
 		</div>
 
-		<button type="button" class="rsvp-guest__add" @click="addGuest">&plus; add new guest</button>
+		<button type="button" class="rsvp-guest__add" @click="addGuest">
+			&plus; add another guest
+		</button>
 	</div>
 </template>
 
@@ -85,7 +87,7 @@ export default {
 		},
 		addGuest() {
 			this.$store.commit('addGuest');
-		}
+		},
 	},
 };
 </script>
@@ -207,10 +209,19 @@ export default {
 		border: none;
 		color: var(--color-form-inverse);
 		cursor: pointer;
+		font-size: var(--font-size-content-smallest);
 		outline: none;
 		padding: 0 0 1rem;
 		text-align: left;
 		width: 100%;
+
+		@media screen and (max-width: 600px) {
+			padding: 0 0.5rem 1rem;
+		}
+
+		&:focus {
+			outline: 2px solid var(--color-form-inverse);
+		}
 	}
 }
 </style>

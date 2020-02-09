@@ -47,6 +47,10 @@ export default {
 				'{"guests": "Test Testerson, French Man", "emailAddress": "jimbob@gondola.com", "guestType": "day"}',
 			);
 		this.$store.dispatch('setFormValuesFromParams', params);
+
+		if (localStorage.submitted) {
+			this.$store.commit('updateSubmitStatus', 'successful');
+		}
 	},
 	methods: {
 		hideInProgressNotice() {
@@ -66,6 +70,7 @@ export default {
 	--font-header: neue-haas-grotesk-display, sans-serif;
 	--font-size-content: 1.5rem;
 	--font-size-content-small: 1.2rem;
+	--font-size-content-smallest: 0.9rem;
 	--font-size-header: 4rem;
 	--font-size-subheader: 1.5rem;
 	--padding-content: 0.5rem;
@@ -75,6 +80,7 @@ export default {
 
 	@media screen and (max-width: 600px) {
 		--font-size-content: 1.2rem;
+		--font-size-content-smallest: 0.8rem;
 		--font-size-header: 2rem;
 		--font-size-subheader: 1.2rem;
 		--padding-content: 0.5rem 0;

@@ -71,18 +71,26 @@ export default new Vuex.Store({
 
 			const { emailAddress, additionalDetails, guestType } = state.formValues;
 
-			const promises = state.formValues.guests.map((guest) =>
-				fetch('https://hannah.jarod.wedding/api/postToGoogleForm', {
-					method: 'POST',
-					headers: new Headers({ 'Content-Type': 'application/json' }),
-					body: JSON.stringify({
-						guest,
-						emailAddress,
-						additionalDetails,
-						guestType,
-					}),
-				}),
-			);
+			const promises = state.formValues.guests.map(async (guest) => {
+				const response = await fetch(
+					'https://hannah.jarod.wedding/api/postToGoogleForm',
+					{
+						method: 'POST',
+						headers: new Headers({ 'Content-Type': 'application/json' }),
+						body: JSON.stringify({
+							guest,
+							emailAddress,
+							additionalDetails,
+							guestType,
+						}),
+					},
+				);
+
+				if (!response.ok) {
+					throw Error(response.error);
+				}
+				return response;
+			});
 
 			commit('updateSubmitPromises', promises);
 
@@ -91,11 +99,17 @@ export default new Vuex.Store({
 
 			if (invalidResults.length === 0) {
 				commit('updateSubmitStatus', 'successful');
-				// @TODO store in local storage / cookies that form has been submitted
+				localStorage.setItem('submitted', true);
 			} else {
-				console.log(invalidResults);
 				commit('updateSubmitStatus', 'failed');
 			}
+		},
+		resetForm({ commit }) {
+			commit('updateSubmitStatus', null);
+			commit('updateGuests', []);
+			commit('addGuest', []);
+			commit('updateEmailAddress', '');
+			commit('updateAdditionalDetails', '');
 		},
 	},
 });
