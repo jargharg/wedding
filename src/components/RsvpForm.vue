@@ -38,12 +38,7 @@
 			<RsvpSubmitted :display="displaySubmitted" />
 		</div>
 
-		<button
-			ref="reset"
-			type="button"
-			class="rsvp__submitted__reset"
-			@click="resetForm"
-		>
+		<button ref="reset" type="button" class="rsvp__reset" @click="resetForm">
 			Send another RSVP? (Please don't spam us)
 		</button>
 	</section>
@@ -219,6 +214,23 @@ export default {
 				var(--color-form-inverse) 7px
 			);
 			flex-direction: column;
+		}
+	}
+
+	&__reset {
+		background: var(--color-form-main);
+		border: none;
+		bottom: var(--padding-section);
+		color: var(--color-caption-text);
+		display: none;
+		font-size: var(--font-size-content-smallest);
+		left: var(--padding-section);
+		outline: none;
+		padding: 0.5rem;
+		position: absolute;
+
+		&:focus {
+			outline: 2px solid var(--color-form-inverse);
 		}
 	}
 }

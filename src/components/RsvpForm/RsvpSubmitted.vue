@@ -62,22 +62,5 @@ export default {
 		text-transform: uppercase;
 		width: 100%;
 	}
-
-	&__reset {
-		background: var(--color-form-main);
-		border: none;
-		bottom: var(--padding-section);
-		color: var(--color-caption-text);
-		display: none;
-		font-size: var(--font-size-content-smallest);
-		left: var(--padding-section);
-		outline: none;
-		padding: 0.5rem;
-		position: absolute;
-
-		&:focus {
-			outline: 2px solid var(--color-form-inverse);
-		}
-	}
 }
 </style>

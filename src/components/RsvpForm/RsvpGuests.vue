@@ -74,7 +74,6 @@ export default {
 		}),
 	},
 	methods: {
-		// @TODO allow adding new guests (also maybe removing?)
 		updateGuest(e) {
 			const { value, type, id } = e.target;
 			const index = +id.slice(-1);
