@@ -11,8 +11,10 @@
 		<p class="intro__text">
 			Please let us know if you can come along by the 29th of February.
 		</p>
-
+		<p class="intro__heart">
+			❤
 		<!-- TODO: heart icon goes here -->
+		</p>
 	</section>
 </template>
 
@@ -65,7 +67,6 @@ export default {
 .intro {
 	color: var(--color-main);
 	padding: var(--padding-section);
-	padding-bottom: 30vh;
 	max-width: 1000px;
 	margin: 0 auto;
 
@@ -77,6 +78,11 @@ export default {
 		font-size: var(--font-size-content);
 		margin: 1rem 0;
 		padding: var(--padding-content);
+	}
+
+	&__heart {
+		text-align: center;
+		padding: 10vh 0;
 	}
 }
 </style>
