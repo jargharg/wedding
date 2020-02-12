@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as firebase from 'firebase';
 
 Vue.use(Vuex);
 
@@ -60,7 +61,7 @@ export default new Vuex.Store({
 			const parsedParams = JSON.parse(atob(params));
 			const mappedGuests = parsedParams.guests
 				.split(', ')
-				.map((name) => ({ name: name, attending: null }));
+				.map(name => ({ name: name, attending: null }));
 
 			commit('updateEmailAddress', parsedParams.emailAddress);
 			commit('updateGuestType', parsedParams.guestType);
@@ -71,31 +72,24 @@ export default new Vuex.Store({
 
 			const { emailAddress, additionalDetails, guestType } = state.formValues;
 
-			const promises = state.formValues.guests.map(async (guest) => {
-				const response = await fetch(
-					'https://hannah.jarod.wedding/api/postToGoogleForm',
-					{
-						method: 'POST',
-						headers: new Headers({ 'Content-Type': 'application/json' }),
-						body: JSON.stringify({
-							guest,
-							emailAddress,
-							additionalDetails,
-							guestType,
-						}),
-					},
-				);
-
-				if (!response.ok) {
-					throw Error(response.error);
-				}
-				return response;
+			const promises = state.formValues.guests.map(guest => {
+				return firebase
+					.functions()
+					.httpsCallable('postToGoogleForm')({
+						guest,
+						emailAddress,
+						additionalDetails,
+						guestType,
+					})
+					.catch(error => {
+						throw Error(error);
+					});
 			});
 
 			commit('updateSubmitPromises', promises);
 
-			const results = await Promise.all(promises.map((p) => p.catch((e) => e)));
-			const invalidResults = results.filter((result) => result instanceof Error);
+			const results = await Promise.all(promises.map(p => p.catch(e => e)));
+			const invalidResults = results.filter(result => result instanceof Error);
 
 			if (invalidResults.length === 0) {
 				commit('updateSubmitStatus', 'successful');

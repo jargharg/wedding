@@ -194,6 +194,7 @@ export default {
 		justify-content: stretch;
 		max-width: 600px;
 		padding: 1.5rem;
+		position: relative;
 		width: 100%;
 
 		@media screen and (max-width: 600px) {

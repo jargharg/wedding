@@ -17,7 +17,7 @@
 
 					<div>
 						<a href="https://goo.gl/maps/d88LG3KAt4vfNoRJ6">
-							See a map
+							See it on a map
 						</a>
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 						Ceremony 4pm
 					</div>
 					<div>
-						Food, drinks and dancing to follow until 1am
+						Food, drinks and dancing to 1am
 					</div>
 				</div>
 			</li>

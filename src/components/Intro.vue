@@ -5,15 +5,22 @@
 		</h2>
 
 		<p class="intro__text">
-			We're getting married in central Manchester on Saturday the 12th of September
-			2020, and would love for you to celebrate the day with us.
+			We're getting married on Saturday the 12th of September 2020, and would love for you to
+			celebrate the day with us.
 		</p>
+
+		<p class="intro__text">
+			The venue is <a href="https://homemcr.org">HOME</a> in central Manchester. Our ceremony
+			is at 4pm with food, drinks and dancing to follow until late.
+		</p>
+
 		<p class="intro__text">
 			Please let us know if you can come along by the 29th of February.
 		</p>
+
 		<p class="intro__heart">
 			❤
-		<!-- TODO: heart icon goes here -->
+			<!-- TODO: heart icon goes here -->
 		</p>
 	</section>
 </template>
@@ -32,26 +39,24 @@ export default {
 			type: 'progress',
 			startY: offsetTop - window.innerHeight * 0.6,
 			endY: offsetTop,
-			actionToProgress: (progress) => {
+			actionToProgress: progress => {
 				this.backgroundAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue(
-				'--color-inverse',
-			);
+			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-inverse');
 
 			gsap.set(this.$refs.intro, { opacity: 0 });
 
 			this.backgroundAnimation = gsap
 				.timeline()
-					.to('#app', {
-						backgroundColor: bgColor,
-						ease: 'power4.out',
-						duration: 1,
-					})
+				.to('#app', {
+					backgroundColor: bgColor,
+					ease: 'power4.out',
+					duration: 1,
+				})
 				.to(this.$refs.intro, {
 					opacity: 1,
 					duration: 1,
