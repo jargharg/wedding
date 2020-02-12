@@ -85,7 +85,7 @@ export default {
 	computed: mapState({
 		emailAddress: ({ formValues }) => formValues.emailAddress,
 		additionalDetails: ({ formValues }) => formValues.additionalDetails,
-		submitStatus: (state) => state.submitStatus,
+		submitStatus: state => state.submitStatus,
 	}),
 	mounted() {
 		this.setBackgroundAnimation();
@@ -95,16 +95,14 @@ export default {
 			type: 'progress',
 			startY: offsetTop - window.innerHeight * 0.6,
 			endY: offsetTop,
-			actionToProgress: (progress) => {
+			actionToProgress: progress => {
 				this.backgroundAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue(
-				'--color-inverse',
-			);
+			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-inverse');
 
 			gsap.set(this.$el, { opacity: 0 });
 
@@ -128,11 +126,11 @@ export default {
 					scale: 0,
 					ease: 'back.in',
 					duration: 0.5,
-					onComplete: () => (this.displaySubmitted = true),
 				})
+				.add(() => (this.displaySubmitted = true))
 				.set(this.$refs.rsvpForm, { display: 'none' })
-				.set(this.$refs.reset, { display: 'block', opacity: 0 })
-				.to(this.$refs.reset, { opacity: 1, duration: 2 });
+				.set(this.$refs.reset, { display: 'block', x: '150%' })
+				.to(this.$refs.reset, { x: 0, duration: 0.5, delay: 2 });
 		},
 		resetForm() {
 			this.displaySubmitted = false;
@@ -178,6 +176,7 @@ export default {
 	margin: 0 auto;
 	max-width: 1000px;
 	min-height: 100vh;
+	overflow-x: hidden;
 	padding: var(--padding-section);
 	position: relative;
 
@@ -223,12 +222,13 @@ export default {
 		border: none;
 		bottom: var(--padding-section);
 		color: var(--color-caption-text);
+		cursor: pointer;
 		display: none;
 		font-size: var(--font-size-content-smallest);
-		left: var(--padding-section);
 		outline: none;
 		padding: 0.5rem;
 		position: absolute;
+		right: var(--padding-section);
 
 		&:focus {
 			outline: 2px solid var(--color-form-inverse);

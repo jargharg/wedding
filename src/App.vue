@@ -97,6 +97,7 @@ body {
 	background: var(--color-main);
 	font-family: var(--font-body);
 	margin: 0;
+	overflow-x: hidden;
 	padding: 0;
 }
 
