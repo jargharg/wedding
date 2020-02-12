@@ -11,7 +11,7 @@
 
 		<p class="intro__text">
 			The venue is <a href="https://homemcr.org">HOME</a> in central Manchester. Our ceremony
-			is at 4pm with food, drinks and dancing to follow until late.
+			will be at 4pm, with food, drinks and dancing to follow until late.
 		</p>
 
 		<p class="intro__text">
@@ -19,8 +19,7 @@
 		</p>
 
 		<p class="intro__heart">
-			❤
-			<!-- TODO: heart icon goes here -->
+			<img src="/gradient-heart-green.png" alt="Heart">
 		</p>
 	</section>
 </template>
@@ -87,7 +86,15 @@ export default {
 
 	&__heart {
 		text-align: center;
-		padding: 10vh 0;
+		padding: 7vh 0;
+
+		img {
+			max-width: 100px;
+		}
+	}
+
+	a {
+		color: inherit;
 	}
 }
 </style>
