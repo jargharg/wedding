@@ -5,7 +5,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/analytics';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyAWsPQrmh2fZAUSKUNnvBGtHKNcjOEW9H0',
+	apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
 	authDomain: 'wedding-3b592.firebaseapp.com',
 	databaseURL: 'https://wedding-3b592.firebaseio.com',
 	projectId: 'wedding-3b592',
