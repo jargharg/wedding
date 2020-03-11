@@ -56,7 +56,7 @@ export default {
 						})
 						.to(heart, {
 							delay: index * 0.02,
-							duration: 0.4,
+							duration: 0.3,
 							ease: 'power1.out',
 							rotate: 60 - Math.random() * 120,
 							scale: 0.2 + Math.random() * 1,
@@ -66,8 +66,8 @@ export default {
 						.to(heart, {
 							duration: 1,
 							ease: 'power1.in',
-							opacity: 0,
 							rotate: 0,
+							scale: 0,
 							y: startY + 200,
 						});
 

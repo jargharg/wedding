@@ -42,8 +42,10 @@
 				<h3 class="info__cell__title">Food</h3>
 				<div class="info__cell__content">
 					<div>
-						All food will be vegetarian, with some vegan options. Please let us know if
-						you have any other dietary requirements.
+						All food will be vegetarian, with some vegan options.
+					</div>
+					<div>
+						Please let us know if you have any other dietary requirements.
 					</div>
 				</div>
 			</li>
@@ -55,10 +57,12 @@
 						There are plenty of
 						<a
 							href="https://www.google.co.uk/maps/search/hotel/@53.4744777,-2.2464111,16z/data=!3m1!4b1!4m5!2m4!5m2!5m1!1s2020-09-12!6e3"
-							>nearby hotels
-						</a>
-						in Central Manchester. We recommend booking early - please ask us if you
-						need recommendations!
+							>nearby hotels</a
+						>
+						in Central Manchester.
+					</div>
+					<div>
+						We recommend booking early - please ask us if you need recommendations!
 					</div>
 					<div>
 						We're staying at
@@ -87,15 +91,14 @@
 				<h3 class="info__cell__title">Contact Details</h3>
 				<div class="info__cell__content">
 					<div>
-						<a href="mailto:hannah.jarod.wedding@gmail.com"
-							>hannah.jarod.wedding@gmail.com</a
-						>
+						Hannah <br />
+						07908 486631 <br />
+						<a href="mailto:hannahvlendrum@gmail.com">hannahvlendrum@gmail.com</a>
 					</div>
 					<div>
-						Hannah: 07908 486631
-					</div>
-					<div>
-						Jarod: 07980 977763
+						Jarod <br />
+						07980 977763 <br />
+						<a href="mailto:jarod.hargreaves@gmail.com">jarod.hargreaves@gmail.com</a>
 					</div>
 				</div>
 			</li>
@@ -163,7 +166,7 @@ export default {
 
 	&__grid {
 		display: grid;
-		grid-gap: 3em;
+		grid-gap: 2em;
 		grid-template-columns: 1fr 1fr 1fr;
 		list-style: none;
 		margin-top: 2rem;
@@ -183,7 +186,7 @@ export default {
 		font-size: var(--font-size-content-small);
 		padding-bottom: 1.5rem;
 		min-height: 200px;
-		border-bottom: 3px double var(--color-inverse);
+		border-bottom: 1px solid var(--color-inverse);
 
 		&__title {
 			font-size: var(--font-size-subheader);

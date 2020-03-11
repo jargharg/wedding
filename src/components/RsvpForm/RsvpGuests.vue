@@ -179,6 +179,7 @@ export default {
 			text-align: center;
 			user-select: none;
 			width: 50%;
+			transition: 0.2s all;
 
 			&:first-of-type {
 				border-left: 1px dashed var(--color-form-inverse);
