@@ -23,8 +23,8 @@ export default {
 	name: 'HeartConfetti',
 	data() {
 		return {
-			currentAnimation: null
-		}
+			currentAnimation: null,
+		};
 	},
 	methods: {
 		sprayConfetti(event) {
@@ -38,22 +38,24 @@ export default {
 			const hearts = Array.from(document.querySelectorAll('.heart'));
 
 			gsap.set(heartsContainer, { visibility: 'visible' });
-			gsap.set(hearts, { opacity: 0 });
+			gsap.set(hearts, { scale: 0 });
 
 			const heartPop = () => {
 				if (this.currentAnimation) this.currentAnimation.kill();
 
-				this.currentAnimation = gsap.timeline().addLabel('start');
+				this.currentAnimation = gsap
+					.timeline()
+					.addLabel('start')
+					.set(hearts, {
+						x: startX,
+						y: startY,
+						rotate: 0,
+						scale: 0,
+					});
 
 				hearts.forEach((heart, index) => {
 					const heartAnimation = gsap
 						.timeline()
-						.set(heart, {
-							opacity: 0.9,
-							scale: 0,
-							x: startX,
-							y: startY,
-						})
 						.to(heart, {
 							delay: index * 0.02,
 							duration: 0.3,
@@ -69,7 +71,8 @@ export default {
 							rotate: 0,
 							scale: 0,
 							y: startY + 200,
-						});
+						})
+						.set(heart, { x: 0, y: 0 });
 
 					this.currentAnimation.add(heartAnimation, 'start');
 				});
@@ -94,5 +97,6 @@ export default {
 	pointer-events: none;
 	z-index: 100;
 	position: absolute;
+	opacity: 0.9;
 }
 </style>

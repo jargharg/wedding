@@ -33,6 +33,7 @@
 					value="Yes"
 					:checked="guest.attending === 'Yes'"
 					@change="updateGuest"
+					@click="$emit('confirmed', $event)"
 				/>
 
 				<label :for="`rsvpYes${index}`">
@@ -80,10 +81,6 @@ export default {
 
 			if (type === 'radio') {
 				this.$store.commit('updateGuestAttending', { index, attending: value });
-
-				if (value === 'Yes') {
-					this.$emit('confirmed', event);
-				}
 			} else {
 				this.$store.commit('updateGuestName', { index, name: value });
 			}
