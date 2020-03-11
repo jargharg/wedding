@@ -70,19 +70,20 @@ export default {
 		setWarpAnimation() {
 			// @TODO fix svg filter for safari
 			this.warpAnimation = gsap.timeline();
+
 			if (!this.isSafari) {
 				this.warpAnimation.to(this.$refs.turbScale, {
 					attr: { scale: 100 },
-					ease: 'power2.out',
 					duration: 10,
+					ease: 'power2.out',
 				});
 			}
 			this.warpAnimation
 				.to(this.$refs.title, {
-					opacity: 0,
-					duration: 4,
 					delay: -4,
+					duration: 4,
 					ease: 'power1.out',
+					opacity: 0,
 				})
 				.pause();
 		},

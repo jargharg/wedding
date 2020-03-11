@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import * as firebase from 'firebase';
+import { firestore, functions } from 'firebase';
 
 Vue.use(Vuex);
 
@@ -57,14 +57,27 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		setFormValuesFromParams({ commit }, params) {
-			const parsedParams = JSON.parse(atob(params));
-			const mappedGuests = parsedParams.guests
+		async setFormValuesFromDB({ commit }, dbRef) {
+			const guests = await firestore()
+				.collection('guests')
+				.doc(dbRef)
+				.get()
+				.then(doc => doc.data())
+				.catch(error => {
+					throw Error(error);
+				});
+
+			if (!guests) {
+				commit('addGuest');
+				return;
+			}
+
+			const mappedGuests = guests.guests
 				.split(', ')
 				.map(name => ({ name: name, attending: null }));
 
-			commit('updateEmailAddress', parsedParams.emailAddress);
-			commit('updateGuestType', parsedParams.guestType);
+			commit('updateEmailAddress', guests.emailAddress);
+			commit('updateGuestType', guests.guestType);
 			commit('updateGuests', mappedGuests);
 		},
 		async submitRsvp({ commit, state }) {
@@ -73,8 +86,7 @@ export default new Vuex.Store({
 			const { emailAddress, additionalDetails, guestType } = state.formValues;
 
 			const promises = state.formValues.guests.map(guest => {
-				return firebase
-					.functions()
+				return functions()
 					.httpsCallable('postToGoogleForm')({
 						guest,
 						emailAddress,

@@ -10,16 +10,16 @@
 		</p>
 
 		<p class="intro__text">
-			The venue is <a href="https://homemcr.org">HOME</a> in central Manchester. Our ceremony
-			will be at 4pm, with food, drinks and dancing to follow until late.
+			The venue is HOME in central Manchester. Our ceremony will be at 4pm, with food, drinks
+			and dancing to follow until late.
 		</p>
 
 		<p class="intro__text">
-			Please let us know if you can come along by the 29th of February.
+			Please let us know if you can come by the 31st of March.
 		</p>
 
 		<p class="intro__heart">
-			<img src="/gradient-heart-green.png" alt="Heart">
+			<img src="/gradient-heart-green.png" alt="Heart" />
 		</p>
 	</section>
 </template>

@@ -163,7 +163,7 @@ export default {
 
 	&__grid {
 		display: grid;
-		grid-gap: 2em;
+		grid-gap: 3em;
 		grid-template-columns: 1fr 1fr 1fr;
 		list-style: none;
 		margin-top: 2rem;

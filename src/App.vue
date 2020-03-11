@@ -1,9 +1,5 @@
 <template>
 	<div id="app">
-		<div class="in-progress" ref="inProgressNotice" @click="hideInProgressNotice">
-			pls note:<br />not production<br />pre-pre-alpha<br />v0.0.0.1
-		</div>
-
 		<RsvpButton />
 		<div class="slide-container">
 			<Splash />
@@ -40,22 +36,15 @@ export default {
 			}
 		};
 
-		const params =
-			// 'eyJndWVzdHMiOiAiSmFyb2QgSGFyZ3JlYXZlcywgSGFubmFoIExlbmRydW0iLCAiZW1h' +
-			// 'aWxBZGRyZXNzIjogImphcm9kQGhhbm5haC5jb20iLCAiZ3Vlc3RUeXBlIjogImRheSJ9';
-			btoa(
-				'{"guests": "Test Testerson, French Man", "emailAddress": "jimbob@gondola.com", "guestType": "day"}',
-			);
-		this.$store.dispatch('setFormValuesFromParams', params);
+		if (location.pathname.length > 1) {
+			this.$store.dispatch('setFormValuesFromDB', location.pathname.slice(1).toLowerCase());
+		} else {
+			this.$store.dispatch('resetForm');
+		}
 
 		if (localStorage.submitted) {
 			this.$store.commit('updateSubmitStatus', 'successful');
 		}
-	},
-	methods: {
-		hideInProgressNotice() {
-			this.$refs.inProgressNotice.style.display = 'none';
-		},
 	},
 };
 </script>
@@ -125,19 +114,5 @@ input[type='submit'] {
 
 #app {
 	background: var(--color-main);
-}
-
-.in-progress {
-	background: red;
-	color: white;
-	cursor: pointer;
-	font-size: 0.7rem;
-	left: 0;
-	letter-spacing: 0.1em;
-	padding: 0.5em;
-	position: fixed;
-	text-transform: uppercase;
-	top: 0;
-	z-index: 999;
 }
 </style>
