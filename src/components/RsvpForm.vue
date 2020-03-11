@@ -1,12 +1,14 @@
 <template>
 	<section id="rsvp" class="rsvp" @submit="submitForm">
+		<HeartConfetti ref="confetti" />
+
 		<h2 class="rsvp__header">
 			R • S • V • P •
 		</h2>
 
 		<div class="rsvp__form__container">
 			<form class="rsvp__form" ref="rsvpForm" @submit="submitForm">
-				<RsvpGuests />
+				<RsvpGuests @confirmed="sprayConfetti" />
 
 				<RsvpText
 					:autocomplete="true"
@@ -52,6 +54,7 @@ import RsvpText from './RsvpForm/RsvpText';
 import RsvpSubmit from './RsvpForm/RsvpSubmit';
 import RsvpSubmitted from './RsvpForm/RsvpSubmitted';
 import RsvpError from './RsvpForm/RsvpError';
+import HeartConfetti from './HeartConfetti.vue';
 
 import { mapState } from 'vuex';
 
@@ -63,6 +66,7 @@ export default {
 		RsvpSubmit,
 		RsvpSubmitted,
 		RsvpError,
+		HeartConfetti,
 	},
 	data() {
 		return {
@@ -118,6 +122,9 @@ export default {
 					delay: -1,
 				})
 				.pause();
+		},
+		sprayConfetti(event) {
+			this.$refs.confetti.sprayConfetti(event);
 		},
 		playSubmitSuccessAnimation() {
 			return gsap

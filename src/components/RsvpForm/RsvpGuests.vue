@@ -70,16 +70,20 @@ export default {
 	computed: {
 		...mapState({
 			guests: ({ formValues }) => formValues.guests,
-			submitStatus: (state) => state.submitStatus,
+			submitStatus: state => state.submitStatus,
 		}),
 	},
 	methods: {
-		updateGuest(e) {
-			const { value, type, id } = e.target;
+		updateGuest(event) {
+			const { value, type, id } = event.target;
 			const index = +id.slice(-1);
 
 			if (type === 'radio') {
 				this.$store.commit('updateGuestAttending', { index, attending: value });
+
+				if (value === 'Yes') {
+					this.$emit('confirmed', event);
+				}
 			} else {
 				this.$store.commit('updateGuestName', { index, name: value });
 			}
