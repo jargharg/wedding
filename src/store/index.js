@@ -116,6 +116,7 @@ export default new Vuex.Store({
 			commit('addGuest', []);
 			commit('updateEmailAddress', '');
 			commit('updateAdditionalDetails', '');
+			localStorage.removeItem('submitted');
 		},
 	},
 });
