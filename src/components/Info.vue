@@ -27,13 +27,13 @@
 				<h3 class="info__cell__title">Timings</h3>
 				<div class="info__cell__content">
 					<div>
-						Guests arrive at 3.30pm
+						Guests arrive: 3.30pm
 					</div>
 					<div>
-						Ceremony 4pm
+						Ceremony: 4pm
 					</div>
 					<div>
-						Food, drinks and dancing to 1am
+						Carriages: 1am
 					</div>
 				</div>
 			</li>
@@ -42,16 +42,16 @@
 				<h3 class="info__cell__title">Food</h3>
 				<div class="info__cell__content">
 					<div>
-						All food will be vegetarian, with some vegan options.
+						All food will be vegetarian or vegan.
 					</div>
 					<div>
-						Please let us know if you have any other dietary requirements.
+						Please let us know any other dietary requirements.
 					</div>
 				</div>
 			</li>
 
 			<li class="info__cell">
-				<h3 class="info__cell__title">Accomodation</h3>
+				<h3 class="info__cell__title">Accommodation</h3>
 				<div class="info__cell__content">
 					<div>
 						There are plenty of
@@ -59,14 +59,10 @@
 							href="https://www.google.co.uk/maps/search/hotel/@53.4744777,-2.2464111,16z/data=!3m1!4b1!4m5!2m4!5m2!5m1!1s2020-09-12!6e3"
 							>nearby hotels</a
 						>
-						in Central Manchester.
+						in central Manchester.
 					</div>
 					<div>
-						We recommend booking early - please ask us if you need recommendations!
-					</div>
-					<div>
-						We're staying at
-						<a href="https://www.themidlandhotel.co.uk/">The Midland Hotel</a>.
+						We recommend booking early - please ask if you need recommendations!
 					</div>
 				</div>
 			</li>
@@ -75,11 +71,10 @@
 				<h3 class="info__cell__title">Transport</h3>
 				<div class="info__cell__content">
 					<div>
-						HOME is within walking distance of Deansgate-Castlefield and Oxford Road
-						stations, and is a short taxi ride from Piccadilly and Victoria.
+						Walk from Deansgate and Oxford Road stations, or taxi from Piccadilly and Victoria.
 					</div>
 					<div>
-						If arriving by car, there's 24/7 parking close by at
+						You can also book 24/7 parking at
 						<a href="https://goo.gl/maps/wf9BUMMjgDFnP27h8" target="_blank"
 							>First Street car park</a
 						>.

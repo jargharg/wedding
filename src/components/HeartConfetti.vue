@@ -7,9 +7,9 @@
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="-1 -1 26 26"
 		>
+
 			<path
-				stroke="rgb(0, 57, 63)"
-				fill="rgb(255, 198, 192)"
+				:fill="index % 2 === 0 ? 'rgb(0, 57, 63)' : 'rgb(255, 198, 192)'"
 				vector-effect="non-scaling-stroke"
 				d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"
 			/>
@@ -104,7 +104,6 @@ export default {
 .heart {
 	width: 50px;
 	height: 50px;
-	color: hotpink;
 	pointer-events: none;
 	z-index: 100;
 	position: absolute;

@@ -51,6 +51,7 @@ export default {
 
 <style scoped lang="scss">
 .rsvp-button {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	animation: rotate 10s infinite linear;
 	background-color: transparent;
 	background-image: url('/rsvp-white.png');

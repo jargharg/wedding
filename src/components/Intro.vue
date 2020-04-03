@@ -5,17 +5,17 @@
 		</h2>
 
 		<p class="intro__text">
-			We're getting married on Saturday the 12th of September 2020, and would love for you to
+			We're getting married on Saturday 12th September 2020, and would love for you to
 			celebrate the day with us.
 		</p>
 
 		<p class="intro__text">
-			The venue is HOME in central Manchester. Our ceremony will be at 4pm, with food, drinks
+			Our venue is HOME in central Manchester. The ceremony will be at 4pm, with food, drinks
 			and dancing to follow until late.
 		</p>
 
 		<p class="intro__text">
-			Please let us know if you can come by the 31st of March.
+			Please let us know if you can come by the end of March.
 		</p>
 
 		<p class="intro__heart">
