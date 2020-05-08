@@ -61,7 +61,7 @@ export default {
 			type: 'progress',
 			startY: offsetTop,
 			endY: offsetTop + scrollTimeline,
-			actionToProgress: progress => {
+			actionToProgress: (progress) => {
 				this.warpAnimation.progress(progress);
 			},
 		});
@@ -93,7 +93,7 @@ export default {
 
 <style lang="scss">
 .splash {
-	--date-size: 6.8vw;
+	--date-size: 6.85vw;
 	--get-married-size: 5.5vw;
 	--hj-size: 5.5vw;
 	height: 200vh;

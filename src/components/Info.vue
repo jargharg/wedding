@@ -45,7 +45,7 @@
 						All food will be vegetarian or vegan.
 					</div>
 					<div>
-						Please let us know any other dietary requirements.
+						Please let us know if you have any other dietary requirements.
 					</div>
 				</div>
 			</li>
@@ -59,10 +59,11 @@
 							href="https://www.google.co.uk/maps/search/hotel/@53.4744777,-2.2464111,16z/data=!3m1!4b1!4m5!2m4!5m2!5m1!1s2020-09-12!6e3"
 							>nearby hotels</a
 						>
-						in central Manchester.
+						in central Manchester—please ask us if you need recommendations.
 					</div>
 					<div>
-						We recommend booking early - please ask if you need recommendations!
+						We recommend looking for flexible cancellation policies just in
+						case!
 					</div>
 				</div>
 			</li>
@@ -71,7 +72,8 @@
 				<h3 class="info__cell__title">Transport</h3>
 				<div class="info__cell__content">
 					<div>
-						Walk from Deansgate and Oxford Road stations, or taxi from Piccadilly and Victoria.
+						Walk from Deansgate and Oxford Road stations, or taxi from
+						Piccadilly and Victoria.
 					</div>
 					<div>
 						You can also book 24/7 parking at
@@ -88,29 +90,37 @@
 					<div>
 						Hannah <br />
 						07908 486631 <br />
-						<a href="mailto:hannahvlendrum@gmail.com">hannahvlendrum@gmail.com</a>
+						<a href="mailto:hannahvlendrum@gmail.com"
+							>hannahvlendrum@gmail.com</a
+						>
 					</div>
 					<div>
 						Jarod <br />
 						07980 977763 <br />
-						<a href="mailto:jarod.hargreaves@gmail.com">jarod.hargreaves@gmail.com</a>
+						<a href="mailto:jarod.hargreaves@gmail.com"
+							>jarod.hargreaves@gmail.com</a
+						>
 					</div>
 				</div>
 			</li>
 		</ul>
 
 		<p class="info__heart">
-			<img src="/gradient-heart-pink.png" alt="Heart" />
+			<HeartSplit />
 		</p>
 	</section>
 </template>
 
 <script>
-import ScrollListener from '@/services/ScrollListener';
 import gsap from 'gsap';
+import ScrollListener from '@/services/ScrollListener';
+import HeartSplit from './HeartSplit';
 
 export default {
 	name: 'Info',
+	components: {
+		HeartSplit,
+	},
 	mounted() {
 		this.setBackgroundAnimation();
 
@@ -119,14 +129,16 @@ export default {
 			type: 'progress',
 			startY: offsetTop - window.innerHeight * 0.6,
 			endY: offsetTop,
-			actionToProgress: progress => {
+			actionToProgress: (progress) => {
 				this.backgroundAnimation.progress(progress);
 			},
 		});
 	},
 	methods: {
 		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-main');
+			const bgColor = getComputedStyle(document.body).getPropertyValue(
+				'--color-main',
+			);
 
 			gsap.set(this.$refs.info, { opacity: 0 });
 
@@ -197,7 +209,7 @@ export default {
 
 	&__heart {
 		text-align: center;
-		padding: 7vh 0;
+		padding: 4vh 0;
 
 		img {
 			max-width: 100px;
