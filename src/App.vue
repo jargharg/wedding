@@ -37,7 +37,10 @@ export default {
 		};
 
 		if (location.pathname.length > 1) {
-			this.$store.dispatch('setFormValuesFromDB', location.pathname.slice(1).toLowerCase());
+			this.$store.dispatch(
+				'setFormValuesFromDB',
+				location.pathname.slice(1).toLowerCase(),
+			);
 		} else {
 			this.$store.dispatch('resetForm');
 		}
@@ -62,6 +65,7 @@ export default {
 	--font-size-content-smallest: 0.9rem;
 	--font-size-header: 4rem;
 	--font-size-subheader: 1.5rem;
+	--line-height-body: 1.4;
 	--padding-content: 0.5rem;
 	--padding-section: 1rem;
 	--rsvp-position: 1rem;

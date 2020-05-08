@@ -1,9 +1,7 @@
 <template>
 	<div class="rsvp-guest">
 		<div class="rsvp-guest__header">
-			<label for="name0">
-				Guest(s)
-			</label>
+			<label for="name0">Name{{ guests.length > 1 ? 's' : '' }}</label>
 
 			<label for="rsvpYes0">
 				Attending
@@ -57,8 +55,13 @@
 			</div>
 		</div>
 
-		<button type="button" class="rsvp-guest__add" @click="addGuest">
-			&plus; add another guest
+		<button
+			v-if="!formValuesRetrieved"
+			type="button"
+			class="rsvp-guest__add"
+			@click="addGuest"
+		>
+			&plus; add another name
 		</button>
 	</div>
 </template>
@@ -70,8 +73,9 @@ export default {
 	name: 'RsvpGuest',
 	computed: {
 		...mapState({
+			formValuesRetrieved: ({ formValues }) => formValues.retrieved,
 			guests: ({ formValues }) => formValues.guests,
-			submitStatus: state => state.submitStatus,
+			submitStatus: (state) => state.submitStatus,
 		}),
 	},
 	methods: {

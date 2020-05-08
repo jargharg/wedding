@@ -11,6 +11,7 @@ export default new Vuex.Store({
 			emailAddress: '',
 			guestType: '',
 			additionalDetails: '',
+			retrieved: false,
 		},
 		submitStatus: null,
 		submitPromises: [],
@@ -24,6 +25,9 @@ export default new Vuex.Store({
 		},
 		updateFormValues(state, formValues) {
 			Vue.set(state, 'formValues', formValues);
+		},
+		updatedFormValuesRetrieved(state, retrieved) {
+			Vue.set(state.formValues, 'retrieved', retrieved);
 		},
 		updateGuestName(state, { index, name }) {
 			Vue.set(state.formValues.guests, index, {
@@ -62,8 +66,8 @@ export default new Vuex.Store({
 				.collection('guests')
 				.doc(dbRef)
 				.get()
-				.then(doc => doc.data())
-				.catch(error => {
+				.then((doc) => doc.data())
+				.catch((error) => {
 					throw Error(error);
 				});
 
@@ -74,18 +78,19 @@ export default new Vuex.Store({
 
 			const mappedGuests = guests.guests
 				.split(', ')
-				.map(name => ({ name: name, attending: null }));
+				.map((name) => ({ name: name, attending: null }));
 
 			commit('updateEmailAddress', guests.emailAddress);
 			commit('updateGuestType', guests.guestType);
 			commit('updateGuests', mappedGuests);
+			commit('updatedFormValuesRetrieved', true);
 		},
 		async submitRsvp({ commit, state }) {
 			commit('updateSubmitStatus', 'submitting');
 
 			const { emailAddress, additionalDetails, guestType } = state.formValues;
 
-			const promises = state.formValues.guests.map(guest => {
+			const promises = state.formValues.guests.map((guest) => {
 				return functions()
 					.httpsCallable('postToGoogleForm')({
 						guest,
@@ -93,15 +98,15 @@ export default new Vuex.Store({
 						additionalDetails,
 						guestType,
 					})
-					.catch(error => {
+					.catch((error) => {
 						throw Error(error);
 					});
 			});
 
 			commit('updateSubmitPromises', promises);
 
-			const results = await Promise.all(promises.map(p => p.catch(e => e)));
-			const invalidResults = results.filter(result => result instanceof Error);
+			const results = await Promise.all(promises.map((p) => p.catch((e) => e)));
+			const invalidResults = results.filter((result) => result instanceof Error);
 
 			if (invalidResults.length === 0) {
 				commit('updateSubmitStatus', 'successful');
@@ -116,6 +121,7 @@ export default new Vuex.Store({
 			commit('addGuest', []);
 			commit('updateEmailAddress', '');
 			commit('updateAdditionalDetails', '');
+			commit('updatedFormValuesRetrieved', false);
 			localStorage.removeItem('submitted');
 		},
 	},
