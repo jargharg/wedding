@@ -48,7 +48,7 @@ export default {
 	name: 'Splash',
 	data() {
 		return {
-			date: '12·09·20',
+			date: '01·05·21',
 			isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
 		};
 	},
@@ -93,7 +93,8 @@ export default {
 
 <style lang="scss">
 .splash {
-	--date-size: 6.85vw;
+	--date-size: 7.15vw;
+	--date-size: 7.15vw;
 	--get-married-size: 5.5vw;
 	--hj-size: 5.5vw;
 	height: 200vh;
@@ -103,7 +104,7 @@ export default {
 	@media screen and (max-width: 600px) {
 		--hj-size: 9.2vw;
 		--get-married-size: 12vw;
-		--date-size: 20vw;
+		--date-size: 20.5vw;
 	}
 }
 

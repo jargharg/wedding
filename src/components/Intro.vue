@@ -5,9 +5,8 @@
 		</h2>
 
 		<p class="intro__text">
-			Although things are uncertain at the moment, we're planning to get married on
-			Saturday 12th September 2020, and would love for you to celebrate the day with
-			us.
+			We're getting married on Saturday 1st May 2021, and would love for you to
+			celebrate the day with us.
 		</p>
 
 		<p class="intro__text">
@@ -16,14 +15,7 @@
 		</p>
 
 		<p class="intro__text">
-			We want everyone to be safe, so we will keep you updated if anything has to
-			change. For now we're expecting everything to go ahead, so please RSVP and
-			plan as normal.
-		</p>
-
-		<p class="intro__text">
-			We understand if you need to adjust your plans or if closer to the time you
-			feel uncomfortable attending—just let us know!
+			Please let us know if you can come some time before next year...
 		</p>
 
 		<p class="intro__heart">
