@@ -1,62 +1,71 @@
 <template>
-	<section id="rsvp" class="rsvp" @submit="submitForm">
-		<HeartConfetti ref="confetti" />
+	<SlideWrapper :withPadding="false" class="rsvp__container" id="rsvp">
+		<section class="rsvp" @submit="submitForm">
+			<HeartConfetti ref="confetti" />
 
-		<h2 class="rsvp__header">
-			R • S • V • P •
-		</h2>
+			<h2 class="rsvp__header">
+				R • S • V • P •
+			</h2>
 
-		<div class="rsvp__form__container">
-			<form class="rsvp__form" ref="rsvpForm" @submit="submitForm">
-				<RsvpGuests @confirmed="sprayConfetti" />
+			<div class="rsvp__form__container">
+				<form class="rsvp__form" ref="rsvpForm" @submit="submitForm">
+					<RsvpGuests @confirmed="sprayConfetti" />
 
-				<RsvpText
-					:autocomplete="true"
-					:required="true"
-					:value="emailAddress"
-					@updated="updateEmailAddress"
-					id="emailAddress"
-					label="Email"
-					placeholder="email@address.com"
-					type="email"
-				/>
+					<RsvpText
+						:autocomplete="true"
+						:required="true"
+						:value="emailAddress"
+						@updated="updateEmailAddress"
+						id="emailAddress"
+						label="Email"
+						placeholder="email@address.com"
+						type="email"
+					/>
 
-				<RsvpText
-					:autocomplete="false"
-					:required="false"
-					:value="additionalDetails"
-					@updated="updateAdditionalDetails"
-					id="additionalDetails"
-					label="Anything else you want to say?"
-					placeholder="Dietary requirements, excuses, well wishes..."
-					type="text"
-				/>
+					<RsvpText
+						:autocomplete="false"
+						:required="false"
+						:value="additionalDetails"
+						@updated="updateAdditionalDetails"
+						id="additionalDetails"
+						label="Anything else you want to say?"
+						placeholder="Dietary requirements, excuses, well wishes..."
+						type="text"
+					/>
 
-				<RsvpSubmit :promises="promises" :submittingStatus="submittingStatus" />
+					<RsvpSubmit
+						:promises="promises"
+						:submittingStatus="submittingStatus"
+					/>
 
-				<RsvpError />
-			</form>
+					<RsvpError />
+				</form>
 
-			<RsvpSubmitted :display="displaySubmitted" />
-		</div>
+				<RsvpSubmitted :display="displaySubmitted" />
+			</div>
 
-		<button ref="reset" type="button" class="rsvp__reset" @click="resetForm">
-			Send another RSVP? (Please don't spam us)
-		</button>
-	</section>
+			<button ref="reset" type="button" class="rsvp__reset" @click="resetForm">
+				Send another RSVP? (Please don't spam us)
+			</button>
+		</section>
+	</SlideWrapper>
 </template>
 
 <script>
-import ScrollListener from '@/services/ScrollListener';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import HeartConfetti from './HeartConfetti.vue';
+import SlideWrapper from './SlideWrapper.vue';
+import RsvpError from './RsvpForm/RsvpError';
 import RsvpGuests from './RsvpForm/RsvpGuests';
-import RsvpText from './RsvpForm/RsvpText';
 import RsvpSubmit from './RsvpForm/RsvpSubmit';
 import RsvpSubmitted from './RsvpForm/RsvpSubmitted';
-import RsvpError from './RsvpForm/RsvpError';
-import HeartConfetti from './HeartConfetti.vue';
+import RsvpText from './RsvpForm/RsvpText';
 
 import { mapState } from 'vuex';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default {
 	name: 'RsvpForm',
@@ -65,6 +74,7 @@ export default {
 		RsvpText,
 		RsvpSubmit,
 		RsvpSubmitted,
+		SlideWrapper,
 		RsvpError,
 		HeartConfetti,
 	},
@@ -89,40 +99,9 @@ export default {
 	computed: mapState({
 		emailAddress: ({ formValues }) => formValues.emailAddress,
 		additionalDetails: ({ formValues }) => formValues.additionalDetails,
-		submitStatus: state => state.submitStatus,
+		submitStatus: (state) => state.submitStatus,
 	}),
-	mounted() {
-		this.setBackgroundAnimation();
-
-		const { offsetTop } = this.$el;
-		ScrollListener.addAction({
-			type: 'progress',
-			startY: offsetTop - window.innerHeight * 0.6,
-			endY: offsetTop,
-			actionToProgress: progress => {
-				this.backgroundAnimation.progress(progress);
-			},
-		});
-	},
 	methods: {
-		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue('--color-inverse');
-
-			gsap.set(this.$el, { opacity: 0 });
-
-			this.backgroundAnimation = gsap.timeline();
-			this.backgroundAnimation
-				.to('#app', {
-					backgroundColor: bgColor,
-					ease: 'power4.out',
-					duration: 1,
-				})
-				.to(this.$el, {
-					opacity: 1,
-					delay: -1,
-				})
-				.pause();
-		},
 		sprayConfetti(event) {
 			this.$refs.confetti.sprayConfetti(event);
 		},
@@ -155,6 +134,8 @@ export default {
 			this.$store.commit('updateAdditionalDetails', e.target.value);
 		},
 		updateEmailAddress(e) {
+			console.log(e);
+
 			this.$store.commit('updateEmailAddress', e.target.value);
 		},
 	},
@@ -170,14 +151,14 @@ export default {
 
 <style lang="scss">
 .rsvp {
-	--color-caption-background: var(--color-inverse);
-	--color-caption-text: var(--color-main);
-	--color-form-inverse: var(--color-main);
-	--color-form-main-text: var(--color-main);
-	--color-form-main: var(--color-inverse);
-	--color-form-submit-text: var(--color-inverse);
+	--color-caption-background: var(--color-secondary);
+	--color-caption-text: var(--color-primary);
+	--color-form-secondary: var(--color-primary);
+	--color-form-primary-text: var(--color-primary);
+	--color-form-primary: var(--color-secondary);
+	--color-form-submit-text: var(--color-secondary);
 
-	color: var(--color-main);
+	color: var(--color-primary);
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
@@ -187,14 +168,24 @@ export default {
 	padding: var(--padding-section);
 	position: relative;
 
+	&__container {
+		min-height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: var(--color-secondary);
+		z-index: 4;
+		position: relative;
+	}
+
 	&__header {
 		font-size: var(--font-size-header);
 	}
 
 	&__form {
-		background: var(--color-form-main);
-		border: 1px solid var(--color-form-inverse);
-		color: var(--color-form-inverse);
+		background: var(--color-form-primary);
+		border: 1px solid var(--color-form-secondary);
+		color: var(--color-form-secondary);
 		display: flex;
 		flex-direction: column;
 		justify-content: stretch;
@@ -204,7 +195,7 @@ export default {
 		width: 100%;
 
 		@media screen and (max-width: 600px) {
-			border: 1px solid var(--color-form-inverse);
+			border: 1px solid var(--color-form-secondary);
 			padding: 1rem 0 0;
 		}
 
@@ -217,17 +208,17 @@ export default {
 				135deg,
 				transparent,
 				transparent 6px,
-				var(--color-form-inverse) 6px,
-				var(--color-form-inverse) 7px
+				var(--color-form-secondary) 6px,
+				var(--color-form-secondary) 7px
 			);
 			flex-direction: column;
 		}
 	}
 
 	&__reset {
-		background: var(--color-form-main);
+		background: var(--color-form-primary);
 		border: none;
-		bottom: var(--padding-section);
+		bottom: 1.5rem;
 		color: var(--color-caption-text);
 		cursor: pointer;
 		display: none;
@@ -235,10 +226,10 @@ export default {
 		outline: none;
 		padding: 0.5rem;
 		position: absolute;
-		right: var(--padding-section);
+		right: 1rem;
 
 		&:focus {
-			outline: 2px solid var(--color-form-inverse);
+			outline: 2px solid var(--color-form-secondary);
 		}
 	}
 }

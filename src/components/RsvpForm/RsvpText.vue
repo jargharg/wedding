@@ -40,7 +40,7 @@ export default {
 		}),
 	},
 	methods: {
-		updated() {
+		updated(event) {
 			this.$emit('updated', event);
 		},
 	},
@@ -51,9 +51,9 @@ export default {
 .rsvp-text {
 	display: block;
 	font-size: var(--font-size-content-small);
+	margin-bottom: 1rem;
 	padding: 0;
 	position: relative;
-	margin-bottom: 1rem;
 
 	&__header {
 		font-family: var(--font-header);
@@ -71,9 +71,9 @@ export default {
 	&__input {
 		background: transparent;
 		border: none;
-		border-left: 1px dashed var(--color-form-inverse);
-		border-bottom: 1px dashed var(--color-form-inverse);
-		color: var(--color-form-inverse);
+		border-left: 1px dashed var(--color-form-secondary);
+		border-bottom: 1px dashed var(--color-form-secondary);
+		color: var(--color-form-secondary);
 		font-size: var(--font-size-content-small);
 		padding: 0.5rem;
 		outline: none;
@@ -85,12 +85,12 @@ export default {
 		}
 
 		&:focus {
-			outline: 2px solid var(--color-form-inverse);
 			outline-offset: -1px;
+			outline: 2px solid var(--color-form-secondary);
 		}
 
 		&::placeholder {
-			color: var(--color-form-inverse);
+			color: var(--color-form-secondary);
 			opacity: 0.5;
 		}
 	}

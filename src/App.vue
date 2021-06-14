@@ -1,12 +1,10 @@
 <template>
 	<div id="app">
-		<RsvpButton />
-		<div class="slide-container">
-			<Splash />
-			<Intro />
-			<Info />
-			<RsvpForm />
-		</div>
+		<Splash />
+		<Intro />
+		<Info />
+		<RsvpForm />
+		<RsvpButton href="#rsvp" />
 	</div>
 </template>
 
@@ -27,14 +25,14 @@ export default {
 		RsvpButton,
 	},
 	mounted() {
-		this.innerWidth = window.innerWidth;
+		// this.innerWidth = window.innerWidth;
 
-		window.onresize = () => {
-			if (window.innerWidth !== this.innerWidth) {
-				this.innerWidth === window.innerWidth;
-				location.reload();
-			}
-		};
+		// window.onresize = () => {
+		// 	if (window.innerWidth !== this.innerWidth) {
+		// 		this.innerWidth === window.innerWidth;
+		// 		location.reload();
+		// 	}
+		// };
 
 		if (location.pathname.length > 1) {
 			this.$store.dispatch(
@@ -56,8 +54,9 @@ export default {
 @import url('https://use.typekit.net/hna6vse.css');
 
 :root {
-	--color-inverse: rgb(255, 198, 192);
-	--color-main: rgb(0, 57, 63);
+	--color-primary: #6187c5;
+	--color-secondary: #ffeff6;
+	--color-font-body: #136f63;
 	--font-body: neue-haas-grotesk-text, sans-serif;
 	--font-header: neue-haas-grotesk-display, sans-serif;
 	--font-size-content: 1.5rem;
@@ -67,7 +66,7 @@ export default {
 	--font-size-subheader: 1.5rem;
 	--line-height-body: 1.4;
 	--padding-content: 0.5rem;
-	--padding-section: 1rem;
+	--padding-section: 1.5rem 1rem;
 	--rsvp-position: 1rem;
 	--rsvp-size: 15vh;
 
@@ -86,8 +85,12 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	background: var(--color-main);
+	background: var(--color-primary);
 	font-family: var(--font-body);
 	margin: 0;
 	overflow-x: hidden;
@@ -117,6 +120,14 @@ input[type='submit'] {
 }
 
 #app {
-	background: var(--color-main);
+	background: var(--color-primary);
+
+	> .rsvp-button {
+		bottom: var(--rsvp-position);
+		fill: var(--color-primary);
+		position: fixed;
+		right: var(--rsvp-position);
+		stroke: var(--color-secondary);
+	}
 }
 </style>

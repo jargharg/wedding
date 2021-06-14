@@ -62,7 +62,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async setFormValuesFromDB({ commit }, dbRef) {
-			const guests = await firestore()
+			let guests = await firestore()
 				.collection('guests')
 				.doc(dbRef)
 				.get()
@@ -76,7 +76,7 @@ export default new Vuex.Store({
 				return;
 			}
 
-			const mappedGuests = guests.guests
+			let mappedGuests = guests.guests
 				.split(', ')
 				.map((name) => ({ name: name, attending: null }));
 
@@ -88,9 +88,9 @@ export default new Vuex.Store({
 		async submitRsvp({ commit, state }) {
 			commit('updateSubmitStatus', 'submitting');
 
-			const { emailAddress, additionalDetails, guestType } = state.formValues;
+			let { emailAddress, additionalDetails, guestType } = state.formValues;
 
-			const promises = state.formValues.guests.map((guest) => {
+			let promises = state.formValues.guests.map((guest) => {
 				return functions()
 					.httpsCallable('postToGoogleForm')({
 						guest,
@@ -105,8 +105,8 @@ export default new Vuex.Store({
 
 			commit('updateSubmitPromises', promises);
 
-			const results = await Promise.all(promises.map((p) => p.catch((e) => e)));
-			const invalidResults = results.filter((result) => result instanceof Error);
+			let results = await Promise.all(promises.map((p) => p.catch((e) => e)));
+			let invalidResults = results.filter((result) => result instanceof Error);
 
 			if (invalidResults.length === 0) {
 				commit('updateSubmitStatus', 'successful');

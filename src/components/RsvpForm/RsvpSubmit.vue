@@ -24,9 +24,9 @@ export default {
 	}),
 	methods: {
 		async animateLoaderBar(maxLoadLength, promises) {
-			const scaleXIncrement = 1 / promises.length;
-			const completedPromises = [];
-			const loadingAnimation = (scaleX) =>
+			let scaleXIncrement = 1 / promises.length;
+			let completedPromises = [];
+			let loadingAnimation = (scaleX) =>
 				gsap.to(this.$refs.loaderBar, {
 					scaleX,
 					duration: maxLoadLength,
@@ -39,7 +39,7 @@ export default {
 
 				this.currentLoadingAnimation.kill();
 				completedPromises.push(promise);
-				const scaleX = completedPromises.length / promises.length;
+				let scaleX = completedPromises.length / promises.length;
 
 				this.currentLoadingAnimation = gsap.to(this.$refs.loaderBar, {
 					scaleX,
@@ -77,7 +77,7 @@ export default {
 
 	&__button {
 		-webkit-appearance: button;
-		background: var(--color-form-inverse);
+		background: var(--color-form-secondary);
 		border: none;
 		color: var(--color-form-submit-text);
 		cursor: pointer;
@@ -89,7 +89,7 @@ export default {
 		width: 100%;
 
 		&:focus {
-			outline: 2px solid var(--color-form-inverse);
+			outline: 2px solid var(--color-form-secondary);
 		}
 	}
 

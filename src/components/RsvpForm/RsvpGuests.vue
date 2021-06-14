@@ -80,8 +80,8 @@ export default {
 	},
 	methods: {
 		updateGuest(event) {
-			const { value, type, id } = event.target;
-			const index = +id.slice(-1);
+			let { value, type, id } = event.target;
+			let index = +id.slice(-1);
 
 			if (type === 'radio') {
 				this.$store.commit('updateGuestAttending', { index, attending: value });
@@ -141,9 +141,9 @@ export default {
 	&__name {
 		background: transparent;
 		border: none;
-		border-left: 1px dashed var(--color-form-inverse);
-		border-bottom: 1px dashed var(--color-form-inverse);
-		color: var(--color-form-inverse);
+		border-left: 1px dashed var(--color-form-secondary);
+		border-bottom: 1px dashed var(--color-form-secondary);
+		color: var(--color-form-secondary);
 		flex: 1;
 		font-size: var(--font-size-content-small);
 		height: 100%;
@@ -156,12 +156,12 @@ export default {
 		}
 
 		&:focus {
-			outline: 2px solid var(--color-form-inverse);
+			outline: 2px solid var(--color-form-secondary);
 			outline-offset: -1px;
 		}
 
 		&::placeholder {
-			color: var(--color-form-inverse);
+			color: var(--color-form-secondary);
 			opacity: 0.5;
 		}
 	}
@@ -172,7 +172,7 @@ export default {
 
 		label {
 			align-items: center;
-			border-bottom: 1px dashed var(--color-form-inverse);
+			border-bottom: 1px dashed var(--color-form-secondary);
 			display: flex;
 			height: 100%;
 			justify-content: center;
@@ -183,8 +183,8 @@ export default {
 			transition: 0.2s all;
 
 			&:first-of-type {
-				border-left: 1px dashed var(--color-form-inverse);
-				border-right: 1px dashed var(--color-form-inverse);
+				border-left: 1px dashed var(--color-form-secondary);
+				border-right: 1px dashed var(--color-form-secondary);
 			}
 
 			@media screen and (max-width: 600px) {
@@ -198,13 +198,13 @@ export default {
 			width: 0;
 
 			&:focus + label {
-				outline: 2px solid var(--color-form-inverse);
+				outline: 2px solid var(--color-form-secondary);
 				outline-offset: -1px;
 			}
 
 			&:checked + label {
-				background: var(--color-form-inverse);
-				color: var(--color-form-main);
+				background: var(--color-form-secondary);
+				color: var(--color-form-primary);
 			}
 		}
 	}
@@ -212,7 +212,7 @@ export default {
 	&__add {
 		background: transparent;
 		border: none;
-		color: var(--color-form-inverse);
+		color: var(--color-form-secondary);
 		cursor: pointer;
 		font-size: var(--font-size-content-smallest);
 		opacity: 0.7;
@@ -231,7 +231,7 @@ export default {
 		}
 
 		&:focus {
-			outline: 2px solid var(--color-form-inverse);
+			outline: 2px solid var(--color-form-secondary);
 		}
 	}
 }

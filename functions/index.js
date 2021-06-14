@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 exports.postToGoogleForm = functions.https.onCall(
 	async ({ guest, emailAddress, additionalDetails, guestType }) => {
-		const missingFields = [];
+		let missingFields = [];
 
 		if (!guest) {
 			missingFields.push('guest');
@@ -21,7 +21,7 @@ exports.postToGoogleForm = functions.https.onCall(
 			);
 		}
 
-		const form = {
+		let form = {
 			baseUrl:
 				'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAPLkA1YAVkFCAgIt7YlM1SUVIcYTZhhTKIXif9d9nciEd6Q/formResponse',
 			fields: {
@@ -34,7 +34,7 @@ exports.postToGoogleForm = functions.https.onCall(
 			headers: { 'content-type': 'application/x-www-form-urlencoded' },
 		};
 
-		const mappedFields = {
+		let mappedFields = {
 			[form.fields.name]: guest.name,
 			[form.fields.attending]: guest.attending,
 			[form.fields.emailAddress]: emailAddress,
@@ -42,13 +42,13 @@ exports.postToGoogleForm = functions.https.onCall(
 			[form.fields.guestType]: guestType,
 		};
 
-		const params = Object.entries(mappedFields).reduce((acc, [fieldName, value]) => {
+		let params = Object.entries(mappedFields).reduce((acc, [fieldName, value]) => {
 			return `${acc}&${fieldName}=${value}`;
 		}, '');
 
-		const url = encodeURI(`${form.baseUrl}?${params}`);
+		let url = encodeURI(`${form.baseUrl}?${params}`);
 
-		const searchResponse = await fetch(url, { headers: form.headers, method: 'POST' });
+		let searchResponse = await fetch(url, { headers: form.headers, method: 'POST' });
 
 		if (!searchResponse.ok) {
 			throw Error('Bad network request');

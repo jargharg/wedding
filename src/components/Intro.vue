@@ -1,84 +1,50 @@
 <template>
-	<section ref="intro" class="intro">
-		<h2 class="intro__title">
-			You're Invited!
-		</h2>
+	<SlideWrapper class="intro__wrapper" id="intro">
+		<section ref="intro" class="intro">
+			<h2 class="intro__title">
+				You're Invited!
+			</h2>
 
-		<p class="intro__text">
-			We're getting married on Saturday 1st May 2021, and would love for you to
-			celebrate the day with us.
-		</p>
+			<p class="intro__text">
+				We're getting married on Saturday 25th September 2021, and would love for
+				you to celebrate the day with us.
+			</p>
 
-		<p class="intro__text">
-			Our venue is HOME in central Manchester. The ceremony will be at 4pm, with
-			food, drinks and dancing to follow until late.
-		</p>
+			<p class="intro__text">
+				Our venue is HOME in central Manchester. The ceremony will be at 4pm, with
+				food, drinks and dancing to follow until late.
+			</p>
 
-		<p class="intro__text">
-			Please let us know if you can come some time before next year...
-		</p>
+			<p class="intro__text">
+				Please let us know if you can come by the end of May.
+			</p>
 
-		<p class="intro__heart">
-			<HeartSplit />
-		</p>
-	</section>
+			<div class="intro__heart">
+				<HeartSplit />
+			</div>
+		</section>
+	</SlideWrapper>
 </template>
 
 <script>
-import ScrollListener from '@/services/ScrollListener';
 import HeartSplit from './HeartSplit';
-import gsap from 'gsap';
+import SlideWrapper from './SlideWrapper';
 
 export default {
-	name: 'Intro',
 	components: {
 		HeartSplit,
-	},
-	mounted() {
-		this.setBackgroundAnimation();
-
-		const { offsetTop } = this.$el;
-		ScrollListener.addAction({
-			type: 'progress',
-			startY: offsetTop - window.innerHeight * 0.6,
-			endY: offsetTop,
-			actionToProgress: (progress) => {
-				this.backgroundAnimation.progress(progress);
-			},
-		});
-	},
-	methods: {
-		setBackgroundAnimation() {
-			const bgColor = getComputedStyle(document.body).getPropertyValue(
-				'--color-inverse',
-			);
-
-			gsap.set(this.$refs.intro, { opacity: 0 });
-
-			this.backgroundAnimation = gsap
-				.timeline()
-				.to('#app', {
-					backgroundColor: bgColor,
-					ease: 'power4.out',
-					duration: 1,
-				})
-				.to(this.$refs.intro, {
-					opacity: 1,
-					duration: 1,
-					delay: -1,
-				})
-				.pause();
-		},
+		SlideWrapper,
 	},
 };
 </script>
 
 <style scoped lang="scss">
 .intro {
-	color: var(--color-main);
-	padding: var(--padding-section);
-	max-width: 1000px;
-	margin: 0 auto;
+	&__wrapper {
+		background: var(--color-secondary);
+		color: var(--color-primary);
+		z-index: 2;
+	}
 
 	&__title {
 		font-size: var(--font-size-header);

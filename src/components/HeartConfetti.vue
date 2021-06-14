@@ -8,7 +8,7 @@
 			viewBox="-1 -1 26 26"
 		>
 			<path
-				:fill="index % 2 === 0 ? 'rgb(15, 72, 78)' : 'rgb(255, 213, 207)'"
+				:fill="index % 2 === 0 ? colorMain : colorInverse"
 				vector-effect="non-scaling-stroke"
 				d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"
 			/>
@@ -24,23 +24,33 @@ export default {
 	data() {
 		return {
 			currentAnimation: null,
+			colorMain: '',
+			colorInverse: '',
 		};
 	},
 	methods: {
+		getCssColors() {
+			let getColor = (name) =>
+				getComputedStyle(document.body).getPropertyValue(name);
+			this.colorMain = getColor('--color-primary');
+			this.colorInverse = getColor('--color-secondary');
+		},
 		sprayConfetti(event) {
-			const { top, left, height, width } = event.target.getBoundingClientRect();
-			const containerLocation = this.$refs.hearts.getBoundingClientRect();
+			let { top, left, height, width } = event.target.getBoundingClientRect();
+			let containerLocation = this.$refs.hearts.getBoundingClientRect();
 
-			const startX = left + height / 2 - containerLocation.left;
-			const startY = top + width / 2 - containerLocation.top;
+			let startX = left + height / 2 - containerLocation.left;
+			let startY = top + width / 2 - containerLocation.top;
 
-			const container = document.querySelector('.hearts');
-			const hearts = Array.from(document.querySelectorAll('.heart'));
+			let container = document.querySelector('.hearts');
+			let hearts = Array.from(document.querySelectorAll('.heart'));
+
+			this.getCssColors();
 
 			gsap.set(container, { visibility: 'visible' });
 			gsap.set(hearts, { scale: 0 });
 
-			const playAnimation = () => {
+			let playAnimation = () => {
 				if (this.currentAnimation) this.currentAnimation.kill();
 
 				this.currentAnimation = gsap
@@ -54,7 +64,7 @@ export default {
 					});
 
 				hearts.forEach((heart, index) => {
-					const heartAnimation = this.generateHeartAnimation({
+					let heartAnimation = this.generateHeartAnimation({
 						heart,
 						index,
 						startX,
@@ -68,7 +78,7 @@ export default {
 			playAnimation();
 		},
 		generateHeartAnimation({ heart, index, startX, startY }) {
-			const randomX = Math.random();
+			let randomX = Math.random();
 
 			return gsap
 				.timeline()

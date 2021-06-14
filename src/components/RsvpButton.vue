@@ -1,75 +1,54 @@
-<template>
-	<button class="rsvp-button" @click="goToRsvp"></button>
+<template functional>
+	<a class="rsvp-button" :href="data.attrs.href" target="_self">
+		<svg viewBox="10 10 80 80">
+			<defs>
+				<path
+					id="rsvpCurve"
+					d="M 25, 50 a 25,25 0 1,1 50,0 a 25,25 0 1,1 -50,0"
+				/>
+			</defs>
+
+			<g class="rsvp-button__text" transform-origin="62.5% 62.5%">
+				<text>
+					<textPath alignment-baseline="top" xlink:href="#rsvpCurve">
+						R • S • V • P • R • S • V • P •
+					</textPath>
+				</text>
+			</g>
+		</svg>
+	</a>
 </template>
-
-<script>
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import ScrollListener from '@/services/ScrollListener';
-
-export default {
-	name: 'RsvpButton',
-	mounted() {
-		gsap.registerPlugin(ScrollToPlugin);
-
-		this.setFadeAnimation();
-
-		const { offsetTop } = document.getElementById('rsvp');
-		ScrollListener.addAction({
-			type: 'progress',
-			startY: offsetTop - window.innerHeight * 0.65,
-			endY: offsetTop - window.innerHeight * 0.55,
-			actionToProgress: progress => {
-				this.tl.progress(progress);
-			},
-		});
-	},
-	methods: {
-		setFadeAnimation() {
-			this.tl = gsap.timeline();
-			this.tl
-				.to(this.$el, { opacity: 0, duration: 1 })
-				.to(this.$el, { visibility: 'hidden', duration: 0.1 })
-				.pause();
-		},
-		goToRsvp() {
-			gsap.to(window, {
-				duration: 1.5,
-				ease: 'power1.out',
-				scrollTo: '#rsvp',
-			});
-			gsap.to(this.$el, {
-				scale: 1.1,
-				duration: 0.15,
-				repeat: 1,
-				yoyo: true,
-			});
-		},
-	},
-};
-</script>
 
 <style scoped lang="scss">
 .rsvp-button {
+	text-decoration: none !important;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	animation: rotate 10s infinite linear;
-	background-color: transparent;
-	background-image: url('/rsvp-white.png');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
+	$root: &;
+	background: transparent;
 	border: none;
-	bottom: var(--rsvp-position);
 	cursor: pointer;
 	display: block;
+	fill: var(--color-secondary);
 	height: var(--rsvp-size);
-	mix-blend-mode: difference;
 	outline: none;
-	position: fixed;
-	right: var(--rsvp-position);
-	transform-origin: center center;
+	padding: 0.2rem;
+	transition: 0.15s transform;
 	width: var(--rsvp-size);
-	z-index: 999;
+	z-index: 3;
+
+	&:hover {
+		transform: scale(1.1);
+	}
+
+	svg {
+		animation: rotate 20s infinite linear;
+	}
+
+	&__text {
+		font-family: neue-haas-grotesk-display, sans-serif;
+		font-size: 0.88em;
+		font-style: normal;
+	}
 }
 
 @keyframes rotate {

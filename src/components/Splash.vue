@@ -1,91 +1,114 @@
 <template>
 	<section class="splash">
-		<header class="slide title__container">
-			<h1 ref="title" class="title">
-				<span class="h-and-j">
-					Hannah & Jarod <span class="get-married">get married</span>
-				</span>
-				<span class="date">
-					{{ date }}<span class="date__extra"> {{ date }} {{ date }}</span>
-				</span>
-				<span class="h-and-j">
-					Hannah & Jarod <span class="get-married">get married</span>
-				</span>
-				<span class="date">
-					{{ date }}<span class="date__extra"> {{ date }} {{ date }}</span>
-				</span>
-				<span class="h-and-j">
-					Hannah & Jarod <span class="get-married">get married</span>
-				</span>
-			</h1>
-		</header>
+		<svg
+			viewBox="50 0 1340 1440"
+			ref="title"
+			class="title"
+			id="splashImage"
+			preserveAspectRatio="xMidYMid slice"
+		>
+			<defs>
+				<filter id="turbulence">
+					<feTurbulence
+						type="fractalNoise"
+						baseFrequency="0.01"
+						numOctaves="1"
+						data-filterId="3"
+					/>
+					<feDisplacementMap
+						ref="turbScale"
+						xChannelSelector="R"
+						yChannelSelector="G"
+						in="SourceGraphic"
+						scale="0"
+					/>
+				</filter>
 
-		<svg v-if="!isSafari" display="none">
-			<filter id="turbulence">
-				<feTurbulence
-					type="fractalNoise"
-					baseFrequency="0.01"
-					numOctaves="1"
-					data-filterId="3"
+				<path
+					id="splashCurve"
+					d="M 40,50 a 10,10 0 1,1 20,0 a 10,10 0 1,1 -20,0"
 				/>
-				<feDisplacementMap
-					ref="turbScale"
-					xChannelSelector="R"
-					yChannelSelector="G"
-					in="SourceGraphic"
-					scale="0"
-				/>
-			</filter>
+			</defs>
+
+			<text-on-path
+				v-for="(_, index) in new Array(ROWS)"
+				:row-index="index"
+				:key="index"
+				:transform="`translate(0,${translates[index]})`"
+			>
+				{{
+					index % 2
+						? 'HANNAH & JAROD GET MARRIED •'
+						: '25·09·21 • 25·09·21 • 25·09·21 •	'
+				}}
+			</text-on-path>
 		</svg>
+		<RsvpButton class="rsvp-button--splash" href="#intro" />
 	</section>
 </template>
 
 <script>
+import RsvpButton from './RsvpButton';
+import TextOnPath from './TextOnPath';
+
 import gsap from 'gsap';
-import ScrollListener from '@/services/ScrollListener';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
+const ROWS = 26;
+const SPACE_BETWEEN_LINES = 60;
+const OVERLAP = SPACE_BETWEEN_LINES * 3;
 
 export default {
 	name: 'Splash',
+	components: {
+		RsvpButton,
+		TextOnPath,
+	},
 	data() {
 		return {
-			date: '01·05·21',
+			date: '25·09·21',
 			isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
+			ROWS,
 		};
 	},
 	mounted() {
-		const { offsetTop } = this.$el;
-		const scrollTimeline = this.$el.scrollHeight - window.innerHeight;
-
-		this.setWarpAnimation();
-		ScrollListener.addAction({
-			type: 'progress',
-			startY: offsetTop,
-			endY: offsetTop + scrollTimeline,
-			actionToProgress: (progress) => {
-				this.warpAnimation.progress(progress);
-			},
+		this.setWarpAnimation({
+			start: this.$el.offsetTop,
+			end: window.innerHeight,
 		});
 	},
-	methods: {
-		setWarpAnimation() {
-			// @TODO fix svg filter for safari
-			this.warpAnimation = gsap.timeline();
-
-			if (!this.isSafari) {
-				this.warpAnimation.to(this.$refs.turbScale, {
-					attr: { scale: 100 },
-					duration: 10,
-					ease: 'power2.out',
-				});
+	computed: {
+		translates() {
+			let translates = [];
+			for (let i = 0; i < ROWS; i++) {
+				translates.push(i * SPACE_BETWEEN_LINES - OVERLAP);
 			}
-			this.warpAnimation
-				.to(this.$refs.title, {
-					delay: -4,
-					duration: 4,
-					ease: 'power1.out',
-					opacity: 0,
+			return translates;
+		},
+	},
+	methods: {
+		setWarpAnimation({ start, end }) {
+			// @TODO fix svg filter for safari
+			if (this.isSafari) return;
+
+			this.warpAnimation = gsap
+				.timeline({
+					scrollTrigger: {
+						trigger: this.$el,
+						start,
+						end,
+						scrub: 0.3,
+					},
 				})
-				.pause();
+				.to(this.$refs.turbScale, {
+					attr: { scale: 100 },
+					ease: 'power4.out',
+				});
+		},
+		getStyle(index) {
+			return `transform: scale(${(1.27 ** index).toFixed(3)}) rotate(${index *
+				20}deg)`;
 		},
 	},
 };
@@ -93,63 +116,37 @@ export default {
 
 <style lang="scss">
 .splash {
-	--date-size: 7.15vw;
-	--date-size: 7.15vw;
-	--get-married-size: 5.5vw;
-	--hj-size: 5.5vw;
-	height: 200vh;
-	margin-bottom: -100vh;
+	height: 100vh;
 	position: relative;
-
-	@media screen and (max-width: 600px) {
-		--hj-size: 9.2vw;
-		--get-married-size: 12vw;
-		--date-size: 20.5vw;
-	}
+	z-index: 4;
+	background: var(--color-primary);
 }
 
 .title {
-	color: var(--color-inverse);
+	color: var(--color-secondary);
 	filter: url('#turbulence');
-	line-height: 0.8;
-	text-align: center;
+	height: 100vh;
+	width: 100vw;
 	user-select: none;
+	display: block;
+	overflow: hidden;
+}
 
-	> span {
-		display: block;
-	}
+.splash .rsvp-button {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	height: var(--rsvp-size);
+	width: var(--rsvp-size);
+	background: var(--color-primary);
+	border-radius: 50%;
+	fill: var(--color-secondary);
+	box-shadow: 0 0 0 2px var(--color-secondary);
+	stroke: none;
 
-	.h-and-j {
-		font-size: var(--hj-size);
-	}
-
-	.get-married {
-		display: inline-block;
-		font-size: var(--get-married-size);
-	}
-
-	.date {
-		-webkit-text-stroke: 1px var(--color-inverse);
-		color: transparent;
-		font-size: var(--date-size);
-
-		&__extra {
-			@media screen and (max-width: 600px) {
-				display: none;
-				visibility: hidden;
-			}
-		}
-	}
-
-	&__container {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		justify-content: center;
-		position: sticky;
-		top: 0;
-		width: 100%;
+	&:hover {
+		transform: translate(-50%, -50%) scale(1.05);
 	}
 }
 </style>
