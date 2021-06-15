@@ -6,15 +6,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+		guestType: 'evening',
 		formValues: {
 			guests: [],
 			emailAddress: '',
-			guestType: '',
 			additionalDetails: '',
 			retrieved: false,
 		},
 		submitStatus: null,
 		submitPromises: [],
+	},
+	getters: {
+		isDayGuest: (state) => state.guestType === 'day',
 	},
 	mutations: {
 		addGuest(state) {
@@ -48,7 +51,7 @@ export default new Vuex.Store({
 			Vue.set(state.formValues, 'emailAddress', emailAddress);
 		},
 		updateGuestType(state, guestType) {
-			Vue.set(state.formValues, 'guestType', guestType);
+			state.guestType = guestType;
 		},
 		updateAdditionalDetails(state, additionalDetails) {
 			Vue.set(state.formValues, 'additionalDetails', additionalDetails);
@@ -88,7 +91,8 @@ export default new Vuex.Store({
 		async submitRsvp({ commit, state }) {
 			commit('updateSubmitStatus', 'submitting');
 
-			let { emailAddress, additionalDetails, guestType } = state.formValues;
+			let { emailAddress, additionalDetails } = state.formValues;
+			let { guestType } = state;
 
 			let promises = state.formValues.guests.map((guest) => {
 				return functions()

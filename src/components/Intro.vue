@@ -7,16 +7,32 @@
 
 			<p class="intro__text">
 				We're getting married on Saturday 25th September 2021, and would love for
-				you to celebrate the day with us.
+				you to celebrate
+
+				<template v-if="isDayGuest">
+					the day with us.
+				</template>
+
+				<template v-else>
+					with us at our reception.
+				</template>
 			</p>
 
 			<p class="intro__text">
-				Our venue is HOME in central Manchester. The ceremony will be at 4pm, with
-				food, drinks and dancing to follow until late.
+				Our venue is HOME in central Manchester.
+
+				<template v-if="isDayGuest">
+					The ceremony will be at 4pm, with food, drinks and dancing to follow
+					until late.
+				</template>
+
+				<template v-else>
+					Join us from 8pm for pizzas, drinks and dancing until late.
+				</template>
 			</p>
 
 			<p class="intro__text">
-				Please let us know if you can come by the end of May.
+				Please let us know if you can come by the end of June.
 			</p>
 
 			<div class="intro__heart">
@@ -27,6 +43,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HeartSplit from './HeartSplit';
 import SlideWrapper from './SlideWrapper';
 
@@ -34,6 +51,9 @@ export default {
 	components: {
 		HeartSplit,
 		SlideWrapper,
+	},
+	computed: {
+		...mapGetters(['isDayGuest']),
 	},
 };
 </script>

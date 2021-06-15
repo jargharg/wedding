@@ -24,12 +24,19 @@
 
 				<li class="info__cell">
 					<h3 class="info__cell__title">Timings</h3>
-					<p>
-						Guests arrive: 3.30pm
-					</p>
-					<p>
-						Ceremony: 4pm
-					</p>
+					<template v-if="isDayGuest">
+						<p>
+							Guests arrive: 3.30pm
+						</p>
+						<p>
+							Ceremony: 4pm
+						</p>
+					</template>
+
+					<template v-else>
+						Arrive from: 8pm
+					</template>
+
 					<p>
 						Carriages: 1am
 					</p>
@@ -66,8 +73,8 @@
 					<h3 class="info__cell__title">Transport</h3>
 
 					<p>
-						Walk from Deansgate and Oxford Road stations, or taxi from
-						Piccadilly and Victoria.
+						5-minute walk from Deansgate and Oxford Road stations, or quick
+						taxi from Piccadilly and Victoria.
 					</p>
 					<p>
 						You can also book 24/7 parking at
@@ -105,6 +112,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HeartSplit from './HeartSplit';
 import SlideWrapper from './SlideWrapper';
 
@@ -113,6 +121,7 @@ export default {
 		HeartSplit,
 		SlideWrapper,
 	},
+	computed: mapGetters(['isDayGuest']),
 };
 </script>
 

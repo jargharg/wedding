@@ -1,17 +1,11 @@
 <template>
 	<g class="text-on-path">
-		<path
-			class="text-path"
-			:id="`textLine${rowIndex}`"
-			d="M0,224C120,171,240,117,360,117.3C480,117,600,171,720,197.3C840,224,960,224,1080,213.3C1200,203,1320,181,1380,170.7L1440,160"
-		/>
-
 		<text>
 			<textPath
 				alignment-baseline="middle"
 				class="text"
 				:startOffset="startOffset"
-				:xlink:href="`#textLine${rowIndex}`"
+				xlink:href="#textLine"
 			>
 				<slot />
 				<slot />
@@ -23,12 +17,6 @@
 
 <script>
 export default {
-	props: {
-		rowIndex: {
-			type: Number,
-			required: true,
-		},
-	},
 	computed: {
 		startOffset() {
 			return 0 - Math.random() * 950;

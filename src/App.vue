@@ -15,6 +15,8 @@ import Info from './components/Info.vue';
 import RsvpForm from './components/RsvpForm.vue';
 import RsvpButton from './components/RsvpButton.vue';
 
+export const GUEST_TYPES = ['evening', 'day'];
+
 export default {
 	name: 'app',
 	components: {
@@ -24,16 +26,7 @@ export default {
 		RsvpForm,
 		RsvpButton,
 	},
-	mounted() {
-		// this.innerWidth = window.innerWidth;
-
-		// window.onresize = () => {
-		// 	if (window.innerWidth !== this.innerWidth) {
-		// 		this.innerWidth === window.innerWidth;
-		// 		location.reload();
-		// 	}
-		// };
-
+	beforeMount() {
 		if (location.pathname.length > 1) {
 			this.$store.dispatch(
 				'setFormValuesFromDB',
@@ -41,6 +34,11 @@ export default {
 			);
 		} else {
 			this.$store.dispatch('resetForm');
+		}
+
+		let subdomain = location.host.split('.')[0];
+		if (GUEST_TYPES.includes(subdomain)) {
+			this.$store.commit('setGuestType', subdomain);
 		}
 
 		if (localStorage.submitted) {
