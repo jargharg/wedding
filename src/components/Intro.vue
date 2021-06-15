@@ -1,9 +1,11 @@
 <template>
 	<SlideWrapper class="intro__wrapper" id="intro">
 		<section ref="intro" class="intro">
-			<h2 class="intro__title">
-				You're Invited!
-			</h2>
+			<h2 class="intro__title">You're Invited!</h2>
+
+			<p v-if="names" class="intro__text">
+				{{ names }}
+			</p>
 
 			<p class="intro__text">
 				We're getting married on Saturday 25th September 2021, and would love for
@@ -54,6 +56,21 @@ export default {
 	},
 	computed: {
 		...mapGetters(['isDayGuest']),
+		names() {
+			let { guests } = this.$store.state.formValues;
+
+			if (!guests || !guests.length) return null;
+
+			return guests
+				.map(({ name }, index) => {
+					if (!name) return;
+					return (
+						name.split(' ')[0] +
+						(index === guests.length - 2 ? ' and ' : ', ')
+					);
+				})
+				.join('');
+		},
 	},
 };
 </script>
