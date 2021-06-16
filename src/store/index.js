@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		guestType: 'evening',
+		names: null,
 		formValues: {
 			guests: [],
 			emailAddress: '',
@@ -44,6 +45,9 @@ export default new Vuex.Store({
 				attending,
 			});
 		},
+		updateNames(state, names) {
+			state.names = names;
+		},
 		updateGuests(state, guests) {
 			Vue.set(state.formValues, 'guests', guests);
 		},
@@ -78,6 +82,8 @@ export default new Vuex.Store({
 				commit('addGuest');
 				return;
 			}
+
+			commit('updateNames', guests.names);
 
 			let mappedGuests = guests.guests
 				.split(', ')

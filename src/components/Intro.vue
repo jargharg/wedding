@@ -3,9 +3,7 @@
 		<section ref="intro" class="intro">
 			<h2 class="intro__title">You're Invited!</h2>
 
-			<p v-if="names" class="intro__text">
-				{{ names }}
-			</p>
+			<p v-if="names" class="intro__text">{{ names }},</p>
 
 			<p class="intro__text">
 				<template v-if="isDayGuest">
@@ -44,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import HeartSplit from './HeartSplit';
 import SlideWrapper from './SlideWrapper';
 
@@ -55,21 +53,7 @@ export default {
 	},
 	computed: {
 		...mapGetters(['isDayGuest']),
-		names() {
-			let { guests } = this.$store.state.formValues;
-
-			if (!guests || !guests.length) return null;
-
-			return guests
-				.map(({ name }, index) => {
-					if (!name) return;
-					return (
-						name.split(' ')[0] +
-						(index === guests.length - 2 ? ' and ' : ', ')
-					);
-				})
-				.join('');
-		},
+		...mapState(['names']),
 	},
 };
 </script>
