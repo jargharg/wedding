@@ -17,9 +17,15 @@
 
 <script>
 export default {
+	props: {
+		rowIndex: {
+			type: Number,
+			required: true,
+		},
+	},
 	computed: {
 		startOffset() {
-			return 0 - Math.random() * 950;
+			return this.rowIndex % 4 === 0 || (this.rowIndex + 1) % 4 === 0 ? -450 : 0;
 		},
 	},
 };
