@@ -9,8 +9,8 @@
 
 			<p class="intro__text">
 				<template v-if="isDayGuest">
-					Third time's the charm! We're getting married on Saturday 25th
-					September 2021, and would love for you to celebrate the day with us.
+					We're getting married on Saturday 25th September 2021, and would love
+					for you to celebrate the day with us.
 				</template>
 
 				<template v-else>
