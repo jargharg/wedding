@@ -35,12 +35,12 @@
 						attributeName="transform"
 						attributeType="XML"
 						type="scale"
-						from="1"
-						to="1.1"
+						from="1.1"
+						to="1"
 						dur="2s"
 						keyTimes="0;1"
 						calcMode="spline"
-						keySplines="0 1 0 1"
+						keySplines="0 0	 0 1"
 					/>
 				</path>
 			</defs>
