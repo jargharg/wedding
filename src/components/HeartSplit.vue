@@ -61,8 +61,8 @@ export default {
 			})
 			.to(heartElements, {
 				y: 0,
-				ease: 'bounce.out',
-				duration: 0.5,
+				ease: 'back.out',
+				duration: 1,
 				delay: -0.05,
 			})
 			.to(null, { duration: 3 });

@@ -125,7 +125,13 @@ export default {
 			let button = this.$el.querySelector('.rsvp-button');
 
 			gsap.set(button, { xPercent: -50, yPercent: -50 });
-			gsap.from(button, { opacity: 0, display: 'none', duration: 2, delay: 2 });
+			gsap.from(button, {
+				opacity: 0,
+				display: 'none',
+				duration: 1.2,
+				delay: 1,
+				ease: 'sine.out',
+			});
 
 			this.buttonPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 			this.mousePos = { ...this.buttonPos };
