@@ -83,6 +83,9 @@ const ROWS = 26;
 const SPACE_BETWEEN_LINES = 60;
 const OVERLAP = SPACE_BETWEEN_LINES * 3;
 
+const SPEED = 0.1;
+const FPMS = 60 / 1000;
+
 export default {
 	name: 'Splash',
 	components: {
@@ -91,9 +94,14 @@ export default {
 	},
 	data() {
 		return {
+			ROWS,
 			date: '25·09·21',
 			isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
-			ROWS,
+			buttonPos: null,
+			mousePos: null,
+			xSet: null,
+			ySet: null,
+			onMouseMove: null,
 		};
 	},
 	mounted() {
@@ -101,7 +109,7 @@ export default {
 			start: this.$el.offsetTop,
 			end: window.innerHeight,
 		});
-		this.followMouseWithButton();
+		this.setUpFollow();
 	},
 	computed: {
 		translates() {
@@ -113,34 +121,53 @@ export default {
 		},
 	},
 	methods: {
-		followMouseWithButton() {
-			const button = this.$el.querySelector('.rsvp-button');
+		setUpFollow() {
+			let button = this.$el.querySelector('.rsvp-button');
+
 			gsap.set(button, { xPercent: -50, yPercent: -50 });
 			gsap.from(button, { opacity: 0, display: 'none', duration: 2, delay: 2 });
 
-			let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-			let mouse = { x: pos.x, y: pos.y };
-			let speed = 0.5;
+			this.buttonPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+			this.mousePos = { ...this.buttonPos };
 
-			let fpms = 60 / 1000;
+			if (this.isSafari) {
+				gsap.set(button, this.buttonPos);
+				return;
+			}
 
-			let xSet = gsap.quickSetter(button, 'x', 'px');
-			let ySet = gsap.quickSetter(button, 'y', 'px');
+			this.xSet = gsap.quickSetter(button, 'x', 'px');
+			this.ySet = gsap.quickSetter(button, 'y', 'px');
 
-			window.addEventListener('mousemove', ({ x, y }) => {
-				mouse = { x, y };
-			});
+			this.onMouseMove = ({ x, y }) => {
+				this.mousePos = { x, y };
+			};
 
-			gsap.ticker.add((_, deltaTime) => {
-				let dt = 1.0 - Math.pow(1.0 - speed, deltaTime * fpms);
-				pos.x += (mouse.x - pos.x) * dt;
-				pos.y += (mouse.y - pos.y) * dt;
-				xSet(pos.x);
-				ySet(pos.y);
+			ScrollTrigger.create({
+				start: -1,
+				end: window.innerHeight,
+				onEnter: this.startFollow,
+				onLeave: this.stopFollow,
+				onEnterBack: this.startFollow,
+				onLeaveBack: this.stopFollow,
 			});
 		},
+		startFollow() {
+			window.addEventListener('mousemove', this.onMouseMove);
+			gsap.ticker.add(this.followMouseWithButton);
+		},
+		stopFollow() {
+			window.removeEventListener('mousemove', this.onMouseMove);
+			gsap.ticker.remove(this.followMouseWithButton);
+		},
+		followMouseWithButton(_, deltaTime) {
+			let dt = 1.0 - Math.pow(1.0 - SPEED, deltaTime * FPMS);
+			let { x, y } = this.mousePos;
+			this.buttonPos.x += (x - this.buttonPos.x) * dt;
+			this.buttonPos.y += (y - this.buttonPos.y + window.pageYOffset) * dt;
+			this.xSet(this.buttonPos.x);
+			this.ySet(this.buttonPos.y);
+		},
 		setWarpAnimation({ start, end }) {
-			// @TODO fix svg filter for safari?
 			if (this.isSafari) return;
 
 			this.warpAnimation = gsap
@@ -167,6 +194,7 @@ export default {
 	position: relative;
 	z-index: 4;
 	background: var(--color-primary);
+	overflow: hidden;
 }
 
 .title {
@@ -187,7 +215,7 @@ export default {
 	background: var(--color-primary);
 	border-radius: 50%;
 	fill: var(--color-secondary);
-	box-shadow: 0 0 0 2px var(--color-secondary), 0 0 100px 0 var(--color-primary);
+	box-shadow: 0 0 0 2px var(--color-secondary), 0 0 50px 5px var(--color-primary);
 	stroke: none;
 }
 
