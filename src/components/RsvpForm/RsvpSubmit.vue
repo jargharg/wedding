@@ -1,9 +1,27 @@
 <template>
 	<div class="rsvp-submit">
+		<svg width="0" height="0">
+			<defs>
+				<clipPath
+					id="loaderClipPath"
+					ref="loaderClipPath"
+					clipPathUnits="objectBoundingBox"
+				>
+					<rect
+						x="0"
+						y="0"
+						width="1"
+						height="1"
+						transform-origin="left center"
+					/>
+				</clipPath>
+			</defs>
+		</svg>
+
 		<button class="rsvp-submit__button" :disabled="submitStatus === 'submitting'">
 			{{ caption }}
 		</button>
-		<div ref="loaderBar" class="rsvp-submit__loader-bar"></div>
+		<div class="rsvp-submit__loader-bar">{{ caption }}</div>
 	</div>
 </template>
 
@@ -22,12 +40,15 @@ export default {
 		submitStatus: (state) => state.submitStatus,
 		submitPromises: (state) => state.submitPromises,
 	}),
+	mounted() {
+		gsap.set(this.$refs.loaderClipPath, { scaleX: 0 });
+	},
 	methods: {
-		async animateLoaderBar(maxLoadLength, promises) {
+		async animateLoaderClipPath(maxLoadLength, promises) {
 			let scaleXIncrement = 1 / promises.length;
 			let completedPromises = [];
 			let loadingAnimation = (scaleX) =>
-				gsap.to(this.$refs.loaderBar, {
+				gsap.to(this.$refs.loaderClipPath, {
 					scaleX,
 					duration: maxLoadLength,
 					ease: 'power2.out',
@@ -41,7 +62,7 @@ export default {
 				completedPromises.push(promise);
 				let scaleX = completedPromises.length / promises.length;
 
-				this.currentLoadingAnimation = gsap.to(this.$refs.loaderBar, {
+				this.currentLoadingAnimation = gsap.to(this.$refs.loaderClipPath, {
 					scaleX,
 					duration: maxLoadLength / 10,
 					onComplete: () => {
@@ -57,14 +78,14 @@ export default {
 	watch: {
 		submitStatus(newValue) {
 			if (newValue === 'submitting') {
-				this.animateLoaderBar(5, this.submitPromises);
+				this.animateLoaderClipPath(5, this.submitPromises);
 				this.caption = 'Sending...';
 			} else if (newValue === 'successful') {
 				this.caption = 'Sent';
 			} else {
 				this.caption = 'Send RSVP';
 				if (this.currentLoadingAnimation) this.currentLoadingAnimation.kill();
-				gsap.set(this.$refs.loaderBar, { scaleX: 0 });
+				gsap.set(this.$refs.loaderClipPath, { scaleX: 0 });
 			}
 		},
 	},
@@ -75,7 +96,8 @@ export default {
 .rsvp-submit {
 	position: relative;
 
-	&__button {
+	&__button,
+	&__loader-bar {
 		-webkit-appearance: button;
 		background: var(--color-form-secondary);
 		border: none;
@@ -94,14 +116,20 @@ export default {
 	}
 
 	&__loader-bar {
-		background: white;
+		align-items: center;
+		background: var(--color-form-submit-text);
+		clip-path: url(#loaderClipPath);
+		color: var(--color-form-secondary);
+		display: flex;
+		font-family: var(--font-header);
+		font-style: italic;
+		font-weight: 900;
 		height: calc(100% - 4px);
+		justify-content: center;
 		left: 2px;
-		mix-blend-mode: difference;
 		position: absolute;
 		top: 2px;
-		transform-origin: left;
-		transform: scaleX(0);
+		user-select: none;
 		width: calc(100% - 4px);
 	}
 }
