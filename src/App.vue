@@ -2,9 +2,11 @@
 	<div id="app">
 		<Splash />
 		<Intro />
+		<RsvpButton href="#rsvp" font-size="14px">
+			R • S • V • P • R • S • V • P •
+		</RsvpButton>
 		<Info />
 		<RsvpForm />
-		<RsvpButton href="#rsvp" />
 	</div>
 </template>
 
@@ -54,7 +56,6 @@ export default {
 :root {
 	--color-primary: #6187c5;
 	--color-secondary: #ffeff6;
-	--color-font-body: #136f63;
 	--font-body: neue-haas-grotesk-text, sans-serif;
 	--font-header: neue-haas-grotesk-display, sans-serif;
 	--font-size-content: 1.5rem;

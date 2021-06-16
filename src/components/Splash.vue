@@ -59,7 +59,9 @@
 			</text-on-path>
 		</svg>
 
-		<RsvpButton class="rsvp-button--splash" href="#intro" />
+		<RsvpButton href="#intro" font-size="12.8px">
+			READ • ALL • ABOUT • IT ◦
+		</RsvpButton>
 
 		<div v-if="isSafari" class="safari-warning">
 			Right so Safari seems to hate this website when it's on a big screen. Please
@@ -99,6 +101,7 @@ export default {
 			start: this.$el.offsetTop,
 			end: window.innerHeight,
 		});
+		this.followMouseWithButton();
 	},
 	computed: {
 		translates() {
@@ -110,6 +113,32 @@ export default {
 		},
 	},
 	methods: {
+		followMouseWithButton() {
+			const button = this.$el.querySelector('.rsvp-button');
+			gsap.set(button, { xPercent: -50, yPercent: -50 });
+			gsap.from(button, { opacity: 0, display: 'none', duration: 2, delay: 2 });
+
+			let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+			let mouse = { x: pos.x, y: pos.y };
+			let speed = 0.5;
+
+			let fpms = 60 / 1000;
+
+			let xSet = gsap.quickSetter(button, 'x', 'px');
+			let ySet = gsap.quickSetter(button, 'y', 'px');
+
+			window.addEventListener('mousemove', ({ x, y }) => {
+				mouse = { x, y };
+			});
+
+			gsap.ticker.add((_, deltaTime) => {
+				let dt = 1.0 - Math.pow(1.0 - speed, deltaTime * fpms);
+				pos.x += (mouse.x - pos.x) * dt;
+				pos.y += (mouse.y - pos.y) * dt;
+				xSet(pos.x);
+				ySet(pos.y);
+			});
+		},
 		setWarpAnimation({ start, end }) {
 			// @TODO fix svg filter for safari?
 			if (this.isSafari) return;
@@ -150,21 +179,16 @@ export default {
 }
 
 .splash .rsvp-button {
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	top: 0%;
+	left: 0%;
 	position: absolute;
 	height: var(--rsvp-size);
 	width: var(--rsvp-size);
 	background: var(--color-primary);
 	border-radius: 50%;
 	fill: var(--color-secondary);
-	box-shadow: 0 0 0 2px var(--color-secondary);
+	box-shadow: 0 0 0 2px var(--color-secondary), 0 0 100px 0 var(--color-primary);
 	stroke: none;
-
-	&:hover {
-		transform: translate(-50%, -50%) scale(1.05);
-	}
 }
 
 .safari-warning {

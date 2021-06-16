@@ -8,10 +8,14 @@
 				/>
 			</defs>
 
-			<g class="rsvp-button__text" transform-origin="62.5% 62.5%">
+			<g
+				class="rsvp-button__text"
+				:style="`font-size: ${data.attrs['font-size']}`"
+				transform-origin="62.5% 62.5%"
+			>
 				<text>
 					<textPath alignment-baseline="top" xlink:href="#rsvpCurve">
-						R • S • V • P • R • S • V • P •
+						<slot />
 					</textPath>
 				</text>
 			</g>
@@ -36,7 +40,8 @@
 	width: var(--rsvp-size);
 	z-index: 3;
 
-	&:hover {
+	&:hover,
+	&:focus {
 		transform: scale(1.1);
 	}
 
@@ -46,7 +51,6 @@
 
 	&__text {
 		font-family: neue-haas-grotesk-display, sans-serif;
-		font-size: 0.88em;
 		font-style: normal;
 	}
 }
