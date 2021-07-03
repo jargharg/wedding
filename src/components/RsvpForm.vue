@@ -134,8 +134,6 @@ export default {
 			this.$store.commit('updateAdditionalDetails', e.target.value);
 		},
 		updateEmailAddress(e) {
-			console.log(e);
-
 			this.$store.commit('updateEmailAddress', e.target.value);
 		},
 	},

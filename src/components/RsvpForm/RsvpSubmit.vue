@@ -19,9 +19,9 @@
 		</svg>
 
 		<button class="rsvp-submit__button" :disabled="submitStatus === 'submitting'">
-			{{ caption }}
+			<div class="rsvp-submit__button__text">{{ caption }}</div>
+			<div class="rsvp-submit__loader-bar">{{ caption }}</div>
 		</button>
-		<div class="rsvp-submit__loader-bar">{{ caption }}</div>
 	</div>
 </template>
 
@@ -96,8 +96,7 @@ export default {
 .rsvp-submit {
 	position: relative;
 
-	&__button,
-	&__loader-bar {
+	&__button {
 		-webkit-appearance: button;
 		background: var(--color-form-secondary);
 		border: none;
@@ -107,6 +106,7 @@ export default {
 		margin: 0;
 		outline: none;
 		padding: 0.3em 1em;
+		position: relative;
 		text-transform: uppercase;
 		width: 100%;
 
@@ -118,6 +118,7 @@ export default {
 	&__loader-bar {
 		align-items: center;
 		background: var(--color-form-submit-text);
+		box-sizing: content-box;
 		clip-path: url(#loaderClipPath);
 		color: var(--color-form-secondary);
 		display: flex;
@@ -127,6 +128,7 @@ export default {
 		height: calc(100% - 4px);
 		justify-content: center;
 		left: 2px;
+		padding: 0;
 		position: absolute;
 		top: 2px;
 		user-select: none;
