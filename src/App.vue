@@ -42,7 +42,8 @@ export default {
 		if (GUEST_TYPES.includes(subdomain)) {
 			this.$store.commit('setGuestType', subdomain);
 		}
-
+	},
+	mounted() {
 		if (localStorage.submitted) {
 			this.$store.commit('updateSubmitStatus', 'successful');
 		}
