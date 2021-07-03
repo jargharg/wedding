@@ -9,7 +9,8 @@
 				<li class="info__cell">
 					<h3 class="info__cell__title">Location</h3>
 					<p>
-						<a href="https://homemcr.org">HOME</a> <br />
+						<a href="https://homemcr.org">HOME</a>,<br />
+						Cinema Bar & Roof Terrace,<br />
 						2 Tony Wilson Place, <br />
 						First Street, <br />
 						Manchester
@@ -45,7 +46,7 @@
 				<li class="info__cell">
 					<h3 class="info__cell__title">Food</h3>
 					<p>
-						All food will be vegetarian or vegan.
+						All food will be vegetarian with vegan options.
 					</p>
 					<p>
 						Please let us know if you have any other dietary requirements.
@@ -78,9 +79,12 @@
 					</p>
 					<p>
 						You can also book 24/7 parking at
-						<a href="https://goo.gl/maps/wf9BUMMjgDFnP27h8" target="_blank"
+						<a
+							href="https://www.q-park.co.uk/en-gb/cities/manchester/first-street/"
+							target="_blank"
 							>First Street car park</a
-						>.
+						>
+						nearby.
 					</p>
 				</li>
 

@@ -31,7 +31,7 @@
 			</p>
 
 			<p class="intro__text">
-				Please let us know if you can come by the end of June.
+				Please let us know if you can come by the 25th of July.
 			</p>
 
 			<div class="intro__heart">
